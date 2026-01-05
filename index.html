@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Sayaç ve Net Hesaplama</title>
+</head>
+<body>
+  <h1>Sayaç</h1>
+  <h2 id="counter">0</h2>
+  <button onclick="increase()">Artır</button>
+  <button onclick="decrease()">Azalt</button>
+
+  <hr>
+
+  <h1>Net Hesaplama</h1>
+  <label>Gelir: <input type="number" id="income"></label><br><br>
+  <label>Gider: <input type="number" id="expense"></label><br><br>
+  <button onclick="calculateNet()">Hesapla</button>
+  <p id="netResult"></p>
+
+  <script>
+    // Sayaç
+    let count = 0;
+    function increase() {
+      count++;
+      document.getElementById("counter").innerText = count;
+    }
+    function decrease() {
+      count--;
+      document.getElementById("counter").innerText = count;
+    }
+
+    // Net Hesaplama
+    function calculateNet() {
+      const income = parseFloat(document.getElementById("income").value) || 0;
+      const expense = parseFloat(document.getElementById("expense").value) || 0;
+      const net = income - expense;
+      document.getElementById("netResult").innerText = "Net: " + net;
+    }
+  </script>
+</body>
+</html>
