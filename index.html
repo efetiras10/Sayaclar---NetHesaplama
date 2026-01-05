@@ -17,7 +17,6 @@
   <meta property="og:url" content="https://efetiras10.github.io/" />
   <meta property="og:image" content="https://cdn-icons-png.flaticon.com/512/1827/1827950.png" />
 
-  <!-- Renk Teması -->
   <style>
     :root {
       --bg1: #0f172a;
@@ -101,6 +100,70 @@
     }
 
     .dropdown button:hover { background: #334155; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px 28px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+      padding: 20px 18px;
+      margin: 18px auto;
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+      display: none;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+    }
+
+    .date-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .countdown {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      margin: 8px 0 18px;
+    }
+
+    .share {
+      margin-top: 18px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .share img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .share img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -118,8 +181,19 @@
         <button onclick="showSection('yks')">YKS Genel Sayaç</button>
       </div>
     </div>
-  </div>  <div class="container">
-    <!-- Yarıyıl Tatili -->
+  </div>
+
+  <div class="container">
+    <section id="summer" class="card active">
+      <h2>Yaz Tatiline Kalan Süre</h2>
+      <div class="date-line">Başlangıç: 15 Haziran 2026, Pazartesi</div>
+      <div id="summerCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareSummerWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>    <!-- Yarıyıl Tatili -->
     <section id="midterm" class="card">
       <h2>Yarıyıl Tatiline Kalan Süre</h2>
       <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
@@ -188,8 +262,10 @@
 
     function showSection(id) {
       document.querySelectorAll('.card').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.getElementById('menuSayaç').style.display = 'none';
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      const menu = document.getElementById('menuSayaç');
+      if (menu) menu.style.display = 'none';
     }
 
     function startCountdown(elId, target) {
@@ -237,6 +313,15 @@
     setWA('shareTytWA');
     setWA('shareAytWA');
     setWA('shareYksWA');
+
+    // Menü dışına tıklayınca kapanması için
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('menuSayaç');
+      const btn = e.target.closest('.menu-button');
+      if (!btn && menu && !e.target.closest('#menuSayaç')) {
+        menu.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
