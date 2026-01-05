@@ -137,199 +137,7 @@
     .share {
       margin-top: 18px;
       display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .share img {
-      width: 28px;
-      height: 28px;
-      transition: transform 0.2s ease;
-    }
-
-    .share img:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>📅 Geri Sayım Sayaçları</header>
-
-  <div class="menu-bar">
-    <div class="menu-container">
-      <button class="menu-button" onclick="toggleMenu('menuSayaç')">☰ Sayaçlar</button>
-      <div id="menuSayaç" class="dropdown">
-        <button onclick="showSection('summer')">Yaz Tatili Sayaç</button>
-        <button onclick="showSection('midterm')">Yarıyıl Tatili Sayaç</button>
-        <button onclick="showSection('lgs')">LGS Sayaç</button>
-        <button onclick="showSection('tyt')">TYT Sayaç</button>
-        <button onclick="showSection('ayt')">AYT Sayaç</button>
-        <button onclick="showSection('yks')">YKS Genel Sayaç</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <section id="summer" class="card active">
-      <h2>Yaz Tatiline Kalan Süre</h2>
-      <div class="date-line">Başlangıç: 15 Haziran 2026</div>
-      <div id="summerCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareSummerWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section><!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Geri Sayım Sayaçları</title>
-  <style>
-    :root {
-      --bg1: #0f172a;
-      --bg2: #1e293b;
-      --card: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #3b82f6;
-      --accent-dark: #1e40af;
-      --border: #334155;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(120deg, var(--bg1), var(--bg2));
-    }
-
-    header {
-      padding: 14px 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 22px;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .menu-bar {
-      display: flex;
-      justify-content: center;
-      margin: 14px 0;
-    }
-
-    .menu-container {
-      position: relative;
-    }
-
-    .menu-button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-    }
-
-    .menu-button:hover {
-      background: var(--accent-dark);
-      transform: translateY(-1px);
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      min-width: 230px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-      z-index: 20;
-    }
-
-    .dropdown button {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 12px 14px;
-      background: transparent;
-      color: var(--text);
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      transition: background 0.15s ease;
-    }
-
-    .dropdown button:hover {
-      background: #334155;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 16px 28px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
-      padding: 20px 18px;
-      margin: 18px auto;
-      width: 100%;
-      animation: fadeIn 0.5s ease;
-      display: none;
-    }
-
-    .card.active {
-      display: block;
-    }
-
-    .card h2 {
-      margin: 0 0 10px 0;
-      font-size: 20px;
-    }
-
-    .date-line {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-
-    .countdown {
-      font-variant-numeric: tabular-nums;
-      font-size: 18px;
-      letter-spacing: 0.3px;
-      margin: 8px 0 18px;
-    }
-
-    .share {
-      margin-top: 18px;
-      display: flex;
-      gap: 12px;
+      gap: 14px;
       justify-content: center;
     }
 
@@ -383,3 +191,27 @@
         <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
       </div>
     </section>
+
+    <section id="midterm" class="card">
+      <h2>Yarıyıl Tatiline Kalan Süre</h2>
+      <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
+      <div id="midtermCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareMidWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <section id="lgs" class="card">
+      <h2>LGS Sayaç</h2>
+      <div class="date-line">Tarih: 14 Haziran 2026, Pazar — 1. Oturum 09:30</div>
+      <div id="lgsCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareLgsWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <section id="tyt" class
