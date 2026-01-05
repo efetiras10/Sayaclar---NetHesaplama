@@ -2,41 +2,223 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Sayaç ve Net Hesaplama</title>
+  <title>Yaz Tatili ve Sınav Sayaçları</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #4A00E0;
+      color: white;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .countdown {
+      margin: 30px;
+      font-size: 24px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .menu {
+      margin: 20px;
+    }
+    .menu button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4A00E0;
+      color: white;
+      transition: 0.3s;
+    }
+    .menu button:hover {
+      background: #8E2DE2;
+    }
+    .section {
+      display: none;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      width: 60%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-  <h1>Sayaç</h1>
-  <h2 id="counter">0</h2>
-  <button onclick="increase()">Artır</button>
-  <button onclick="decrease()">Azalt</button>
+  <header>🎉 Yaz Tatili Geri Sayım ve Sınav Sayaçları 🎉</header>
 
-  <hr>
+  <!-- Yaz Tatili Geri Sayım -->
+  <div class="countdown">
+    <h2>Yaz Tatiline Kalan Süre</h2>
+    <p id="summerCountdown"></p>
+  </div>
 
-  <h1>Net Hesaplama</h1>
-  <label>Gelir: <input type="number" id="income"></label><br><br>
-  <label>Gider: <input type="number" id="expense"></label><br><br>
-  <button onclick="calculateNet()">Hesapla</button>
-  <p id="netResult"></p>
+  <!-- Sayaçlar Menüsü -->
+  <div class="menu">
+    <button onclick="showSection('lgs')">LGS Sayaç</button>
+    <button onclick="showSection('yks')">YKS Sayaç</button>
+    <button onclick="showSection('tyt')">TYT Sayaç</button>
+    <button onclick="showSection('ayt')">AYT Sayaç</button>
+    <button onclick="showSection('net')">Net Hesaplama</button>
+  </div>
+
+  <!-- Sayaçlar -->
+  <div id="lgs" class="section">
+    <h2>LGS Sayaç</h2>
+    <p id="lgsCountdown"></p>
+  </div>
+
+  <div id="yks" class="section">
+    <h2>YKS Sayaç</h2>
+    <p id="yksCountdown"></p>
+  </div>
+
+  <div id="tyt" class="section">
+    <h2>TYT Sayaç</h2>
+    <p id="tytCountdown"></p>
+  </div>
+
+  <div id="ayt" class="section">
+    <h2>AYT Sayaç</h2>
+    <p id="aytCountdown"></p>
+  </div>
+
+  <!-- Net Hesaplama (ikinci parçada detaylı gelecek) -->
+  <div id="net" class="section">
+    <h2>Net Hesaplama</h2>
+    <p>Burada sınavlara özel net hesaplama sekmeleri olacak.</p>
+  </div>
 
   <script>
-    // Sayaç
-    let count = 0;
-    function increase() {
-      count++;
-      document.getElementById("counter").innerText = count;
-    }
-    function decrease() {
-      count--;
-      document.getElementById("counter").innerText = count;
+    // Yaz Tatili Geri Sayım (örnek: 15 Haziran 2026)
+    const summerDate = new Date("June 15, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = summerDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      document.getElementById("summerCountdown").innerText =
+        `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+    }, 1000);
+
+    // Sayaçlar için örnek tarihler
+    const lgsDate = new Date("June 7, 2026 10:00:00").getTime();
+    const yksDate = new Date("June 20, 2026 10:00:00").getTime();
+    const tytDate = new Date("June 20, 2026 10:00:00").getTime();
+    const aytDate = new Date("June 21, 2026 10:00:00").getTime();
+
+    function updateCountdown(id, targetDate) {
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById(id).innerText =
+          `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+      }, 1000);
     }
 
-    // Net Hesaplama
-    function calculateNet() {
-      const income = parseFloat(document.getElementById("income").value) || 0;
-      const expense = parseFloat(document.getElementById("expense").value) || 0;
-      const net = income - expense;
-      document.getElementById("netResult").innerText = "Net: " + net;
+    updateCountdown("lgsCountdown", lgsDate);
+    updateCountdown("yksCountdown", yksDate);
+    updateCountdown("tytCountdown", tytDate);
+    updateCountdown("aytCountdown", aytDate);
+
+    // Bölüm gösterme
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll(".section");
+      sections.forEach(sec => sec.style.display = "none");
+      document.getElementById(sectionId).style.display = "block";
     }
   </script>
 </body>
-</html>
+</html><!-- Net Hesaplama Sekmeleri -->
+<div id="net" class="section">
+  <h2>Net Hesaplama</h2>
+  <div class="menu">
+    <button onclick="showNet('lgsNet')">LGS Net Hesaplama</button>
+    <button onclick="showNet('yksNet')">YKS Net Hesaplama</button>
+    <button onclick="showNet('tytNet')">TYT Net Hesaplama</button>
+    <button onclick="showNet('aytNet')">AYT Net Hesaplama</button>
+  </div>
+
+  <!-- LGS Net Hesaplama -->
+  <div id="lgsNet" class="netSection">
+    <h3>LGS Net Hesaplama</h3>
+    Doğru: <input type="number" id="lgsTrue"> Yanlış: <input type="number" id="lgsFalse">
+    <button onclick="calculateNet('lgs')">Hesapla</button>
+    <p id="lgsResult"></p>
+  </div>
+
+  <!-- YKS Net Hesaplama -->
+  <div id="yksNet" class="netSection">
+    <h3>YKS Net Hesaplama</h3>
+    Doğru: <input type="number" id="yksTrue"> Yanlış: <input type="number" id="yksFalse">
+    <button onclick="calculateNet('yks')">Hesapla</button>
+    <p id="yksResult"></p>
+  </div>
+
+  <!-- TYT Net Hesaplama -->
+  <div id="tytNet" class="netSection">
+    <h3>TYT Net Hesaplama</h3>
+    Doğru: <input type="number" id="tytTrue"> Yanlış: <input type="number" id="tytFalse">
+    <button onclick="calculateNet('tyt')">Hesapla</button>
+    <p id="tytResult"></p>
+  </div>
+
+  <!-- AYT Net Hesaplama -->
+  <div id="aytNet" class="netSection">
+    <h3>AYT Net Hesaplama</h3>
+    Doğru: <input type="number" id="aytTrue"> Yanlış: <input type="number" id="aytFalse">
+    <button onclick="calculateNet('ayt')">Hesapla</button>
+    <p id="aytResult"></p>
+  </div>
+</div>
+
+<style>
+  .netSection {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+  input {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+</style>
+
+<script>
+  // Net Hesaplama Gösterme
+  function showNet(netId) {
+    const nets = document.querySelectorAll(".netSection");
+    nets.forEach(n => n.style.display = "none");
+    document.getElementById(netId).style.display = "block";
+  }
+
+  // Net Hesaplama Mantığı (4 yanlış 1 doğruyu götürür)
+  function calculateNet(exam) {
+    const trueVal = parseFloat(document.getElementById(exam + "True").value) || 0;
+    const falseVal = parseFloat(document.getElementById(exam + "False").value) || 0;
+    const net = trueVal - (falseVal / 4);
+    document.getElementById(exam + "Result").innerText = "Net: " + net.toFixed(2);
+  }
+</script>
