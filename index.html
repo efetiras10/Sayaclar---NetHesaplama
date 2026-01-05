@@ -4,150 +4,132 @@
   <meta charset="UTF-8">
   <title>Yaz Tatili ve Sınav Sayaçları</title>
   <style>
-    /* Genel sayfa düzeni */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #74ebd5, #ACB6E5);
-      text-align: center;
       margin: 0;
       padding: 0;
       color: #333;
+      text-align: center;
     }
-
     header {
       background: linear-gradient(to right, #4A00E0, #8E2DE2);
       color: white;
-      padding: 25px;
-      font-size: 32px;
+      padding: 20px;
+      font-size: 28px;
       font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-
-    .countdown {
-      margin: 30px auto;
-      font-size: 26px;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
+    .menu-container {
+      position: relative;
       display: inline-block;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    .menu {
-      margin: 25px;
-    }
-
-    .menu button {
       margin: 10px;
-      padding: 14px 22px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: linear-gradient(to right, #4A00E0, #8E2DE2);
+    }
+    .menu-button {
+      background: #4A00E0;
       color: white;
-      transition: transform 0.2s, background 0.3s;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
     }
-
-    .menu button:hover {
-      background: linear-gradient(to right, #8E2DE2, #4A00E0);
-      transform: scale(1.05);
-    }
-
-    .section {
+    .dropdown {
       display: none;
-      margin: 25px auto;
-      padding: 25px;
+      position: absolute;
       background: white;
-      border-radius: 15px;
+      min-width: 200px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      border-radius: 8px;
+      z-index: 1;
+    }
+    .dropdown button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .dropdown button:hover {
+      background: #f0f0f0;
+    }
+    .countdown, .section {
+      margin: 30px auto;
+      font-size: 22px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
       width: 70%;
       box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-      animation: slideDown 0.8s ease;
     }
-
-    /* Animasyonlar */
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    @keyframes slideDown {
-      from {transform: translateY(-20px); opacity: 0;}
-      to {transform: translateY(0); opacity: 1;}
-    }
-
-    /* Responsive Tasarım */
-    @media (max-width: 768px) {
-      .section {
-        width: 90%;
-      }
-      header {
-        font-size: 24px;
-      }
-      .menu button {
-        font-size: 16px;
-        padding: 10px 16px;
-      }
-    }
+    .section { display: none; }
   </style>
 </head>
 <body>
-  <header>🎉 Yaz Tatili Geri Sayım ve Sınav Sayaçları 🎉</header>
+  <header>
+    <div class="menu-container">
+      <button class="menu-button" onclick="toggleMenu('sayaçMenu')">Sayaçlar ☰</button>
+      <div id="sayaçMenu" class="dropdown">
+        <button onclick="showSection('lgs')">LGS Sayaç</button>
+        <button onclick="showSection('yks')">YKS Sayaç</button>
+        <button onclick="showSection('tyt')">TYT Sayaç</button>
+        <button onclick="showSection('ayt')">AYT Sayaç</button>
+      </div>
+    </div>
+    <div class="menu-container">
+      <button class="menu-button" onclick="toggleMenu('netMenu')">Net Hesaplama ☰</button>
+      <div id="netMenu" class="dropdown">
+        <button onclick="showSection('lgsNet')">LGS Net Hesaplama</button>
+        <button onclick="showSection('yksNet')">YKS Net Hesaplama</button>
+        <button onclick="showSection('tytNet')">TYT Net Hesaplama</button>
+        <button onclick="showSection('aytNet')">AYT Net Hesaplama</button>
+      </div>
+    </div>
+  </header>
 
   <!-- Yaz Tatili Geri Sayım -->
-  <div class="countdown">
+  <div id="summer" class="countdown">
     <h2>Yaz Tatiline Kalan Süre</h2>
     <p id="summerCountdown"></p>
   </div>
 
-  <!-- Sayaçlar Menüsü -->
-  <div class="menu">
-    <button onclick="showSection('lgs')">LGS Sayaç</button>
-    <button onclick="showSection('yks')">YKS Sayaç</button>
-    <button onclick="showSection('tyt')">TYT Sayaç</button>
-    <button onclick="showSection('ayt')">AYT Sayaç</button>
-    <button onclick="showSection('net')">Net Hesaplama</button>
-  </div>
-
   <!-- Sayaçlar -->
-  <div id="lgs" class="section">
-    <h2>LGS Sayaç</h2>
-    <p id="lgsCountdown"></p>
-  </div>
+  <div id="lgs" class="section"><h2>LGS Sayaç</h2><p id="lgsCountdown"></p></div>
+  <div id="yks" class="section"><h2>YKS Sayaç</h2><p id="yksCountdown"></p></div>
+  <div id="tyt" class="section"><h2>TYT Sayaç</h2><p id="tytCountdown"></p></div>
+  <div id="ayt" class="section"><h2>AYT Sayaç</h2><p id="aytCountdown"></p></div>
 
-  <div id="yks" class="section">
-    <h2>YKS Sayaç</h2>
-    <p id="yksCountdown"></p>
-  </div>
-
-  <div id="tyt" class="section">
-    <h2>TYT Sayaç</h2>
-    <p id="tytCountdown"></p>
-  </div>
-
-  <div id="ayt" class="section">
-    <h2>AYT Sayaç</h2>
-    <p id="aytCountdown"></p>
-  </div>
-
-  <!-- Net Hesaplama (ikinci parçada detaylı gelecek) -->
-  <div id="net" class="section">
-    <h2>Net Hesaplama</h2>
-    <p>Burada sınavlara özel net hesaplama sekmeleri olacak.</p>
-  </div>
+  <!-- Net Hesaplama bölümleri ikinci parçada gelecek -->
 
   <script>
-    // Yaz Tatili Geri Sayım (örnek: 15 Haziran 2026)
+    // Hamburger menü aç/kapat
+    function toggleMenu(id) {
+      const menu = document.getElementById(id);
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    // Bölüm gösterme
+    function showSection(sectionId) {
+      document.querySelectorAll(".countdown, .section").forEach(sec => sec.style.display = "none");
+      document.getElementById(sectionId).style.display = "block";
+      // Menüleri kapat
+      document.getElementById("sayaçMenu").style.display = "none";
+      document.getElementById("netMenu").style.display = "none";
+    }
+
+    // Yaz Tatili Geri Sayım
     const summerDate = new Date("June 15, 2026 00:00:00").getTime();
     setInterval(() => {
       const now = new Date().getTime();
       const distance = summerDate - now;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(distance / (1000*60*60*24));
+      const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((distance % (1000*60)) / 1000);
       document.getElementById("summerCountdown").innerText =
         `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
     }, 1000);
@@ -162,10 +144,10 @@
       setInterval(() => {
         const now = new Date().getTime();
         const distance = targetDate - now;
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000*60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000*60)) / 1000);
         document.getElementById(id).innerText =
           `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
       }, 1000);
@@ -175,108 +157,91 @@
     updateCountdown("yksCountdown", yksDate);
     updateCountdown("tytCountdown", tytDate);
     updateCountdown("aytCountdown", aytDate);
-
-    // Bölüm gösterme
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll(".section");
-      sections.forEach(sec => sec.style.display = "none");
-      document.getElementById(sectionId).style.display = "block";
-    }
-  </script>  <!-- Net Hesaplama Sekmeleri -->
-  <div id="net" class="section">
-    <h2>Net Hesaplama</h2>
-    <div class="menu">
-      <button onclick="showNet('lgsNet')">LGS Net Hesaplama</button>
-      <button onclick="showNet('yksNet')">YKS Net Hesaplama</button>
-      <button onclick="showNet('tytNet')">TYT Net Hesaplama</button>
-      <button onclick="showNet('aytNet')">AYT Net Hesaplama</button>
-    </div>
-
-    <!-- LGS Net Hesaplama -->
-    <div id="lgsNet" class="netSection">
-      <h3>LGS Net Hesaplama</h3>
-      Doğru: <input type="number" id="lgsTrue"> 
-      Yanlış: <input type="number" id="lgsFalse">
-      <button onclick="calculateNet('lgs')">Hesapla</button>
-      <p id="lgsResult"></p>
-    </div>
-
-    <!-- YKS Net Hesaplama -->
-    <div id="yksNet" class="netSection">
-      <h3>YKS Net Hesaplama</h3>
-      Doğru: <input type="number" id="yksTrue"> 
-      Yanlış: <input type="number" id="yksFalse">
-      <button onclick="calculateNet('yks')">Hesapla</button>
-      <p id="yksResult"></p>
-    </div>
-
-    <!-- TYT Net Hesaplama -->
-    <div id="tytNet" class="netSection">
-      <h3>TYT Net Hesaplama</h3>
-      Doğru: <input type="number" id="tytTrue"> 
-      Yanlış: <input type="number" id="tytFalse">
-      <button onclick="calculateNet('tyt')">Hesapla</button>
-      <p id="tytResult"></p>
-    </div>
-
-    <!-- AYT Net Hesaplama -->
-    <div id="aytNet" class="netSection">
-      <h3>AYT Net Hesaplama</h3>
-      Doğru: <input type="number" id="aytTrue"> 
-      Yanlış: <input type="number" id="aytFalse">
-      <button onclick="calculateNet('ayt')">Hesapla</button>
-      <p id="aytResult"></p>
-    </div>
+  </script>  <!-- LGS Net Hesaplama -->
+  <div id="lgsNet" class="section">
+    <h2>LGS Net Hesaplama</h2>
+    <table style="margin:auto; border-collapse:collapse;">
+      <tr><th>D</th><th>Y</th><th>Ders</th></tr>
+      <tr>
+        <td><input type="number" id="turkceTrue"></td>
+        <td><input type="number" id="turkceFalse"></td>
+        <td>Türkçe</td>
+      </tr>
+      <tr>
+        <td><input type="number" id="inkTrue"></td>
+        <td><input type="number" id="inkFalse"></td>
+        <td>T.C. İnkılap Tarihi</td>
+      </tr>
+      <tr>
+        <td><input type="number" id="dinTrue"></td>
+        <td><input type="number" id="dinFalse"></td>
+        <td>Din Kültürü</td>
+      </tr>
+      <tr>
+        <td><input type="number" id="dilTrue"></td>
+        <td><input type="number" id="dilFalse"></td>
+        <td>Yabancı Dil</td>
+      </tr>
+      <tr>
+        <td><input type="number" id="matTrue"></td>
+        <td><input type="number" id="matFalse"></td>
+        <td>Matematik</td>
+      </tr>
+      <tr>
+        <td><input type="number" id="fenTrue"></td>
+        <td><input type="number" id="fenFalse"></td>
+        <td>Fen Bilimleri</td>
+      </tr>
+    </table>
+    <button onclick="calculateLGS()">Hesapla</button>
+    <p id="lgsNetResult"></p>
   </div>
 
+  <!-- Diğer sınavlar için benzer yapılar eklenebilir -->
+  <div id="yksNet" class="section"><h2>YKS Net Hesaplama</h2><p>Burada YKS için dersler olacak.</p></div>
+  <div id="tytNet" class="section"><h2>TYT Net Hesaplama</h2><p>Burada TYT için dersler olacak.</p></div>
+  <div id="aytNet" class="section"><h2>AYT Net Hesaplama</h2><p>Burada AYT için dersler olacak.</p></div>
+
   <style>
-    .netSection {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      background: #fdfdfd;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      animation: fadeIn 1s ease;
+    table, th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background: #4A00E0;
+      color: white;
     }
     input {
-      margin: 8px;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
+      width: 60px;
+      text-align: center;
     }
-    .netSection button {
-      margin-top: 10px;
-      padding: 10px 18px;
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
       font-size: 16px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       background: linear-gradient(to right, #00b09b, #96c93d);
       color: white;
-      transition: transform 0.2s, background 0.3s;
     }
-    .netSection button:hover {
+    button:hover {
       background: linear-gradient(to right, #96c93d, #00b09b);
       transform: scale(1.05);
     }
   </style>
 
   <script>
-    // Net Hesaplama Gösterme
-    function showNet(netId) {
-      const nets = document.querySelectorAll(".netSection");
-      nets.forEach(n => n.style.display = "none");
-      document.getElementById(netId).style.display = "block";
-    }
-
-    // Net Hesaplama Mantığı (4 yanlış 1 doğruyu götürür)
-    function calculateNet(exam) {
-      const trueVal = parseFloat(document.getElementById(exam + "True").value) || 0;
-      const falseVal = parseFloat(document.getElementById(exam + "False").value) || 0;
-      const net = trueVal - (falseVal / 4);
-      document.getElementById(exam + "Result").innerText = "Net: " + net.toFixed(2);
+    // LGS Net Hesaplama
+    function calculateLGS() {
+      const dersler = ["turkce","ink","din","dil","mat","fen"];
+      let toplamNet = 0;
+      dersler.forEach(d => {
+        const dogru = parseFloat(document.getElementById(d+"True").value) || 0;
+        const yanlis = parseFloat(document.getElementById(d+"False").value) || 0;
+        toplamNet += dogru - (yanlis/4);
+      });
+      document.getElementById("lgsNetResult").innerText = "Toplam Net: " + toplamNet.toFixed(2);
     }
   </script>
 </body>
