@@ -21,9 +21,7 @@
     }
     .menu-bar {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap; /* mobilde alt alta dizilsin */
+      justify-content: center; /* Ortada */
       margin-top: 10px;
     }
     .menu-container {
@@ -46,7 +44,7 @@
       display: none;
       position: absolute;
       background: #fff;
-      min-width: 180px;
+      min-width: 200px;
       box-shadow: 0 6px 12px rgba(0,0,0,0.2);
       border-radius: 8px;
       z-index: 1;
@@ -93,25 +91,18 @@
   </style>
 </head>
 <body>
-  <header>🎉 Yaz Tatili Geri Sayım ve Sınav Sayaçları 🎉</header>
+  <header>🎉 Sayaçlar 🎉</header>
 
   <div class="menu-bar">
     <div class="menu-container">
       <button class="menu-button" onclick="toggleMenu('sayaçMenu')">☰ Sayaçlar</button>
       <div id="sayaçMenu" class="dropdown">
+        <button onclick="showSection('summer')">Yaz Tatili Sayaç</button>
+        <button onclick="showSection('ara')">Ara Tatil Sayaç</button>
         <button onclick="showSection('lgs')">LGS Sayaç</button>
         <button onclick="showSection('yks')">YKS Sayaç</button>
         <button onclick="showSection('tyt')">TYT Sayaç</button>
         <button onclick="showSection('ayt')">AYT Sayaç</button>
-      </div>
-    </div>
-    <div class="menu-container">
-      <button class="menu-button" onclick="toggleMenu('netMenu')">☰ Net Hesaplama</button>
-      <div id="netMenu" class="dropdown">
-        <button onclick="showSection('lgsNet')">LGS Net Hesaplama</button>
-        <button onclick="showSection('yksNet')">YKS Net Hesaplama</button>
-        <button onclick="showSection('tytNet')">TYT Net Hesaplama</button>
-        <button onclick="showSection('aytNet')">AYT Net Hesaplama</button>
       </div>
     </div>
   </div>
@@ -122,13 +113,17 @@
     <p id="summerCountdown"></p>
   </div>
 
+  <!-- Ara Tatil Geri Sayım -->
+  <div id="ara" class="section">
+    <h2>Ara Tatiline Kalan Süre</h2>
+    <p id="araCountdown"></p>
+  </div>
+
   <!-- Sayaçlar -->
   <div id="lgs" class="section"><h2>LGS Sayaç</h2><p id="lgsCountdown"></p></div>
   <div id="yks" class="section"><h2>YKS Sayaç</h2><p id="yksCountdown"></p></div>
   <div id="tyt" class="section"><h2>TYT Sayaç</h2><p id="tytCountdown"></p></div>
   <div id="ayt" class="section"><h2>AYT Sayaç</h2><p id="aytCountdown"></p></div>
-
-  <!-- Net Hesaplama bölümleri ikinci parçada gelecek -->
 
   <script>
     // Hamburger menü aç/kapat
@@ -141,9 +136,8 @@
     function showSection(sectionId) {
       document.querySelectorAll(".countdown, .section").forEach(sec => sec.style.display = "none");
       document.getElementById(sectionId).style.display = "block";
-      // Menüleri kapat
+      // Menü kapat
       document.getElementById("sayaçMenu").style.display = "none";
-      document.getElementById("netMenu").style.display = "none";
     }
 
     // Yaz Tatili Geri Sayım
@@ -156,6 +150,19 @@
       const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
       const seconds = Math.floor((distance % (1000*60)) / 1000);
       document.getElementById("summerCountdown").innerText =
+        `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+    }, 1000);
+
+    // Ara Tatil Geri Sayım (örnek: 15 Kasım 2026)
+    const araDate = new Date("November 15, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = araDate - now;
+      const days = Math.floor(distance / (1000*60*60*24));
+      const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((distance % (1000*60)) / 1000);
+      document.getElementById("araCountdown").innerText =
         `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
     }, 1000);
 
@@ -182,98 +189,71 @@
     updateCountdown("yksCountdown", yksDate);
     updateCountdown("tytCountdown", tytDate);
     updateCountdown("aytCountdown", aytDate);
-  </script>  <!-- LGS Net Hesaplama -->
-  <div id="lgsNet" class="section">
-    <h2>LGS Net Hesaplama</h2>
-    <table style="margin:auto; border-collapse:collapse; width:90%;">
-      <tr><th>D</th><th>Y</th><th>Ders</th></tr>
-      <tr>
-        <td><input type="number" id="turkceTrue"></td>
-        <td><input type="number" id="turkceFalse"></td>
-        <td>Türkçe</td>
-      </tr>
-      <tr>
-        <td><input type="number" id="inkTrue"></td>
-        <td><input type="number" id="inkFalse"></td>
-        <td>T.C. İnkılap Tarihi</td>
-      </tr>
-      <tr>
-        <td><input type="number" id="dinTrue"></td>
-        <td><input type="number" id="dinFalse"></td>
-        <td>Din Kültürü</td>
-      </tr>
-      <tr>
-        <td><input type="number" id="dilTrue"></td>
-        <td><input type="number" id="dilFalse"></td>
-        <td>Yabancı Dil</td>
-      </tr>
-      <tr>
-        <td><input type="number" id="matTrue"></td>
-        <td><input type="number" id="matFalse"></td>
-        <td>Matematik</td>
-      </tr>
-      <tr>
-        <td><input type="number" id="fenTrue"></td>
-        <td><input type="number" id="fenFalse"></td>
-        <td>Fen Bilimleri</td>
-      </tr>
-    </table>
-    <button onclick="calculateLGS()">Hesapla</button>
-    <p id="lgsNetResult"></p>
-  </div>
+  </script>
+``  <script>
+    // Hamburger menü aç/kapat
+    function toggleMenu(id) {
+      const menu = document.getElementById(id);
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
 
-  <!-- Diğer sınavlar için benzer yapılar eklenebilir -->
-  <div id="yksNet" class="section"><h2>YKS Net Hesaplama</h2><p>Burada YKS için dersler olacak.</p></div>
-  <div id="tytNet" class="section"><h2>TYT Net Hesaplama</h2><p>Burada TYT için dersler olacak.</p></div>
-  <div id="aytNet" class="section"><h2>AYT Net Hesaplama</h2><p>Burada AYT için dersler olacak.</p></div>
+    // Bölüm gösterme
+    function showSection(sectionId) {
+      document.querySelectorAll(".countdown, .section").forEach(sec => sec.style.display = "none");
+      document.getElementById(sectionId).style.display = "block";
+      // Menü kapat
+      document.getElementById("sayaçMenu").style.display = "none";
+    }
 
-  <style>
-    table, th, td {
-      border: 1px solid #ccc;
-      padding: 6px;
-    }
-    th {
-      background: #4A00E0;
-      color: white;
-    }
-    input {
-      width: 60px;
-      text-align: center;
-      padding: 4px;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: linear-gradient(to right, #00b09b, #96c93d);
-      color: white;
-    }
-    button:hover {
-      background: linear-gradient(to right, #96c93d, #00b09b);
-      transform: scale(1.05);
-    }
-    @media (max-width: 600px) {
-      table { width: 100%; font-size: 14px; }
-      input { width: 50px; }
-      button { font-size: 14px; padding: 8px 14px; }
-    }
-  </style>
+    // Yaz Tatili Geri Sayım
+    const summerDate = new Date("June 15, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = summerDate - now;
+      const days = Math.floor(distance / (1000*60*60*24));
+      const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((distance % (1000*60)) / 1000);
+      document.getElementById("summerCountdown").innerText =
+        `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+    }, 1000);
 
-  <script>
-    // LGS Net Hesaplama
-    function calculateLGS() {
-      const dersler = ["turkce","ink","din","dil","mat","fen"];
-      let toplamNet = 0;
-      dersler.forEach(d => {
-        const dogru = parseFloat(document.getElementById(d+"True").value) || 0;
-        const yanlis = parseFloat(document.getElementById(d+"False").value) || 0;
-        toplamNet += dogru - (yanlis/4);
-      });
-      document.getElementById("lgsNetResult").innerText = "Toplam Net: " + toplamNet.toFixed(2);
+    // Ara Tatil Geri Sayım (örnek: 15 Kasım 2026)
+    const araDate = new Date("November 15, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = araDate - now;
+      const days = Math.floor(distance / (1000*60*60*24));
+      const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+      const seconds = Math.floor((distance % (1000*60)) / 1000);
+      document.getElementById("araCountdown").innerText =
+        `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+    }, 1000);
+
+    // Sayaçlar için örnek tarihler
+    const lgsDate = new Date("June 7, 2026 10:00:00").getTime();
+    const yksDate = new Date("June 20, 2026 10:00:00").getTime();
+    const tytDate = new Date("June 20, 2026 10:00:00").getTime();
+    const aytDate = new Date("June 21, 2026 10:00:00").getTime();
+
+    function updateCountdown(id, targetDate) {
+      setInterval(() => {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        const days = Math.floor(distance / (1000*60*60*24));
+        const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((distance % (1000*60)) / 1000);
+        document.getElementById(id).innerText =
+          `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye kaldı`;
+      }, 1000);
     }
+
+    updateCountdown("lgsCountdown", lgsDate);
+    updateCountdown("yksCountdown", yksDate);
+    updateCountdown("tytCountdown", tytDate);
+    updateCountdown("aytCountdown", aytDate);
   </script>
 </body>
 </html>
