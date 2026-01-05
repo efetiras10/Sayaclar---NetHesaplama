@@ -183,15 +183,14 @@
   <div class="container">
     <section id="summer" class="card active">
       <h2>Yaz Tatiline Kalan Süre</h2>
-      <div class="date-line">Başlangıç: 15 Haziran 2026</div>
+      <div class="date-line">Başlangıç: 15 Haziran 2026, Pazartesi</div>
       <div id="summerCountdown" class="countdown"></div>
       <div class="share">
         <a id="shareSummerWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
         <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
         <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
       </div>
-    </section>
-
+    </section>    <!-- Yarıyıl Tatili -->
     <section id="midterm" class="card">
       <h2>Yarıyıl Tatiline Kalan Süre</h2>
       <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
@@ -203,6 +202,7 @@
       </div>
     </section>
 
+    <!-- LGS -->
     <section id="lgs" class="card">
       <h2>LGS Sayaç</h2>
       <div class="date-line">Tarih: 14 Haziran 2026, Pazar — 1. Oturum 09:30</div>
@@ -214,4 +214,100 @@
       </div>
     </section>
 
-    <section id="tyt" class
+    <!-- TYT -->
+    <section id="tyt" class="card">
+      <h2>TYT Sayaç</h2>
+      <div class="date-line">Tarih: 13 Haziran 2026, Cumartesi</div>
+      <div id="tytCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareTytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <!-- AYT -->
+    <section id="ayt" class="card">
+      <h2>AYT Sayaç</h2>
+      <div class="date-line">Tarih: 14 Haziran 2026, Pazar</div>
+      <div id="aytCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareAytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <!-- YKS Genel -->
+    <section id="yks" class="card">
+      <h2>YKS Genel Sayaç</h2>
+      <div class="date-line">TYT: 13 Haziran 2026 — AYT/YDT: 14 Haziran 2026</div>
+      <div id="yksCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareYksWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleMenu(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.card').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('menuSayaç').style.display = 'none';
+    }
+
+    function startCountdown(elId, target) {
+      function tick() {
+        const now = new Date().getTime();
+        const dist = target - now;
+        if (dist <= 0) {
+          document.getElementById(elId).textContent = 'Süre doldu!';
+          return;
+        }
+        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        document.getElementById(elId).textContent = `${d} Gün ${h} Saat ${m} Dakika ${s} Saniye kaldı`;
+      }
+      tick();
+      return setInterval(tick, 1000);
+    }
+
+    const summerDate = new Date('June 15, 2026 00:00:00').getTime();
+    const midtermDate = new Date('January 16, 2026 00:00:00').getTime();
+    const lgsDate = new Date('June 14, 2026 09:30:00').getTime();
+    const tytDate = new Date('June 13, 2026 10:00:00').getTime();
+    const aytDate = new Date('June 14, 2026 10:00:00').getTime();
+    const yksDate = tytDate;
+
+    startCountdown('summerCountdown', summerDate);
+    startCountdown('midtermCountdown', midtermDate);
+    startCountdown('lgsCountdown', lgsDate);
+    startCountdown('tytCountdown', tytDate);
+    startCountdown('aytCountdown', aytDate);
+    startCountdown('yksCountdown', yksDate);
+
+    function setWA(id) {
+      const url = encodeURIComponent(location.href);
+      const text = encodeURIComponent('Şuna bir bak: Geri Sayım Sayaçları');
+      const wa = document.getElementById(id);
+      if (wa) wa.href = `https://wa.me/?text=${text}%20${url}`;
+    }
+
+    setWA('shareSummerWA');
+    setWA('shareMidWA');
+    setWA('shareLgsWA');
+    setWA('shareTytWA');
+    setWA('shareAytWA');
+    setWA('shareYksWA');
+  </script>
+</body>
+</html>
