@@ -198,7 +198,6 @@
         <button onclick="showSection('lgs')">LGS Sayaç</button>
         <button onclick="showSection('tyt')">TYT Sayaç</button>
         <button onclick="showSection('ayt')">AYT Sayaç</button>
-        <button onclick="showSection('yks')">YKS Genel Sayaç</button>
       </div>
     </div>
   </div>
@@ -260,18 +259,6 @@
         <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
       </div>
     </section>
-
-    <!-- YKS Genel -->
-    <section id="yks" class="card">
-      <h2>YKS Genel Sayaç</h2>
-      <div class="date-line">TYT: 13 Haziran 2026 — AYT/YDT: 14 Haziran 2026</div>
-      <div id="yksCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareYksWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>
   </div>
 
   <script>
@@ -311,14 +298,14 @@
     const lgsDate = new Date('June 14, 2026 09:30:00').getTime();
     const tytDate = new Date('June 13, 2026 10:00:00').getTime();
     const aytDate = new Date('June 14, 2026 10:00:00').getTime();
-    const yksDate = tytDate;
+    
 
     startCountdown('summerCountdown', summerDate);
     startCountdown('midtermCountdown', midtermDate);
     startCountdown('lgsCountdown', lgsDate);
     startCountdown('tytCountdown', tytDate);
     startCountdown('aytCountdown', aytDate);
-    startCountdown('yksCountdown', yksDate);
+    
 
     function setWA(id) {
       const url = encodeURIComponent(location.href);
@@ -345,6 +332,7 @@
   </script>
 </body>
 </html>
+
 
 
 
