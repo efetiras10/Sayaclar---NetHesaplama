@@ -1,587 +1,271 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sınav ve Tatil Sayaçları & Net Hesaplama</title>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
-  <style>
-    /* Genel stil */
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
-      color: #eee;
-      margin: 0; padding: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-top: 1rem;
-      font-weight: 700;
-    }
-    main {
-      max-width: 900px;
-      margin: 1rem auto 2rem;
-      padding: 0 1rem;
-      flex-grow: 1;
-    }
-
-    /* Butonlar üst menü */
-    .menu-bar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-bottom: 1rem;
-    }
-    .menu-button {
-      background: #242424;
-      border: none;
-      color: #ccc;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    .menu-button.active,
-    .menu-button:hover {
-      background: #4caf50;
-      color: white;
-      box-shadow: 0 0 10px #4caf50aa;
-    }
-
-    /* Sayaç container */
-    .countdown-container {
-      background: #222;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      display: none;
-      box-shadow: 0 0 12px #222;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .countdown-container.active {
-      display: block;
-    }
-    .countdown-container strong {
-      font-size: 1.3rem;
-      color: #a4e053;
-    }
-
-    /* Net hesaplama menüsü */
-    #netMenuBar {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin: 2rem 0 1rem;
-    }
-    #netMenuBar button {
-      background: #242424;
-      border: none;
-      color: #ccc;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    #netMenuBar button.active,
-    #netMenuBar button:hover {
-      background: #4caf50;
-      color: white;
-      box-shadow: 0 0 10px #4caf50aa;
-    }
-
-    /* Net hesaplama bölümü */
-    .calc-section {
-      display: none;
-      background: #222;
-      border-radius: 10px;
-      padding: 1.3rem 1.5rem;
-      box-shadow: 0 0 12px #222;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-    .calc-section.active {
-      display: block;
-    }
-    .calc-section p {
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-      color: #a4e053;
-    }
-
-    /* Doğru-Yanlış satırı */
-    .input-row {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .input-row label {
-      min-width: 140px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      user-select: none;
-    }
-    .input-row input[type=number] {
-      width: 60px;
-      padding: 6px 8px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: center;
-      background: #333;
-      color: #eee;
-      transition: border 0.3s ease;
-    }
-    .input-row input[type=number]:focus {
-      outline: none;
-      border: 2px solid #4caf50;
-      background: #2a2a2a;
-    }
-    .input-row .max-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      margin-left: 8px;
-      user-select: none;
-    }
-    .input-row.invalid input[type=number] {
-      border: 2px solid #e74c3c !important;
-      background: #3a1f1f !important;
-      color: #f44336;
-      font-weight: 700;
-    }
-
-    /* Hesapla butonu */
-    .calc-btn {
-      background: #4caf50;
-      border: none;
-      padding: 0.7rem 1.5rem;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 10px;
-      display: block;
-      user-select: none;
-    }
-    .calc-btn:hover {
-      background: #3a9a32;
-    }
-
-    /* Sonuç kutusu */
-    .result-box {
-      background: #1f1f1f;
-      margin-top: 1rem;
-      padding: 1rem 1.3rem;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #a4e053;
-      min-height: 48px;
-      user-select: text;
-    }
-
-    /* Footer Sosyal */
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 1rem 0;
-      user-select: none;
-    }
-    footer a {
-      margin: 0 1rem;
-      color: #ccc;
-      font-size: 1.8rem;
-      transition: color 0.3s ease;
-    }
-    footer a:hover {
-      color: #4caf50;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .input-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .input-row label {
-        min-width: auto;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesyonel Sınav ve Tatil Sayaçları + Net Hesaplama</title>
+<link rel="icon" href="favicon.ico">
+<meta name="description" content="Yaz tatili, yarıyıl tatili, LGS, TYT, AYT sınav geri sayım sayaçları ve net hesaplama.">
+<meta name="keywords" content="geri sayım, sayaç, net hesaplama, yaz tatili, yarıyıl tatili, LGS, TYT, AYT, sınav tarihleri">
+<meta name="author" content="Efe Tiras">
+<style>
+:root{
+  --bg1:#0f172a; --bg2:#1e293b; --card:#1e293b; --text:#f1f5f9;
+  --muted:#94a3b8; --accent:#3b82f6; --accent-dark:#1e40af; --border:#334155;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;color:var(--text);background:linear-gradient(120deg,var(--bg1),var(--bg2));}
+header{padding:14px 16px;text-align:center;font-weight:600;font-size:22px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.menu-bar{display:flex;justify-content:center;margin:14px 0;}
+.menu-container{position:relative;}
+.menu-button{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:16px;cursor:pointer;transition:background 0.2s ease, transform 0.1s ease;}
+.menu-button:hover{background:var(--accent-dark);transform:translateY(-1px);}
+.dropdown{position:absolute;top:110%;left:50%;transform:translateX(-50%);display:none;background:var(--card);border:1px solid var(--border);border-radius:10px;min-width:230px;box-shadow:0 8px 18px rgba(0,0,0,0.4);overflow:hidden;z-index:20;}
+.dropdown button{display:block;width:100%;text-align:left;padding:12px 14px;background:transparent;color:var(--text);border:none;font-size:15px;cursor:pointer;transition:background 0.15s ease;}
+.dropdown button:hover{background:#334155;}
+.container{max-width:960px;margin:0 auto;padding:0 16px 28px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 24px rgba(0,0,0,0.5);padding:20px 18px;margin:18px auto;width:100%;animation:fadeIn 0.5s ease;display:none;}
+.card.active{display:block;}
+.card h2{margin:0 0 10px 0;font-size:20px;}
+.date-line{color:var(--muted);font-size:14px;margin-bottom:10px;}
+.countdown{font-variant-numeric:tabular-nums;font-size:18px;letter-spacing:0.3px;margin:8px 0 18px;}
+.calc-section{display:none;margin-top:16px;}
+.calc-section.active{display:block;}
+input[type="number"]{padding:6px;margin:6px 6px 6px 0;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);width:80px;}
+.input-group{display:flex;align-items:center;gap:6px;margin-bottom:10px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.share-bar{display:flex;justify-content:center;gap:16px;margin-top:32px;}
+.share-bar img{width:32px;height:32px;cursor:pointer;transition:transform 0.2s ease;}
+.share-bar img:hover{transform:scale(1.1);}
+.active-button{background:var(--accent-dark);}
+</style>
 </head>
 <body>
-  <main>
-    <h1>⏳ Sınav ve Tatil Sayaçları</h1>
-    <div class="menu-bar" role="tablist" aria-label="Sayaç Seçimi">
-      <button class="menu-button active" role="tab" aria-selected="true" aria-controls="tytCountdown" id="tytBtn" onclick="switchCountdown(this, 'tytCountdown')">TYT</button>
-      <button class="menu-button" role="tab" aria-selected="false" aria-controls="aytCountdown" id="aytBtn" onclick="switchCountdown(this, 'aytCountdown')">AYT</button>
-      <button class="menu-button" role="tab" aria-selected="false" aria-controls="lgsCountdown" id="lgsBtn" onclick="switchCountdown(this, 'lgsCountdown')">LGS</button>
-      <button class="menu-button" role="tab" aria-selected="false" aria-controls="yarıyilCountdown" id="yarıyilBtn" onclick="switchCountdown(this, 'yarıyilCountdown')">Yarıyıl Tatili</button>
-      <button class="menu-button" role="tab" aria-selected="false" aria-controls="yazCountdown" id="yazBtn" onclick="switchCountdown(this, 'yazCountdown')">Yaz Tatili</button>
+<header>📅 Tatil ve Sınav Sayaçları + Net Hesaplama</header>
+<div class="menu-bar">
+  <div class="menu-container">
+    <button class="menu-button" onclick="toggleMenu('menuSayaç')">☰ Sayaçlar</button>
+    <div id="menuSayaç" class="dropdown">
+      <button onclick="showSection('summer')">Yaz Tatili</button>
+      <button onclick="showSection('midterm')">Yarıyıl Tatili</button>
+      <button onclick="showSection('lgs')">LGS</button>
+      <button onclick="showSection('tyt')">TYT</button>
+      <button onclick="showSection('ayt')">AYT</button>
     </div>
-
-    <!-- Sayaçlar -->
-    <section id="tytCountdown" class="countdown-container active" role="tabpanel" aria-labelledby="tytBtn">
-      <strong>TYT - 18 Haziran 2026</strong><br/>
-      <span id="tyt-time">Yükleniyor...</span>
-    </section>
-    <section id="aytCountdown" class="countdown-container" role="tabpanel" aria-labelledby="aytBtn">
-      <strong>AYT - 25 Haziran 2026</strong><br/>
-      <span id="ayt-time">Yükleniyor...</span>
-    </section>
-    <section id="lgsCountdown" class="countdown-container" role="tabpanel" aria-labelledby="lgsBtn">
-      <strong>LGS - 8 Haziran 2026</strong><br/>
-      <span id="lgs-time">Yükleniyor...</span>
-    </section>
-    <section id="yarıyilCountdown" class="countdown-container" role="tabpanel" aria-labelledby="yarıyilBtn">
-      <strong>Yarıyıl Tatili - 20 Ocak 2026</strong><br/>
-      <span id="yarıyil-time">Yükleniyor...</span>
-    </section>
-    <section id="yazCountdown" class="countdown-container" role="tabpanel" aria-labelledby="yazBtn">
-      <strong>Yaz Tatili - 17 Haziran 2026</strong><br/>
-      <span id="yaz-time">Yükleniyor...</span>
-    </section>
-
-    <!-- Net Hesaplama Menüsü -->
-    <h2>📊 Net Hesaplama</h2>
-    <div id="netMenuBar" role="tablist" aria-label="Net Hesaplama Seçimi">
-      <button class="active" role="tab" aria-selected="true" aria-controls="tytCalc" id="tytCalcBtn" onclick="switchCalc(this, 'tytCalc')">TYT</button>
-      <button role="tab" aria-selected="false" aria-controls="aytCalc" id="aytCalcBtn" onclick="switchCalc(this, 'aytCalc')">AYT</button>
-      <button role="tab" aria-selected="false" aria-controls="lgsCalc" id="lgsCalcBtn" onclick="switchCalc(this, 'lgsCalc')">LGS</button>
+  </div>
+  <div class="menu-container" style="margin-left:16px;">
+    <button class="menu-button" onclick="toggleMenu('menuHesap')">☰ Net Hesaplama</button>
+    <div id="menuHesap" class="dropdown">
+      <button onclick="showCalc('tytCalc')">TYT Hesaplama</button>
+      <button onclick="showCalc('aytCalc')">AYT Hesaplama</button>
+      <button onclick="showCalc('lgsCalc')">LGS Hesaplama</button>
     </div>
-    <!-- TYT Net Hesaplama -->
-    <section id="tytCalc" class="calc-section active" role="tabpanel" aria-labelledby="tytCalcBtn">
-      <p>TYT netlerinizi doğru ve yanlış olarak girin:</p>
-      <div class="input-row">
-        <label for="tytTurkceD">Türkçe Doğru:</label>
-        <input type="number" id="tytTurkceD" min="0" max="40" value="0" oninput="validateNet('tytTurkceD', 'tytTurkceY', 40)">
-        <label for="tytTurkceY">Yanlış:</label>
-        <input type="number" id="tytTurkceY" min="0" max="40" value="0" oninput="validateNet('tytTurkceD', 'tytTurkceY', 40)">
-        <span class="max-label">/ 40 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="tytMatematikD">Matematik Doğru:</label>
-        <input type="number" id="tytMatematikD" min="0" max="40" value="0" oninput="validateNet('tytMatematikD', 'tytMatematikY', 40)">
-        <label for="tytMatematikY">Yanlış:</label>
-        <input type="number" id="tytMatematikY" min="0" max="40" value="0" oninput="validateNet('tytMatematikD', 'tytMatematikY', 40)">
-        <span class="max-label">/ 40 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="tytFenD">Fen Bilimleri Doğru:</label>
-        <input type="number" id="tytFenD" min="0" max="20" value="0" oninput="validateNet('tytFenD', 'tytFenY', 20)">
-        <label for="tytFenY">Yanlış:</label>
-        <input type="number" id="tytFenY" min="0" max="20" value="0" oninput="validateNet('tytFenD', 'tytFenY', 20)">
-        <span class="max-label">/ 20 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="tytSosyalD">Sosyal Bilimler Doğru:</label>
-        <input type="number" id="tytSosyalD" min="0" max="20" value="0" oninput="validateNet('tytSosyalD', 'tytSosyalY', 20)">
-        <label for="tytSosyalY">Yanlış:</label>
-        <input type="number" id="tytSosyalY" min="0" max="20" value="0" oninput="validateNet('tytSosyalD', 'tytSosyalY', 20)">
-        <span class="max-label">/ 20 soru</span>
-      </div>
-      <button class="calc-btn" onclick="hesaplaTYT()">Hesapla</button>
-      <div id="tytResult" class="result-box" aria-live="polite"></div>
-    </section>
+  </div>
+</div>
 
-    <!-- AYT Net Hesaplama -->
-    <section id="aytCalc" class="calc-section" role="tabpanel" aria-labelledby="aytCalcBtn">
-      <p>AYT netlerinizi doğru ve yanlış olarak girin:</p>
-      <div class="input-row">
-        <label for="aytMatematikD">Matematik Doğru:</label>
-        <input type="number" id="aytMatematikD" min="0" max="40" value="0" oninput="validateNet('aytMatematikD', 'aytMatematikY', 40)">
-        <label for="aytMatematikY">Yanlış:</label>
-        <input type="number" id="aytMatematikY" min="0" max="40" value="0" oninput="validateNet('aytMatematikD', 'aytMatematikY', 40)">
-        <span class="max-label">/ 40 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="aytFizikD">Fizik Doğru:</label>
-        <input type="number" id="aytFizikD" min="0" max="14" value="0" oninput="validateNet('aytFizikD', 'aytFizikY', 14)">
-        <label for="aytFizikY">Yanlış:</label>
-        <input type="number" id="aytFizikY" min="0" max="14" value="0" oninput="validateNet('aytFizikD', 'aytFizikY', 14)">
-        <span class="max-label">/ 14 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="aytKimyaD">Kimya Doğru:</label>
-        <input type="number" id="aytKimyaD" min="0" max="13" value="0" oninput="validateNet('aytKimyaD', 'aytKimyaY', 13)">
-        <label for="aytKimyaY">Yanlış:</label>
-        <input type="number" id="aytKimyaY" min="0" max="13" value="0" oninput="validateNet('aytKimyaD', 'aytKimyaY', 13)">
-        <span class="max-label">/ 13 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="aytBiyolojiD">Biyoloji Doğru:</label>
-        <input type="number" id="aytBiyolojiD" min="0" max="13" value="0" oninput="validateNet('aytBiyolojiD', 'aytBiyolojiY', 13)">
-        <label for="aytBiyolojiY">Yanlış:</label>
-        <input type="number" id="aytBiyolojiY" min="0" max="13" value="0" oninput="validateNet('aytBiyolojiD', 'aytBiyolojiY', 13)">
-        <span class="max-label">/ 13 soru</span>
-      </div>
-      <button class="calc-btn" onclick="hesaplaAYT()">Hesapla</button>
-      <div id="aytResult" class="result-box" aria-live="polite"></div>
-    </section>
+<div class="container">
+  <!-- Sayaçlar -->
+  <section id="summer" class="card">
+    <h2>Yaz Tatiline Kalan Süre</h2>
+    <div class="date-line">Başlangıç: 15 Haziran 2026, Pazartesi</div>
+    <div id="summerCountdown" class="countdown"></div>
+  </section>
 
-    <!-- LGS Net Hesaplama -->
-    <section id="lgsCalc" class="calc-section" role="tabpanel" aria-labelledby="lgsCalcBtn">
-      <p>LGS netlerinizi doğru ve yanlış olarak girin:</p>
-      <div class="input-row">
-        <label for="lgsTurkceD">Türkçe Doğru:</label>
-        <input type="number" id="lgsTurkceD" min="0" max="20" value="0" oninput="validateNet('lgsTurkceD', 'lgsTurkceY', 20)">
-        <label for="lgsTurkceY">Yanlış:</label>
-        <input type="number" id="lgsTurkceY" min="0" max="20" value="0" oninput="validateNet('lgsTurkceD', 'lgsTurkceY', 20)">
-        <span class="max-label">/ 20 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="lgsMatematikD">Matematik Doğru:</label>
-        <input type="number" id="lgsMatematikD" min="0" max="20" value="0" oninput="validateNet('lgsMatematikD', 'lgsMatematikY', 20)">
-        <label for="lgsMatematikY">Yanlış:</label>
-        <input type="number" id="lgsMatematikY" min="0" max="20" value="0" oninput="validateNet('lgsMatematikD', 'lgsMatematikY', 20)">
-        <span class="max-label">/ 20 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="lgsFenD">Fen Bilimleri Doğru:</label>
-        <input type="number" id="lgsFenD" min="0" max="20" value="0" oninput="validateNet('lgsFenD', 'lgsFenY', 20)">
-        <label for="lgsFenY">Yanlış:</label>
-        <input type="number" id="lgsFenY" min="0" max="20" value="0" oninput="validateNet('lgsFenD', 'lgsFenY', 20)">
-        <span class="max-label">/ 20 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="lgsInkilapD">İnkılap Tarihi Doğru:</label>
-        <input type="number" id="lgsInkilapD" min="0" max="10" value="0" oninput="validateNet('lgsInkilapD', 'lgsInkilapY', 10)">
-        <label for="lgsInkilapY">Yanlış:</label>
-        <input type="number" id="lgsInkilapY" min="0" max="10" value="0" oninput="validateNet('lgsInkilapD', 'lgsInkilapY', 10)">
-        <span class="max-label">/ 10 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="lgsDinD">Din Kültürü Doğru:</label>
-        <input type="number" id="lgsDinD" min="0" max="10" value="0" oninput="validateNet('lgsDinD', 'lgsDinY', 10)">
-        <label for="lgsDinY">Yanlış:</label>
-        <input type="number" id="lgsDinY" min="0" max="10" value="0" oninput="validateNet('lgsDinD', 'lgsDinY', 10)">
-        <span class="max-label">/ 10 soru</span>
-      </div>
-      <div class="input-row">
-        <label for="lgsIngD">İngilizce Doğru:</label>
-        <input type="number" id="lgsIngD" min="0" max="10" value="0" oninput="validateNet('lgsIngD', 'lgsIngY', 10)">
-        <label for="lgsIngY">Yanlış:</label>
-        <input type="number" id="lgsIngY" min="0" max="10" value="0" oninput="validateNet('lgsIngD', 'lgsIngY', 10)">
-        <span class="max-label">/ 10 soru</span>
-      </div>
-      <button class="calc-btn" onclick="hesaplaLGS()">Hesapla</button>
-      <div id="lgsResult" class="result-box" aria-live="polite"></div>
-    </section>
-  </main>
+  <section id="midterm" class="card">
+    <h2>Yarıyıl Tatiline Kalan Süre</h2>
+    <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
+    <div id="midtermCountdown" class="countdown"></div>
+  </section>
 
-  <footer>
-    <a href="https://www.instagram.com" target="_blank" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.facebook.com" target="_blank" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-    <a href="https://wa.me" target="_blank" aria-label="WhatsApp" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
-  </footer>
+  <section id="lgs" class="card">
+    <h2>LGS 2026 Geri Sayım</h2>
+    <div class="date-line">14 Haziran 2026, Pazar — 1. Oturum 09:30</div>
+    <div id="lgsCountdown" class="countdown"></div>
+  </section>
 
-  <script>
-    // Sayaçlar için tarihler (2026 Türkiye sınav takvimine göre)
-    const dates = {
-      tyt: new Date("2026-06-18T10:00:00"),
-      ayt: new Date("2026-06-25T10:00:00"),
-      lgs: new Date("2026-06-08T10:00:00"),
-      yariyil: new Date("2026-01-20T00:00:00"),
-      yaz: new Date("2026-06-17T00:00:00")
-    };
+  <section id="tyt" class="card">
+    <h2>TYT 2026 Geri Sayım</h2>
+    <div class="date-line">13 Haziran 2026, Cumartesi — 10:00</div>
+    <div id="tytCountdown" class="countdown"></div>
+  </section>
 
-    // Sayaçların gösterimi ve buton aktifliği kontrolü
-    function switchCountdown(btn, sectionId) {
-      // Butonlar
-      document.querySelectorAll(".menu-bar .menu-button").forEach(b => {
-        b.classList.remove("active");
-        b.setAttribute("aria-selected", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
+  <section id="ayt" class="card">
+    <h2>AYT 2026 Geri Sayım</h2>
+    <div class="date-line">14 Haziran 2026, Pazar — 10:00</div>
+    <div id="aytCountdown" class="countdown"></div>
+  </section>
 
-      // Sayaç containerları
-      document.querySelectorAll(".countdown-container").forEach(c => c.classList.remove("active"));
-      document.getElementById(sectionId).classList.add("active");
-    }
+  <!-- Net Hesaplama -->
+  <section id="tytCalc" class="card calc-section">
+    <h2>TYT Net Hesaplama</h2>
+    <div class="input-group">
+      <span>Türkçe:</span>
+      <input type="number" id="tytTurkceD" placeholder="Doğru" min="0" max="40">
+      <input type="number" id="tytTurkceY" placeholder="Yanlış" min="0" max="40">
+    </div>
+    <div class="input-group">
+      <span>Matematik:</span>
+      <input type="number" id="tytMatematikD" placeholder="Doğru" min="0" max="40">
+      <input type="number" id="tytMatematikY" placeholder="Yanlış" min="0" max="40">
+    </div>
+    <div class="input-group">
+      <span>Fen Bilimleri:</span>
+      <input type="number" id="tytFenD" placeholder="Doğru" min="0" max="20">
+      <input type="number" id="tytFenY" placeholder="Yanlış" min="0" max="20">
+    </div>
+    <div class="input-group">
+      <span>Sosyal Bilimler:</span>
+      <input type="number" id="tytSosyalD" placeholder="Doğru" min="0" max="20">
+      <input type="number" id="tytSosyalY" placeholder="Yanlış" min="0" max="20">
+    </div>
+    <button class="menu-button" onclick="hesaplaTYT()">Hesapla</button>
+    <div id="tytSonuc" class="countdown"></div>
+  </section>
 
-    // Net hesaplama tab switch
-    function switchCalc(btn, sectionId) {
-      document.querySelectorAll("#netMenuBar button").forEach(b => {
-        b.classList.remove("active");
-        b.setAttribute("aria-selected", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
+  <!-- AYT Hesaplama -->
+  <section id="aytCalc" class="card calc-section">
+    <h2>AYT Net Hesaplama</h2>
+    <div class="input-group"><span>Matematik:</span><input type="number" id="aytMatematikD" placeholder="Doğru" min="0" max="40"><input type="number" id="aytMatematikY" placeholder="Yanlış" min="0" max="40"></div>
+    <div class="input-group"><span>Fizik:</span><input type="number" id="aytFizikD" placeholder="Doğru" min="0" max="14"><input type="number" id="aytFizikY" placeholder="Yanlış" min="0" max="14"></div>
+    <div class="input-group"><span>Kimya:</span><input type="number" id="aytKimyaD" placeholder="Doğru" min="0" max="13"><input type="number" id="aytKimyaY" placeholder="Yanlış" min="0" max="13"></div>
+    <div class="input-group"><span>Biyoloji:</span><input type="number" id="aytBiyolojiD" placeholder="Doğru" min="0" max="13"><input type="number" id="aytBiyolojiY" placeholder="Yanlış" min="0" max="13"></div>
+    <button class="menu-button" onclick="hesaplaAYT()">Hesapla</button>
+    <div id="aytSonuc" class="countdown"></div>
+  </section>
 
-      document.querySelectorAll(".calc-section").forEach(s => s.classList.remove("active"));
-      document.getElementById(sectionId).classList.add("active");
-    }
+  <!-- LGS Hesaplama -->
+  <section id="lgsCalc" class="card calc-section">
+    <h2>LGS Net Hesaplama</h2>
+    <div class="input-group"><span>Türkçe:</span><input type="number" id="lgsTurkceD" placeholder="Doğru" min="0" max="20"><input type="number" id="lgsTurkceY" placeholder="Yanlış" min="0" max="20"></div>
+    <div class="input-group"><span>Matematik:</span><input type="number" id="lgsMatematikD" placeholder="Doğru" min="0" max="20"><input type="number" id="lgsMatematikY" placeholder="Yanlış" min="0" max="20"></div>
+    <div class="input-group"><span>Fen:</span><input type="number" id="lgsFenD" placeholder="Doğru" min="0" max="20"><input type="number" id="lgsFenY" placeholder="Yanlış" min="0" max="20"></div>
+    <div class="input-group"><span>İnkılap Tarihi:</span><input type="number" id="lgsInkilapD" placeholder="Doğru" min="0" max="10"><input type="number" id="lgsInkilapY" placeholder="Yanlış" min="0" max="10"></div>
+    <div class="input-group"><span>Din Kültürü:</span><input type="number" id="lgsDinD" placeholder="Doğru" min="0" max="10"><input type="number" id="lgsDinY" placeholder="Yanlış" min="0" max="10"></div>
+    <div class="input-group"><span>İngilizce:</span><input type="number" id="lgsIngD" placeholder="Doğru" min="0" max="10"><input type="number" id="lgsIngY" placeholder="Yanlış" min="0" max="10"></div>
+    <button class="menu-button" onclick="hesaplaLGS()">Hesapla</button>
+    <div id="lgsSonuc" class="countdown"></div>
+  </section>
 
-    // Doğru + Yanlış toplamı max sorudan fazla olursa uyarı ve kırmızı input
-    function validateNet(correctId, wrongId, maxQuestions) {
-      const correctInput = document.getElementById(correctId);
-      const wrongInput = document.getElementById(wrongId);
+</div>
 
-      const correct = Number(correctInput.value);
-      const wrong = Number(wrongInput.value);
+<div class="share-bar">
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+</div>
 
-      if (correct < 0) correctInput.value = 0;
-      if (wrong < 0) wrongInput.value = 0;
-      if (correct > maxQuestions) correctInput.value = maxQuestions;
-      if (wrong > maxQuestions) wrongInput.value = maxQuestions;
+<script>
+function toggleMenu(id){
+  const el=document.getElementById(id);
+  el.style.display=(el.style.display==='block')?'none':'block';
+}
+function showSection(id){
+  document.querySelectorAll('.card').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
+  const target=document.getElementById(id);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('#menuSayaç button').forEach(b=>b.classList.remove('active-button'));
+  document.querySelector('#menuSayaç button[onclick*="'+id+'"]').classList.add('active-button');
+  document.getElementById('menuSayaç').style.display='none';
+}
+function showCalc(id){
+  document.querySelectorAll('.calc-section').forEach(s=>s.classList.remove('active'));
+  const target=document.getElementById(id);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('#menuHesap button').forEach(b=>b.classList.remove('active-button'));
+  document.querySelector('#menuHesap button[onclick*="'+id+'"]').classList.add('active-button');
+  document.getElementById('menuHesap').style.display='none';
+}
 
-      if (correct + wrong > maxQuestions) {
-        correctInput.parentElement.classList.add("invalid");
-      } else {
-        correctInput.parentElement.classList.remove("invalid");
-      }
-    }
+// Sayaçlar
+function startCountdown(elId,target){
+  function tick(){
+    const now=new Date().getTime();
+    const dist=target-now;
+    if(dist<=0){document.getElementById(elId).textContent='Süre doldu!';return;}
+    const d=Math.floor(dist/(1000*60*60*24));
+    const h=Math.floor((dist%(1000*60*60*24))/(1000*60*60));
+    const m=Math.floor((dist%(1000*60*60))/(1000*60));
+    const s=Math.floor((dist%(1000*60))/1000);
+    document.getElementById(elId).textContent=`${d} Gün ${h} Saat ${m} Dakika ${s} Saniye kaldı`;
+  }
+  tick();return setInterval(tick,1000);
+}
 
-    // TYT puan hesaplama (ÖSYM katsayılarına göre güncellenmeli, şimdilik örnek)
-    function hesaplaTYT() {
-      if (isInvalidInputs('tyt')) {
-        alert("Lütfen TYT doğru + yanlış toplamlarının sınırları aşmadığından emin olun.");
-        return;
-      }
+const summerDate=new Date('June 15,2026 00:00:00').getTime();
+const midtermDate=new Date('January 16,2026 00:00:00').getTime();
+const lgsDate=new Date('June 14,2026 09:30:00').getTime();
+const tytDate=new Date('June 13,2026 10:00:00').getTime();
+const aytDate=new Date('June 14,2026 10:00:00').getTime();
 
-      const turkceNet = calcNet('tytTurkceD', 'tytTurkceY');
-      const matematikNet = calcNet('tytMatematikD', 'tytMatematikY');
-      const fenNet = calcNet('tytFenD', 'tytFenY');
-      const sosyalNet = calcNet('tytSosyalD', 'tytSosyalY');
+startCountdown('summerCountdown',summerDate);
+startCountdown('midtermCountdown',midtermDate);
+startCountdown('lgsCountdown',lgsDate);
+startCountdown('tytCountdown',tytDate);
+startCountdown('aytCountdown',aytDate);
 
-      // Puan hesaplama örneği
-      const puan = turkceNet * 3.3 + matematikNet * 3.3 + fenNet * 3.4 + sosyalNet * 3.4;
-      document.getElementById("tytResult").textContent = `Tahmini TYT Puanınız: ${puan.toFixed(2)}`;
-    }
+// Hesaplama Fonksiyonları
+function hesaplaTYT(){
+  const turkceD=parseFloat(document.getElementById('tytTurkceD').value)||0;
+  const turkceY=parseFloat(document.getElementById('tytTurkceY').value)||0;
+  const matematikD=parseFloat(document.getElementById('tytMatematikD').value)||0;
+  const matematikY=parseFloat(document.getElementById('tytMatematikY').value)||0;
+  const fenD=parseFloat(document.getElementById('tytFenD').value)||0;
+  const fenY=parseFloat(document.getElementById('tytFenY').value)||0;
+  const sosyalD=parseFloat(document.getElementById('tytSosyalD').value)||0;
+  const sosyalY=parseFloat(document.getElementById('tytSosyalY').value)||0;
+  const netTurkce=turkceD-(turkceY*0.25);
+  const netMatematik=matematikD-(matematikY*0.25);
+  const netFen=fenD-(fenY*0.25);
+  const netSosyal=sosyalD-(sosyalY*0.25);
+  const puan=netTurkce*3.3+netMatematik*3.3+netFen*3.4+netSosyal*3.4;
+  document.getElementById('tytSonuc').textContent=`Tahmini TYT Puanınız: ${puan.toFixed(2)}`;
+}
 
-    // AYT puan hesaplama
-    function hesaplaAYT() {
-      if (isInvalidInputs('ayt')) {
-        alert("Lütfen AYT doğru + yanlış toplamlarının sınırları aşmadığından emin olun.");
-        return;
-      }
+function hesaplaAYT(){
+  const matD=parseFloat(document.getElementById
+('aytMatematikD').value)||0;
+  const matY=parseFloat(document.getElementById('aytMatematikY').value)||0;
+  const fizD=parseFloat(document.getElementById('aytFizikD').value)||0;
+  const fizY=parseFloat(document.getElementById('aytFizikY').value)||0;
+  const kimD=parseFloat(document.getElementById('aytKimyaD').value)||0;
+  const kimY=parseFloat(document.getElementById('aytKimyaY').value)||0;
+  const biyD=parseFloat(document.getElementById('aytBiyolojiD').value)||0;
+  const biyY=parseFloat(document.getElementById('aytBiyolojiY').value)||0;
 
-      const matematikNet = calcNet('aytMatematikD', 'aytMatematikY');
-      const fizikNet = calcNet('aytFizikD', 'aytFizikY');
-      const kimyaNet = calcNet('aytKimyaD', 'aytKimyaY');
-      const biyolojiNet = calcNet('aytBiyolojiD', 'aytBiyolojiY');
+  const netMat=matD-(matY*0.25);
+  const netFiz=fizD-(fizY*0.25);
+  const netKim=kimD-(kimY*0.25);
+  const netBiy=biyD-(biyY*0.25);
 
-      const puan = matematikNet * 3 + fizikNet * 2.9 + kimyaNet * 3 + biyolojiNet * 3.1;
-      document.getElementById("aytResult").textContent = `Tahmini AYT Puanınız: ${puan.toFixed(2)}`;
-    }
+  const puan=netMat*3+netFiz*2.9+netKim*3+netBiy*3.1;
+  document.getElementById('aytSonuc').textContent=`Tahmini AYT Puanınız: ${puan.toFixed(2)}`;
+}
 
-    // LGS puan hesaplama
-    function hesaplaLGS() {
-      if (isInvalidInputs('lgs')) {
-        alert("Lütfen LGS doğru + yanlış toplamlarının sınırları aşmadığından emin olun.");
-        return;
-      }
+function hesaplaLGS(){
+  const turkD=parseFloat(document.getElementById('lgsTurkceD').value)||0;
+  const turkY=parseFloat(document.getElementById('lgsTurkceY').value)||0;
+  const matD=parseFloat(document.getElementById('lgsMatematikD').value)||0;
+  const matY=parseFloat(document.getElementById('lgsMatematikY').value)||0;
+  const fenD=parseFloat(document.getElementById('lgsFenD').value)||0;
+  const fenY=parseFloat(document.getElementById('lgsFenY').value)||0;
+  const inkD=parseFloat(document.getElementById('lgsInkilapD').value)||0;
+  const inkY=parseFloat(document.getElementById('lgsInkilapY').value)||0;
+  const dinD=parseFloat(document.getElementById('lgsDinD').value)||0;
+  const dinY=parseFloat(document.getElementById('lgsDinY').value)||0;
+  const ingD=parseFloat(document.getElementById('lgsIngD').value)||0;
+  const ingY=parseFloat(document.getElementById('lgsIngY').value)||0;
 
-      const turkceNet = calcNet('lgsTurkceD', 'lgsTurkceY');
-      const matematikNet = calcNet('lgsMatematikD', 'lgsMatematikY');
-      const fenNet = calcNet('lgsFenD', 'lgsFenY');
-      const inkilapNet = calcNet('lgsInkilapD', 'lgsInkilapY');
-      const dinNet = calcNet('lgsDinD', 'lgsDinY');
-      const ingNet = calcNet('lgsIngD', 'lgsIngY');
+  const netTurk=turkD-(turkY*0.25);
+  const netMat=matD-(matY*0.25);
+  const netFen=fenD-(fenY*0.25);
+  const netInk=inkD-(inkY*0.25);
+  const netDin=dinD-(dinY*0.25);
+  const netIng=ingD-(ingY*0.25);
 
-      const puan = turkceNet * 4 + matematikNet * 4.5 + fenNet * 4.5 + inkilapNet * 2 + dinNet
-* 2 + ingNet * 2;
-      document.getElementById("lgsResult").textContent = `Tahmini LGS Puanınız: ${puan.toFixed(2)} / 500`;
-    }
-
-    // Doğru-yanlış net hesaplama: Net = Doğru - Yanlış/4
-    function calcNet(correctId, wrongId) {
-      const correct = Number(document.getElementById(correctId).value) || 0;
-      const wrong = Number(document.getElementById(wrongId).value) || 0;
-      return correct - (wrong / 4);
-    }
-
-    // Form geçerliliği kontrolü: Doğru + Yanlış <= max soru
-    function isInvalidInputs(section) {
-      const rows = document.querySelectorAll(`#${section} .input-row`);
-      for (let row of rows) {
-        if (row.classList.contains("invalid")) return true;
-      }
-      return false;
-    }
-
-    // Countdown timer
-    function startCountdown() {
-      const elements = document.querySelectorAll(".countdown");
-      setInterval(() => {
-        const now = new Date().getTime();
-        elements.forEach(el => {
-          const key = el.dataset.target;
-          if (!dates[key]) return;
-          const distance = dates[key] - now;
-
-          if (distance < 0) {
-            el.innerHTML = "Tarih geçti!";
-            return;
-          }
-
-          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          el.innerHTML = `${days} gün ${hours} saat ${minutes} dk ${seconds} sn`;
-        });
-      }, 1000);
-    }
-
-    window.onload = () => {
-      startCountdown();
-    };
-  </script>
-
-  <style>
-    .input-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 8px 0;
-    }
-    .input-row input[type="number"] {
-      width: 60px;
-    }
-    .max-label {
-      margin-left: auto;
-      font-size: 0.9rem;
-      color: #666;
-    }
-    .invalid input {
-      border-color: red;
-      background-color: #ffe5e5;
-    }
-    .calc-btn {
-      padding: 8px 16px;
-      margin-top: 8px;
-      cursor: pointer;
-      border: none;
-      background-color: #4CAF50;
-      color: white;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    .result-box {
-      margin-top: 12px;
-      padding: 8px;
-      background-color: #f0f0f0;
-      border-radius: 6px;
-      font-weight: bold;
-    }
-  </style>
+  const puan=netTurk*4+netMat*4.5+netFen*4.5+netInk*2+netDin*2+netIng*2;
+  document.getElementById('lgsSonuc').textContent=`Tahmini LGS Puanınız: ${puan.toFixed(2)} / 500`;
+}
+</script>
+</body>
+</html>
