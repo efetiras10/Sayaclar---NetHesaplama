@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sınav & Tatil Sayaçları | Net Hesaplama</title>
+<title>Sınav Sayaçları & Net Hesaplama | Profesyonel Öğrenci Aracı</title>
 
-<meta name="description" content="LGS, TYT, AYT sınav tarihleri ile yarıyıl ve yaz tatili için profesyonel geri sayım sayaçları ve MEB uyumlu net hesaplama aracı.">
+<meta name="description" content="LGS, TYT, AYT sınavları ile yarıyıl ve yaz tatili için profesyonel geri sayım sayaçları. MEB ve ÖSYM sistemine yakın net hesaplama aracı.">
+<meta name="keywords" content="sayaç, geri sayım, net hesaplama, tyt net hesaplama, ayt net hesaplama, lgs sayaç">
 <meta name="author" content="Efe Tıraş">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
@@ -16,8 +20,10 @@
   --text:#f8fafc;
   --muted:#94a3b8;
   --accent:#3b82f6;
+  --accent2:#22c55e;
   --border:#334155;
 }
+
 *{box-sizing:border-box}
 
 body{
@@ -29,62 +35,70 @@ body{
 
 header{
   text-align:center;
-  padding:24px 16px;
+  padding:26px 16px;
   font-size:26px;
-  font-weight:700;
+  font-weight:800;
   border-bottom:1px solid var(--border);
 }
 
 .container{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
-  padding:24px 16px 50px;
+  padding:28px 16px 60px;
 }
 
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:24px;
-  margin-bottom:30px;
-  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  border-radius:20px;
+  padding:26px;
+  margin-bottom:34px;
+  box-shadow:0 14px 36px rgba(0,0,0,.45);
 }
 
-h2{margin-top:0;font-size:22px}
-p{color:var(--muted);line-height:1.6}
+h2{margin-top:0;font-size:23px}
+
+p{color:var(--muted);line-height:1.7}
 
 .menu{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  margin:18px 0 14px;
+  margin:18px 0 16px;
 }
 
-button{
-  background:var(--accent);
-  color:#fff;
-  border:none;
+.menu button{
+  background:#020617;
+  border:1px solid var(--border);
+  color:var(--text);
   padding:10px 18px;
-  border-radius:10px;
+  border-radius:12px;
   cursor:pointer;
   font-size:15px;
+  transition:.2s;
 }
-button:hover{opacity:.9}
+
+.menu button.active{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.menu button:hover{transform:translateY(-1px)}
 
 .section{display:none}
 .section.active{display:block}
 
 .countdown-box{
-  margin-top:12px;
-  padding:16px;
+  margin-top:14px;
+  padding:18px;
   border-radius:14px;
   background:#020617;
   border:1px solid var(--border);
 }
 
 .countdown{
-  font-size:20px;
-  font-weight:600;
+  font-size:22px;
+  font-weight:700;
 }
 
 .date-info{
@@ -96,131 +110,174 @@ button:hover{opacity:.9}
 input[type="number"]{
   width:100%;
   max-width:260px;
-  padding:9px;
-  margin:6px 0 14px;
-  border-radius:8px;
+  padding:10px;
+  margin:6px 0 16px;
+  border-radius:10px;
   border:1px solid var(--border);
   background:var(--bg2);
   color:var(--text);
 }
 
-.result{
-  margin-top:10px;
-  font-size:18px;
+.calc-btn{
+  background:var(--accent2);
+  border:none;
+  padding:10px 20px;
+  border-radius:10px;
   font-weight:600;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:14px;
+  font-size:19px;
+  font-weight:700;
 }
 
 .note{
-  margin-top:18px;
+  margin-top:20px;
   font-size:13px;
   color:var(--muted);
 }
 
+/* Share */
+.share{
+  display:flex;
+  gap:16px;
+  margin-top:20px;
+}
+.share a{
+  color:white;
+  font-size:24px;
+  transition:.2s;
+}
+.share a:hover{transform:scale(1.15)}
+
+footer{
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  margin-top:40px;
+}
+
 @media(max-width:600px){
   header{font-size:21px}
-  button{width:100%}
+  .menu button{width:100%}
 }
 </style>
 </head>
 
 <body>
 
-<header>🎓 Sınav & Tatil Sayaçları + Net Hesaplama</header>
+<header>🎓 Sınav Sayaçları & Net Hesaplama</header>
 
 <div class="container">
 
 <!-- ================= SAYAÇLAR ================= -->
 <div class="card">
 <h2>📅 Geri Sayım Sayaçları</h2>
-<p>Sınavlar ve tatiller için <b>resmî takvimlere göre</b> hazırlanmış canlı geri sayım sayaçları.</p>
+<p>Sınav ve tatiller için <b>resmî takvimlere dayalı</b> profesyonel geri sayım sayaçları.</p>
 
-<div class="menu">
-<button onclick="showCounter('lgs')">LGS</button>
-<button onclick="showCounter('tyt')">TYT</button>
-<button onclick="showCounter('ayt')">AYT</button>
-<button onclick="showCounter('mid')">Yarıyıl Tatili</button>
-<button onclick="showCounter('summer')">Yaz Tatili</button>
+<div class="menu" id="counterMenu">
+<button class="active" onclick="switchCounter(this,'lgs')">LGS</button>
+<button onclick="switchCounter(this,'tyt')">TYT</button>
+<button onclick="switchCounter(this,'ayt')">AYT</button>
+<button onclick="switchCounter(this,'mid')">Yarıyıl Tatili</button>
+<button onclick="switchCounter(this,'summer')">Yaz Tatili</button>
 </div>
 
 <div id="lgs" class="section active">
-<div class="date-info">📌 LGS 2026 • 14 Haziran 2026 • Pazar • 09:30</div>
+<div class="date-info">📌 14 Haziran 2026 • Pazar • 09:30</div>
 <div class="countdown-box"><div id="lgsC" class="countdown"></div></div>
 </div>
 
 <div id="tyt" class="section">
-<div class="date-info">📌 TYT 2026 • 13 Haziran 2026 • Cumartesi • 10:00</div>
+<div class="date-info">📌 13 Haziran 2026 • Cumartesi • 10:00</div>
 <div class="countdown-box"><div id="tytC" class="countdown"></div></div>
 </div>
 
 <div id="ayt" class="section">
-<div class="date-info">📌 AYT 2026 • 14 Haziran 2026 • Pazar • 10:00</div>
+<div class="date-info">📌 14 Haziran 2026 • Pazar • 10:00</div>
 <div class="countdown-box"><div id="aytC" class="countdown"></div></div>
 </div>
 
 <div id="mid" class="section">
-<div class="date-info">📌 Yarıyıl Tatili • 16 Ocak 2026 • Cuma</div>
+<div class="date-info">📌 16 Ocak 2026 • Cuma</div>
 <div class="countdown-box"><div id="midC" class="countdown"></div></div>
 </div>
 
 <div id="summer" class="section">
-<div class="date-info">📌 Yaz Tatili • 15 Haziran 2026 • Pazartesi</div>
+<div class="date-info">📌 15 Haziran 2026 • Pazartesi</div>
 <div class="countdown-box"><div id="summerC" class="countdown"></div></div>
+</div>
+
+<div class="share">
+<a id="wa" href="#"><i class="fab fa-whatsapp"></i></a>
+<a id="ig" href="#"><i class="fab fa-instagram"></i></a>
+<a id="tt" href="#"><i class="fab fa-tiktok"></i></a>
 </div>
 </div>
 
 <!-- ================= NET HESAPLAMA ================= -->
 <div class="card">
 <h2>🧮 Net Hesaplama</h2>
-<p>Netlerinizi girerek <b>MEB & ÖSYM sistemine yakın</b> şekilde tahmini puanınızı öğrenin.</p>
+<p>MEB ve ÖSYM sistemine yakın mantıkla hazırlanmış <b>tahmini puan hesaplama</b>.</p>
 
-<div class="menu">
-<button onclick="showCalc('tytCalc')">TYT</button>
-<button onclick="showCalc('aytCalc')">AYT</button>
-<button onclick="showCalc('lgsCalc')">LGS</button>
+<div class="menu" id="calcMenu">
+<button class="active" onclick="switchCalc(this,'tytCalc')">TYT</button>
+<button onclick="switchCalc(this,'aytCalc')">AYT</button>
+<button onclick="switchCalc(this,'lgsCalc')">LGS</button>
 </div>
 
 <div id="tytCalc" class="section active">
-<label>Türkçe Net</label><input type="number" id="tTr">
-<label>Matematik Net</label><input type="number" id="tMat">
-<label>Fen Bilimleri Net</label><input type="number" id="tFen">
-<label>Sosyal Bilimler Net</label><input type="number" id="tSos">
-<button onclick="hesaplaTYT()">Hesapla</button>
+<input type="number" id="tTr" placeholder="Türkçe Net">
+<input type="number" id="tMat" placeholder="Matematik Net">
+<input type="number" id="tFen" placeholder="Fen Net">
+<input type="number" id="tSos" placeholder="Sosyal Net">
+<button class="calc-btn" onclick="hesaplaTYT()">Hesapla</button>
 <div id="tSonuc" class="result"></div>
 </div>
 
 <div id="aytCalc" class="section">
-<label>Matematik Net</label><input type="number" id="aMat">
-<label>Fizik Net</label><input type="number" id="aFiz">
-<label>Kimya Net</label><input type="number" id="aKim">
-<label>Biyoloji Net</label><input type="number" id="aBio">
-<button onclick="hesaplaAYT()">Hesapla</button>
+<input type="number" id="aMat" placeholder="Matematik Net">
+<input type="number" id="aFiz" placeholder="Fizik Net">
+<input type="number" id="aKim" placeholder="Kimya Net">
+<input type="number" id="aBio" placeholder="Biyoloji Net">
+<button class="calc-btn" onclick="hesaplaAYT()">Hesapla</button>
 <div id="aSonuc" class="result"></div>
 </div>
 
 <div id="lgsCalc" class="section">
-<label>Türkçe Net</label><input type="number" id="lTr">
-<label>Matematik Net</label><input type="number" id="lMat">
-<label>Fen Bilimleri Net</label><input type="number" id="lFen">
-<button onclick="hesaplaLGS()">Hesapla</button>
+<input type="number" id="lTr" placeholder="Türkçe Net">
+<input type="number" id="lMat" placeholder="Matematik Net">
+<input type="number" id="lFen" placeholder="Fen Net">
+<button class="calc-btn" onclick="hesaplaLGS()">Hesapla</button>
 <div id="lSonuc" class="result"></div>
 </div>
 
-<p class="note">
-⚠️ Hesaplamalar tahminidir. Resmî sonuçlar MEB ve ÖSYM tarafından açıklanır.
-</p>
+<p class="note">⚠️ Bu sonuçlar tahminidir. Resmî sonuçlar MEB ve ÖSYM tarafından açıklanır.</p>
 </div>
+
+<footer>
+© 2026 • Profesyonel Sınav & Tatil Takip Aracı
+</footer>
 
 </div>
 
 <script>
-function showCounter(id){
+function switchCounter(btn,id){
+  document.querySelectorAll('#counterMenu button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
   document.querySelectorAll('.card:first-of-type .section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
-function showCalc(id){
+
+function switchCalc(btn,id){
+  document.querySelectorAll('#calcMenu button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
   document.querySelectorAll('.card:last-of-type .section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
+
 function start(el,date){
   function tick(){
     const d=date-new Date().getTime();
@@ -237,21 +294,23 @@ function start(el,date){
 start(lgsC,new Date("2026-06-14T09:30").getTime());
 start(tytC,new Date("2026-06-13T10:00").getTime());
 start(aytC,new Date("2026-06-14T10:00").getTime());
-start(midC,new Date("2026-01-16T00:00").getTime());
-start(summerC,new Date("2026-06-15T00:00").getTime());
+start(midC,new Date("2026-01-16").getTime());
+start(summerC,new Date("2026-06-15").getTime());
 
 function hesaplaTYT(){
-  const p=(+tTr.value||0)*3.3+(+tMat.value||0)*3.3+(+tFen.value||0)*3.4+(+tSos.value||0)*3.4+100;
-  tSonuc.textContent="Tahmini TYT Puanı: "+p.toFixed(2);
+  tSonuc.textContent="Tahmini TYT Puanı: "+((+tTr.value||0)*3.3+(+tMat.value||0)*3.3+(+tFen.value||0)*3.4+(+tSos.value||0)*3.4+100).toFixed(2);
 }
 function hesaplaAYT(){
-  const p=(+aMat.value||0)*3+(+aFiz.value||0)*2.9+(+aKim.value||0)*3+(+aBio.value||0)*3.1+100;
-  aSonuc.textContent="Tahmini AYT Puanı: "+p.toFixed(2);
+  aSonuc.textContent="Tahmini AYT Puanı: "+((+aMat.value||0)*3+(+aFiz.value||0)*2.9+(+aKim.value||0)*3+(+aBio.value||0)*3.1+100).toFixed(2);
 }
 function hesaplaLGS(){
-  const p=((+lTr.value||0)*4+(+lMat.value||0)*4.5+(+lFen.value||0)*4.5)*5;
-  lSonuc.textContent="Tahmini LGS Puanı: "+p.toFixed(0)+" / 500";
+  lSonuc.textContent="Tahmini LGS Puanı: "+(((+lTr.value||0)*4+(+lMat.value||0)*4.5+(+lFen.value||0)*4.5)*5).toFixed(0)+" / 500";
 }
+
+const url=encodeURIComponent(location.href);
+wa.href=`https://wa.me/?text=${url}`;
+ig.href=`https://www.instagram.com/`;
+tt.href=`https://www.tiktok.com/`;
 </script>
 
 </body>
