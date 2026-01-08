@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profesyonel Net Hesaplama & Sayaç</title>
-<meta name="description" content="LGS, TYT, AYT için profesyonel net hesaplama ve sınav geri sayım sitesi. Doğru-yanlış bazlı MEB uyumlu.">
+<title>Profesyonel Net Hesaplama & Sınav Sayaçları</title>
+<meta name="description" content="TYT, AYT, LGS için profesyonel net hesaplama ve sınav geri sayımı sitesi. Doğru-yanlış bazlı MEB uyumlu.">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -16,9 +16,9 @@
   --border:#334155;
   --error:#ef4444;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
-  margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;
+  font-family:Segoe UI,Roboto,Arial,sans-serif;
   background:linear-gradient(120deg,var(--bg),var(--bg2));
   color:var(--text);
 }
@@ -72,18 +72,30 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 }
 .share a{color:var(--text);transition:.2s}
 .share a:hover{color:var(--accent)}
+.countdown{margin:20px 0;padding:16px;border:1px solid var(--border);
+border-radius:14px;text-align:center;font-size:22px;font-weight:700;background:#020617;}
 @media(max-width:600px){header{font-size:22px}}
 </style>
 </head>
-
 <body>
 
 <header>🎓 Profesyonel Net Hesaplama & Sınav Sayaçları</header>
 <div class="container">
 
+<!-- SAYAÇ -->
+<div class="card">
+<h2>⏳ Sınav Geri Sayımı</h2>
+<p>Yaklaşan sınavlara kalan süre:</p>
+<div class="countdown" id="countdown">Yükleniyor...</div>
+<p class="note">Tatiller ve sınav tarihleri: <br>
+Yarıyıl Tatili: 20 Ocak – 5 Şubat <br>
+Yaz Tatili: 17 Haziran – 11 Eylül</p>
+</div>
+
+<!-- NET HESAPLAMA -->
 <div class="card">
 <h2>🧮 Net Hesaplama</h2>
-<p>Doğru-yanlış girerek gerçek MEB/ÖSYM net formülü ile tahmini puanınızı hesaplayın.</p>
+<p>Doğru ve yanlış girerek MEB/ÖSYM uyumlu tahmini puanınızı hesaplayın.</p>
 
 <div class="menu" id="calcMenu">
 <button class="active" onclick="switchCalc(this,'tyt')">TYT</button>
@@ -142,8 +154,23 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 </div>
 
 <script>
-function net(d,y){return +(d||0)-+(y||0)/4;}
+// Sayaç
+const sınavTarihi = new Date("2026-06-18T09:30:00"); // Örnek TYT tarihi
+function updateCountdown(){
+  const now = new Date();
+  let diff = sınavTarihi - now;
+  if(diff<=0){document.getElementById('countdown').textContent="Sınav başladı!";return;}
+  const gun=Math.floor(diff/1000/60/60/24);
+  diff-=gun*1000*60*60*24;
+  const saat=Math.floor(diff/1000/60/60);
+  diff-=saat*1000*60*60;
+  const dakika=Math.floor(diff/1000/60);
+  const saniye=Math.floor(diff/1000%60);
+  document.getElementById('countdown').textContent=`${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye`;
+}
+setInterval(updateCountdown,1000);
 
+// Buton aktif
 function switchCalc(btn,id){
   document.querySelectorAll('#calcMenu button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -151,26 +178,30 @@ function switchCalc(btn,id){
   document.getElementById(id).classList.add('active');
 }
 
+// Net hesaplama fonksiyonu
+function net(d,y){return +(d||0)-+(y||0)/4;}
+
 // Hata kontrolü
 function checkInput(did,max){
   const d = document.getElementById(did+'D');
   const y = document.getElementById(did+'Y');
-  const maxSoru = max;
   const toplam = (+d.value||0)+(+y.value||0);
-  if(toplam>maxSoru){d.classList.add('error');y.classList.add('error'); return false;}
+  if(toplam>max){d.classList.add('error');y.classList.add('error'); return false;}
   else {d.classList.remove('error');y.classList.remove('error'); return true;}
 }
 
+// TYT
 function hesaplaTYT(){
   const dersler=[['tTr',40],['tMa',40],['tSo',20],['tFe',20]];
   let total=0;
   for(const d of dersler){
     if(!checkInput(d[0],d[1])){tytR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
-    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)* (d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
+    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*(d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
   }
   tytR.textContent="Tahmini TYT Puanı: "+(total+100).toFixed(2);
 }
 
+// AYT
 function hesaplaAYT(){
   const dersler=[['aMa',40],['aFi',14],['aKi',13],['aBi',13]];
   let total=0;
@@ -182,6 +213,7 @@ function hesaplaAYT(){
   aytR.textContent="Tahmini AYT Puanı: "+(total+100).toFixed(2);
 }
 
+// LGS
 function hesaplaLGS(){
   const dersler=[['lTr',20],['lMa',20],['lFe',20],['lIn',10],['lDi',10],['lEn',10]];
   let total=0;
