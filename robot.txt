@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://efetiras10.github.io/Sayaclar---NetHesaplama/sitemap.xml
