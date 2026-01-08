@@ -1,343 +1,258 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Geri Sayım Sayaçları | Tatil ve Sınav Tarihleri</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sayaçlar & Net Hesaplama</title>
 
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
-
-  <!-- SEO Meta Etiketleri -->
-  <meta name="description" content="Yaz tatili, yarıyıl tatili ve LGS, TYT, AYT, YKS sınav geri sayım sayaçları. Doğru tarihlerle geri sayım yapın ve paylaşın." />
-  <meta name="keywords" content="geri sayım, sayaç, yaz tatili, yarıyıl tatili, LGS, TYT, AYT, YKS, sınav tarihleri, Türkiye" />
-  <meta name="author" content="Efe Tiras" />
-
-  <link rel="canonical" href="https://efetiras10.github.io/Sayaclar---NetHesaplama/" />
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDRK78BCMP"></script>
-<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-XDRK78BCMP');</script>
-
-
-  <!-- Open Graph (Sosyal Medya) -->
-  <meta property="og:title" content="Geri Sayım Sayaçları | Tatil ve Sınav Tarihleri" />
-  <meta property="og:description" content="Yaz tatili ve sınav geri sayım sayaçları. Doğru tarihlerle geri sayım yapın ve paylaşın." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://efetiras10.github.io/" />
-  <meta property="og:image" content="https://efetiras10.github.io/Sayaclar---NetHesaplama/images/sayac-gorsel.jpeg" />
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4315985864571521"
-     crossorigin="anonymous"></script>
-
-  <body>
-  <h1>Geri Sayım Sayaçları</h1>
-
-  <!-- YKS 2026 -->
-  <h2>YKS 2026 Ne Zaman?</h2>
-  <p>“Yükseköğretim Kurumları Sınavı (YKS), Millî Eğitim Bakanlığı tarafından belirlenen sınav tarihlerine ne kadar kaldığını aşağıdaki sayaçlardan görebilirsiniz.”</p>
-
-  <!-- LGS 2026 -->
-  <h2>LGS 2026 Ne Zaman?</h2>
-  <p>“Liselere Geçiş Sistemi (LGS), Millî Eğitim Bakanlığı tarafından belirlenen sınav tarihlerine ne kadar kaldığını aşağıdaki sayaçlardan görebilirsiniz.”</p>
-
-  <!-- Burada senin geri sayım sayaç kodların çalışıyor -->
-</body>
-
+  <!-- Tema -->
   <style>
     :root {
-      --bg1: #0f172a;
-      --bg2: #1e293b;
-      --card: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #3b82f6;
-      --accent-dark: #1e40af;
-      --border: #334155;
+      --bg1:#0f172a;
+      --bg2:#1e293b;
+      --card:#1e293b;
+      --text:#f1f5f9;
+      --muted:#94a3b8;
+      --accent:#3b82f6;
+      --border:#334155;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing:border-box; }
 
     body {
-      margin: 0;
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: linear-gradient(120deg, var(--bg1), var(--bg2));
+      margin:0;
+      font-family:Segoe UI, Roboto, Arial, sans-serif;
+      background:linear-gradient(120deg,var(--bg1),var(--bg2));
+      color:var(--text);
     }
 
     header {
-      padding: 14px 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 22px;
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
+      text-align:center;
+      padding:16px;
+      font-size:22px;
+      font-weight:600;
+      border-bottom:1px solid var(--border);
     }
-
-    .menu-bar {
-      display: flex;
-      justify-content: center;
-      margin: 14px 0;
-    }
-
-    .menu-container { position: relative; }
-
-    .menu-button {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.1s ease;
-    }
-
-    .menu-button:hover {
-      background: var(--accent-dark);
-      transform: translateY(-1px);
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      min-width: 230px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
-      z-index: 20;
-    }
-
-    .dropdown button {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 12px 14px;
-      background: transparent;
-      color: var(--text);
-      border: none;
-      cursor: pointer;
-      font-size: 15px;
-      transition: background 0.15s ease;
-    }
-
-    .dropdown button:hover { background: #334155; }
 
     .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 16px 28px;
+      max-width:900px;
+      margin:auto;
+      padding:16px;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
-      padding: 20px 18px;
-      margin: 18px auto;
-      width: 100%;
-      animation: fadeIn 0.5s ease;
-      display: none;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      margin-bottom:20px;
+      box-shadow:0 8px 20px rgba(0,0,0,.4);
     }
 
-    .card.active {
-      display: block;
+    h2 { margin-top:0; }
+
+    .menu {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
     }
 
-    .card h2 {
-      margin: 0 0 10px 0;
-      font-size: 20px;
+    button {
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:15px;
     }
 
-    .date-line {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
+    button:hover { opacity:.9; }
+
+    .section { display:none; }
+    .section.active { display:block; }
 
     .countdown {
-      font-variant-numeric: tabular-nums;
-      font-size: 18px;
-      letter-spacing: 0.3px;
-      margin: 8px 0 18px;
+      font-size:18px;
+      margin-top:10px;
     }
 
-    .share {
-      margin-top: 18px;
-      display: flex;
-      gap: 14px;
-      justify-content: center;
+    input[type="number"] {
+      width:100%;
+      max-width:260px;
+      padding:8px;
+      margin:6px 0 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:var(--bg2);
+      color:var(--text);
     }
 
-    .share img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
-      border-radius: 6px;
-      transition: transform 0.2s ease;
+    .note {
+      font-size:13px;
+      color:var(--muted);
+      margin-top:8px;
     }
 
-    .share img:hover {
-      transform: scale(1.1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width:600px) {
+      header { font-size:19px; }
+      button { width:100%; }
     }
   </style>
 </head>
-<body>
-  <header>📅 Geri Sayım Sayaçları</header>
 
-  <div class="menu-bar">
-    <div class="menu-container">
-      <button class="menu-button" onclick="toggleMenu('menuSayaç')">☰ Sayaçlar</button>
-      <div id="menuSayaç" class="dropdown">
-        <button onclick="showSection('summer')">Yaz Tatili Sayaç</button>
-        <button onclick="showSection('midterm')">Yarıyıl Tatili Sayaç</button>
-        <button onclick="showSection('lgs')">LGS Sayaç</button>
-        <button onclick="showSection('tyt')">TYT Sayaç</button>
-        <button onclick="showSection('ayt')">AYT Sayaç</button>
-      </div>
+<body>
+
+<header>📚 Sayaçlar & Net Hesaplama</header>
+
+<div class="container">
+
+  <!-- ================= SAYAÇLAR ================= -->
+  <div class="card">
+    <h2>📅 Geri Sayım Sayaçları</h2>
+
+    <div class="menu">
+      <button onclick="showCounter('summer')">Yaz Tatili</button>
+      <button onclick="showCounter('lgs')">LGS</button>
+      <button onclick="showCounter('tyt')">TYT</button>
+      <button onclick="showCounter('ayt')">AYT</button>
+    </div>
+
+    <div id="summer" class="section active">
+      <p>Yaz tatiline kalan süre:</p>
+      <div id="summerC" class="countdown"></div>
+    </div>
+
+    <div id="lgs" class="section">
+      <p>LGS'ye kalan süre:</p>
+      <div id="lgsC" class="countdown"></div>
+    </div>
+
+    <div id="tyt" class="section">
+      <p>TYT'ye kalan süre:</p>
+      <div id="tytC" class="countdown"></div>
+    </div>
+
+    <div id="ayt" class="section">
+      <p>AYT'ye kalan süre:</p>
+      <div id="aytC" class="countdown"></div>
     </div>
   </div>
 
-  <div class="container">
-    <section id="summer" class="card active">
-      <h2>Yaz Tatiline Kalan Süre</h2>
-      <div class="date-line">Başlangıç: 15 Haziran 2026, Pazartesi</div>
-      <div id="summerCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareSummerWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>    <!-- Yarıyıl Tatili -->
-    <section id="midterm" class="card">
-      <h2>Yarıyıl Tatiline Kalan Süre</h2>
-      <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
-      <div id="midtermCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareMidWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>
+  <!-- ================= NET HESAPLAMA ================= -->
+  <div class="card">
+    <h2>🧮 Net Hesaplama</h2>
 
-    <!-- LGS -->
-    <section id="lgs" class="card">
-      <h2>LGS Sayaç</h2>
-      <div class="date-line">Tarih: 14 Haziran 2026, Pazar — 1. Oturum 09:30</div>
-      <div id="lgsCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareLgsWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>
+    <div class="menu">
+      <button onclick="showCalc('tytCalc')">TYT</button>
+      <button onclick="showCalc('aytCalc')">AYT</button>
+      <button onclick="showCalc('lgsCalc')">LGS</button>
+    </div>
 
     <!-- TYT -->
-    <section id="tyt" class="card">
-      <h2>TYT Sayaç</h2>
-      <div class="date-line">Tarih: 13 Haziran 2026, Cumartesi</div>
-      <div id="tytCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareTytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>
+    <div id="tytCalc" class="section active">
+      <label>Türkçe Net</label>
+      <input type="number" id="tTr" min="0" max="40">
+      <label>Matematik Net</label>
+      <input type="number" id="tMat" min="0" max="40">
+      <label>Fen Net</label>
+      <input type="number" id="tFen" min="0" max="20">
+      <label>Sosyal Net</label>
+      <input type="number" id="tSos" min="0" max="20">
+      <button onclick="hesaplaTYT()">Hesapla</button>
+      <div id="tSonuc" class="countdown"></div>
+    </div>
 
     <!-- AYT -->
-    <section id="ayt" class="card">
-      <h2>AYT Sayaç</h2>
-      <div class="date-line">Tarih: 14 Haziran 2026, Pazar</div>
-      <div id="aytCountdown" class="countdown"></div>
-      <div class="share">
-        <a id="shareAytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
-        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-      </div>
-    </section>
+    <div id="aytCalc" class="section">
+      <label>Matematik Net</label>
+      <input type="number" id="aMat">
+      <label>Fizik Net</label>
+      <input type="number" id="aFiz">
+      <label>Kimya Net</label>
+      <input type="number" id="aKim">
+      <label>Biyoloji Net</label>
+      <input type="number" id="aBio">
+      <button onclick="hesaplaAYT()">Hesapla</button>
+      <div id="aSonuc" class="countdown"></div>
+    </div>
+
+    <!-- LGS -->
+    <div id="lgsCalc" class="section">
+      <label>Türkçe Net</label>
+      <input type="number" id="lTr">
+      <label>Matematik Net</label>
+      <input type="number" id="lMat">
+      <label>Fen Net</label>
+      <input type="number" id="lFen">
+      <button onclick="hesaplaLGS()">Hesapla</button>
+      <div id="lSonuc" class="countdown"></div>
+    </div>
+
+    <p class="note">Bu hesaplamalar tahminidir, ÖSYM/MEB resmî hesaplama değildir.</p>
   </div>
 
-  <script>
-    function toggleMenu(id) {
-      const el = document.getElementById(id);
-      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+</div>
+
+<script>
+  // Sayaç sekmeleri
+  function showCounter(id){
+    document.querySelectorAll('.card .section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  // Net sekmeleri
+  function showCalc(id){
+    document.querySelectorAll('#netHesaplama .section');
+    document.querySelectorAll('.card:nth-of-type(2) .section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function start(el, date){
+    function tick(){
+      const d = date - new Date().getTime();
+      if(d<=0){ el.textContent="Süre doldu"; return; }
+      el.textContent =
+        Math.floor(d/86400000)+"g "+
+        Math.floor(d/3600000)%24+"s "+
+        Math.floor(d/60000)%60+"d "+
+        Math.floor(d/1000)%60+"sn";
     }
+    tick(); setInterval(tick,1000);
+  }
 
-    function showSection(id) {
-      document.querySelectorAll('.card').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
-      const menu = document.getElementById('menuSayaç');
-      if (menu) menu.style.display = 'none';
-    }
+  start(summerC, new Date("2026-06-15").getTime());
+  start(lgsC, new Date("2026-06-14T09:30").getTime());
+  start(tytC, new Date("2026-06-13T10:00").getTime());
+  start(aytC, new Date("2026-06-14T10:00").getTime());
 
-    function startCountdown(elId, target) {
-      function tick() {
-        const now = new Date().getTime();
-        const dist = target - now;
-        if (dist <= 0) {
-          document.getElementById(elId).textContent = 'Süre doldu!';
-          return;
-        }
-        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((dist % (1000 * 60)) / 1000);
-        document.getElementById(elId).textContent = `${d} Gün ${h} Saat ${m} Dakika ${s} Saniye kaldı`;
-      }
-      tick();
-      return setInterval(tick, 1000);
-    }
+  function hesaplaTYT(){
+    const p =
+      (+tTr.value||0)*3.3 +
+      (+tMat.value||0)*3.3 +
+      (+tFen.value||0)*3.4 +
+      (+tSos.value||0)*3.4;
+    tSonuc.textContent = "Tahmini TYT Puanı: " + p.toFixed(2);
+  }
 
-    const summerDate = new Date('June 15, 2026 00:00:00').getTime();
-    const midtermDate = new Date('January 16, 2026 00:00:00').getTime();
-    const lgsDate = new Date('June 14, 2026 09:30:00').getTime();
-    const tytDate = new Date('June 13, 2026 10:00:00').getTime();
-    const aytDate = new Date('June 14, 2026 10:00:00').getTime();
-    
+  function hesaplaAYT(){
+    const p =
+      (+aMat.value||0)*3 +
+      (+aFiz.value||0)*2.9 +
+      (+aKim.value||0)*3 +
+      (+aBio.value||0)*3.1;
+    aSonuc.textContent = "Tahmini AYT Puanı: " + p.toFixed(2);
+  }
 
-    startCountdown('summerCountdown', summerDate);
-    startCountdown('midtermCountdown', midtermDate);
-    startCountdown('lgsCountdown', lgsDate);
-    startCountdown('tytCountdown', tytDate);
-    startCountdown('aytCountdown', aytDate);
-    
+  function hesaplaLGS(){
+    const p =
+      (+lTr.value||0)*4 +
+      (+lMat.value||0)*4.5 +
+      (+lFen.value||0)*4.5;
+    lSonuc.textContent = "Tahmini LGS Puanı: " + p.toFixed(2);
+  }
+</script>
 
-    function setWA(id) {
-      const url = encodeURIComponent(location.href);
-      const text = encodeURIComponent('Şuna bir bak: Geri Sayım Sayaçları');
-      const wa = document.getElementById(id);
-      if (wa) wa.href = `https://wa.me/?text=${text}%20${url}`;
-    }
-
-    setWA('shareSummerWA');
-    setWA('shareMidWA');
-    setWA('shareLgsWA');
-    setWA('shareTytWA');
-    setWA('shareAytWA');
-    setWA('shareYksWA');
-
-    // Menü dışına tıklayınca kapanması için
-    document.addEventListener('click', function(e) {
-      const menu = document.getElementById('menuSayaç');
-      const btn = e.target.closest('.menu-button');
-      if (!btn && menu && !e.target.closest('#menuSayaç')) {
-        menu.style.display = 'none';
-      }
-    });
-  </script>
 </body>
 </html>
-
-
