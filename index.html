@@ -3,77 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profesyonel Net Hesaplama & Sınav Sayaçları</title>
-<meta name="description" content="TYT, AYT, LGS için profesyonel net hesaplama ve sınav geri sayımı sitesi. Doğru-yanlış bazlı MEB uyumlu.">
+<title>Profesyonel Net Hesaplama ve Sınav Sayaçları</title>
+<meta name="description" content="TYT, AYT, LGS için profesyonel net hesaplama ve sınav geri sayımı sitesi. Tatiller, doğru-yanlış kontrolü ve paylaşım simgeleri içerir.">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
-  --bg:#0f172a;--bg2:#1e293b;--card:#111827;
-  --text:#f8fafc;--muted:#94a3b8;
-  --accent:#3b82f6;--accent2:#22c55e;
-  --border:#334155;
-  --error:#ef4444;
+  --bg:#0f172a; --bg2:#1e293b; --card:#111827;
+  --text:#f8fafc; --muted:#94a3b8;
+  --accent:#3b82f6; --accent2:#22c55e;
+  --border:#334155; --error:#ef4444;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;}
 body{
   font-family:Segoe UI,Roboto,Arial,sans-serif;
-  background:linear-gradient(120deg,var(--bg),var(--bg2));
-  color:var(--text);
+  background:linear-gradient(135deg,var(--bg),var(--bg2));
+  color:var(--text); line-height:1.6;
 }
 header{
-  text-align:center;padding:26px;font-size:26px;font-weight:800;
+  text-align:center;padding:24px;font-size:28px;font-weight:800;
   border-bottom:1px solid var(--border);
 }
-.container{max-width:1150px;margin:auto;padding:28px 16px 60px}
+.container{max-width:1150px;margin:auto;padding:24px 16px 60px}
 .card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:26px;margin-bottom:36px;
+  background:var(--card); border-radius:20px;
+  padding:26px; margin-bottom:36px;
+  border:1px solid var(--border);
   box-shadow:0 14px 36px rgba(0,0,0,.45);
 }
 h2{margin-top:0}
-p{color:var(--muted);line-height:1.7}
-.menu{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-.menu button{
-  background:#020617;border:1px solid var(--border);
-  color:var(--text);padding:10px 18px;border-radius:12px;
-  cursor:pointer;transition:.2s
+.menu-bar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.menu-button{
+  background:#020617; border:1px solid var(--border);
+  color:var(--text); padding:10px 18px; border-radius:12px;
+  cursor:pointer; transition:.2s;
 }
-.menu button.active{background:var(--accent);border-color:var(--accent)}
+.menu-button.active{background:var(--accent);border-color:var(--accent);}
 .section{display:none}
 .section.active{display:block}
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;margin-top:14px
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;
 }
 .box{
-  background:#020617;border:1px solid var(--border);
-  border-radius:14px;padding:16px;position:relative
+  background:#020617; border:1px solid var(--border);
+  border-radius:14px; padding:16px; position:relative;
 }
 .box h4{margin:0 0 8px 0}
 input{
-  width:100%;padding:8px;margin:4px 0 8px;
-  border-radius:8px;border:1px solid var(--border);
-  background:var(--bg2);color:var(--text);transition:.2s
+  width:100%; padding:8px; margin:4px 0 8px;
+  border-radius:8px; border:1px solid var(--border);
+  background:var(--bg2); color:var(--text); transition:.2s;
 }
 input.error{border-color:var(--error);background:#7f1d1d;}
 .calc-btn{
-  margin-top:16px;background:var(--accent2);
+  margin-top:16px; background:var(--accent2);
   border:none;padding:12px 22px;border-radius:12px;
-  font-weight:700;cursor:pointer
+  font-weight:700; cursor:pointer;
 }
 .result{margin-top:18px;font-size:18px;font-weight:700}
 .note{font-size:13px;color:var(--muted);margin-top:16px}
 .share{
-  display:flex;justify-content:center;gap:24px;margin-top:40px;
-  font-size:28px
+  display:flex;justify-content:center;gap:24px;margin-top:40px;font-size:28px
 }
 .share a{color:var(--text);transition:.2s}
 .share a:hover{color:var(--accent)}
-.countdown{margin:20px 0;padding:16px;border:1px solid var(--border);
-border-radius:14px;text-align:center;font-size:22px;font-weight:700;background:#020617;}
+.countdown-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;}
+.countdown{padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:700;background:#020617;border:1px solid var(--border);}
 @media(max-width:600px){header{font-size:22px}}
 </style>
 </head>
@@ -82,14 +78,16 @@ border-radius:14px;text-align:center;font-size:22px;font-weight:700;background:#
 <header>🎓 Profesyonel Net Hesaplama & Sınav Sayaçları</header>
 <div class="container">
 
-<!-- SAYAÇ -->
+<!-- SAYAÇLAR -->
 <div class="card">
-<h2>⏳ Sınav Geri Sayımı</h2>
-<p>Yaklaşan sınavlara kalan süre:</p>
-<div class="countdown" id="countdown">Yükleniyor...</div>
-<p class="note">Tatiller ve sınav tarihleri: <br>
-Yarıyıl Tatili: 20 Ocak – 5 Şubat <br>
-Yaz Tatili: 17 Haziran – 11 Eylül</p>
+<h2>⏳ Sınav ve Tatil Sayaçları</h2>
+<div class="countdown-container">
+  <div class="countdown" id="tytCountdown">TYT: Yükleniyor...</div>
+  <div class="countdown" id="aytCountdown">AYT: Yükleniyor...</div>
+  <div class="countdown" id="lgsCountdown">LGS: Yükleniyor...</div>
+  <div class="countdown" id="yarıyilCountdown">Yarıyıl Tatili: Yükleniyor...</div>
+  <div class="countdown" id="yazCountdown">Yaz Tatili: Yükleniyor...</div>
+</div>
 </div>
 
 <!-- NET HESAPLAMA -->
@@ -97,10 +95,10 @@ Yaz Tatili: 17 Haziran – 11 Eylül</p>
 <h2>🧮 Net Hesaplama</h2>
 <p>Doğru ve yanlış girerek MEB/ÖSYM uyumlu tahmini puanınızı hesaplayın.</p>
 
-<div class="menu" id="calcMenu">
-<button class="active" onclick="switchCalc(this,'tyt')">TYT</button>
-<button onclick="switchCalc(this,'ayt')">AYT</button>
-<button onclick="switchCalc(this,'lgs')">LGS</button>
+<div class="menu-bar" id="calcMenu">
+<button class="menu-button active" onclick="switchCalc(this,'tyt')">TYT</button>
+<button class="menu-button" onclick="switchCalc(this,'ayt')">AYT</button>
+<button class="menu-button" onclick="switchCalc(this,'lgs')">LGS</button>
 </div>
 
 <!-- TYT -->
@@ -139,9 +137,7 @@ Yaz Tatili: 17 Haziran – 11 Eylül</p>
 </div>
 <button class="calc-btn" onclick="hesaplaLGS()">Hesapla</button>
 <div id="lgsR" class="result"></div>
-</div>
-
-<p class="note">⚠️ Net = Doğru − (Yanlış / 4). Sonuçlar tahminidir.</p>
+<p class="note">⚠️ Net = Doğru − (Yanlış / 4). Hatalı girişlerde kutu kırmızı olur.</p>
 </div>
 
 <!-- PAYLAŞIM -->
@@ -154,22 +150,6 @@ Yaz Tatili: 17 Haziran – 11 Eylül</p>
 </div>
 
 <script>
-// Sayaç
-const sınavTarihi = new Date("2026-06-18T09:30:00"); // Örnek TYT tarihi
-function updateCountdown(){
-  const now = new Date();
-  let diff = sınavTarihi - now;
-  if(diff<=0){document.getElementById('countdown').textContent="Sınav başladı!";return;}
-  const gun=Math.floor(diff/1000/60/60/24);
-  diff-=gun*1000*60*60*24;
-  const saat=Math.floor(diff/1000/60/60);
-  diff-=saat*1000*60*60;
-  const dakika=Math.floor(diff/1000/60);
-  const saniye=Math.floor(diff/1000%60);
-  document.getElementById('countdown').textContent=`${gun} gün ${saat} saat ${dakika} dakika ${saniye} saniye`;
-}
-setInterval(updateCountdown,1000);
-
 // Buton aktif
 function switchCalc(btn,id){
   document.querySelectorAll('#calcMenu button').forEach(b=>b.classList.remove('active'));
@@ -178,10 +158,8 @@ function switchCalc(btn,id){
   document.getElementById(id).classList.add('active');
 }
 
-// Net hesaplama fonksiyonu
+// Net hesaplama
 function net(d,y){return +(d||0)-+(y||0)/4;}
-
-// Hata kontrolü
 function checkInput(did,max){
   const d = document.getElementById(did+'D');
   const y = document.getElementById(did+'Y');
@@ -195,7 +173,7 @@ function hesaplaTYT(){
   const dersler=[['tTr',40],['tMa',40],['tSo',20],['tFe',20]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){tytR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    if(!checkInput(d[0],d[1])){tytR.textContent="Hatalı giriş!";return;}
     total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*(d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
   }
   tytR.textContent="Tahmini TYT Puanı: "+(total+100).toFixed(2);
@@ -206,7 +184,7 @@ function hesaplaAYT(){
   const dersler=[['aMa',40],['aFi',14],['aKi',13],['aBi',13]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){aytR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    if(!checkInput(d[0],d[1])){aytR.textContent="Hatalı giriş!";return;}
     const katsayi=(d[0]==='aFi'?2.9:(d[0]==='aBi'?3.1:3));
     total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
   }
@@ -218,12 +196,44 @@ function hesaplaLGS(){
   const dersler=[['lTr',20],['lMa',20],['lFe',20],['lIn',10],['lDi',10],['lEn',10]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){lgsR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    if(!checkInput(d[0],d[1])){lgsR.textContent="Hatalı giriş!";return;}
     const katsayi=(d[0]=='lTr'?4:(d[0]=='lMa'||d[0]=='lFe'?4.5:2));
     total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
   }
   lgsR.textContent="Tahmini LGS Puanı: "+Math.round(total*5)+" / 500";
 }
+
+// Sayaçlar
+const tarihler={
+  tyt:new Date("2026-06-18T09:30:00"),
+  ayt:new Date("2026-06-25T09:30:00"),
+  lgs:new Date("2026-06-08T09:30:00"),
+  yariyil_start:new Date("2026-01-20T00:00:00"),
+  yariyil_end:new Date("2026-02-05T00:00:00"),
+  yaz_start:new Date("2026-06-17T00:00:00"),
+  yaz_end:new Date("2026-09-11T00:00:00")
+};
+
+function updateCountdowns(){
+  const now=new Date();
+  const diff=(d)=>Math.max(0,d-now);
+  const format=(ms)=>{
+    const gun=Math.floor(ms/1000/60/60/24);
+    ms-=gun*1000*60*60*24;
+    const saat=Math.floor(ms/1000/60/60);
+    ms-=saat*1000*60*60;
+    const dakika=Math.floor(ms/1000/60);
+    const saniye=Math.floor(ms/1000%60);
+    return `${gun}g ${saat}s ${dakika}dk ${saniye}s`;
+  }
+  document.getElementById('tytCountdown').textContent = "TYT: "+(diff(tarihler.tyt)?format(diff(tarihler.tyt)):"Sınav başladı!");
+  document.getElementById('aytCountdown').textContent = "AYT: "+(diff(tarihler.ayt)?format(diff(tarihler.ayt)):"Sınav başladı!");
+  document.getElementById('lgsCountdown').textContent = "LGS: "+(diff(tarihler.lgs)?format(diff(tarihler.lgs)):"Sınav başladı!");
+  document.getElementById('yarıyilCountdown').textContent = "Yarıyıl Tatili: "+(diff(tarihler.yariyil_start)?format(diff(tarihler.yariyil_start)):"Tatilde!");
+  document.getElementById('yazCountdown').textContent = "Yaz Tatili: "+(diff(tarihler.yaz_start)?format(diff(tarihler.yaz_start)):"Tatilde!");
+}
+setInterval(updateCountdowns,1000);
+updateCountdowns();
 </script>
 
 </body>
