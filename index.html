@@ -3,314 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sınav Sayaçları & Net Hesaplama | Profesyonel Öğrenci Aracı</title>
+<title>Profesyonel Net Hesaplama & Sayaç</title>
+<meta name="description" content="LGS, TYT, AYT için profesyonel net hesaplama ve sınav geri sayım sitesi. Doğru-yanlış bazlı MEB uyumlu.">
 
-<meta name="description" content="LGS, TYT, AYT sınavları ile yarıyıl ve yaz tatili için profesyonel geri sayım sayaçları. MEB ve ÖSYM sistemine yakın net hesaplama aracı.">
-<meta name="keywords" content="sayaç, geri sayım, net hesaplama, tyt net hesaplama, ayt net hesaplama, lgs sayaç">
-<meta name="author" content="Efe Tıraş">
-
-<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
-  --bg:#0f172a;
-  --bg2:#1e293b;
-  --card:#111827;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --accent:#3b82f6;
-  --accent2:#22c55e;
+  --bg:#0f172a;--bg2:#1e293b;--card:#111827;
+  --text:#f8fafc;--muted:#94a3b8;
+  --accent:#3b82f6;--accent2:#22c55e;
   --border:#334155;
+  --error:#ef4444;
 }
-
 *{box-sizing:border-box}
-
 body{
-  margin:0;
-  font-family:Segoe UI,Roboto,Arial,sans-serif;
+  margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;
   background:linear-gradient(120deg,var(--bg),var(--bg2));
   color:var(--text);
 }
-
 header{
-  text-align:center;
-  padding:26px 16px;
-  font-size:26px;
-  font-weight:800;
+  text-align:center;padding:26px;font-size:26px;font-weight:800;
   border-bottom:1px solid var(--border);
 }
-
-.container{
-  max-width:1100px;
-  margin:auto;
-  padding:28px 16px 60px;
-}
-
+.container{max-width:1150px;margin:auto;padding:28px 16px 60px}
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:26px;
-  margin-bottom:34px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:26px;margin-bottom:36px;
   box-shadow:0 14px 36px rgba(0,0,0,.45);
 }
-
-h2{margin-top:0;font-size:23px}
-
+h2{margin-top:0}
 p{color:var(--muted);line-height:1.7}
-
-.menu{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:18px 0 16px;
-}
-
+.menu{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
 .menu button{
-  background:#020617;
-  border:1px solid var(--border);
-  color:var(--text);
-  padding:10px 18px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:15px;
-  transition:.2s;
+  background:#020617;border:1px solid var(--border);
+  color:var(--text);padding:10px 18px;border-radius:12px;
+  cursor:pointer;transition:.2s
 }
-
-.menu button.active{
-  background:var(--accent);
-  border-color:var(--accent);
-}
-
-.menu button:hover{transform:translateY(-1px)}
-
+.menu button.active{background:var(--accent);border-color:var(--accent)}
 .section{display:none}
 .section.active{display:block}
-
-.countdown-box{
-  margin-top:14px;
-  padding:18px;
-  border-radius:14px;
-  background:#020617;
-  border:1px solid var(--border);
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;margin-top:14px
 }
-
-.countdown{
-  font-size:22px;
-  font-weight:700;
+.box{
+  background:#020617;border:1px solid var(--border);
+  border-radius:14px;padding:16px;position:relative
 }
-
-.date-info{
-  font-size:14px;
-  color:var(--muted);
-  margin-bottom:6px;
+.box h4{margin:0 0 8px 0}
+input{
+  width:100%;padding:8px;margin:4px 0 8px;
+  border-radius:8px;border:1px solid var(--border);
+  background:var(--bg2);color:var(--text);transition:.2s
 }
-
-input[type="number"]{
-  width:100%;
-  max-width:260px;
-  padding:10px;
-  margin:6px 0 16px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:var(--bg2);
-  color:var(--text);
-}
-
+input.error{border-color:var(--error);background:#7f1d1d;}
 .calc-btn{
-  background:var(--accent2);
-  border:none;
-  padding:10px 20px;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
+  margin-top:16px;background:var(--accent2);
+  border:none;padding:12px 22px;border-radius:12px;
+  font-weight:700;cursor:pointer
 }
-
-.result{
-  margin-top:14px;
-  font-size:19px;
-  font-weight:700;
-}
-
-.note{
-  margin-top:20px;
-  font-size:13px;
-  color:var(--muted);
-}
-
-/* Share */
+.result{margin-top:18px;font-size:18px;font-weight:700}
+.note{font-size:13px;color:var(--muted);margin-top:16px}
 .share{
-  display:flex;
-  gap:16px;
-  margin-top:20px;
+  display:flex;justify-content:center;gap:24px;margin-top:40px;
+  font-size:28px
 }
-.share a{
-  color:white;
-  font-size:24px;
-  transition:.2s;
-}
-.share a:hover{transform:scale(1.15)}
-
-footer{
-  text-align:center;
-  font-size:13px;
-  color:var(--muted);
-  margin-top:40px;
-}
-
-@media(max-width:600px){
-  header{font-size:21px}
-  .menu button{width:100%}
-}
+.share a{color:var(--text);transition:.2s}
+.share a:hover{color:var(--accent)}
+@media(max-width:600px){header{font-size:22px}}
 </style>
 </head>
 
 <body>
 
-<header>🎓 Sınav Sayaçları & Net Hesaplama</header>
-
+<header>🎓 Profesyonel Net Hesaplama & Sınav Sayaçları</header>
 <div class="container">
 
-<!-- ================= SAYAÇLAR ================= -->
-<div class="card">
-<h2>📅 Geri Sayım Sayaçları</h2>
-<p>Sınav ve tatiller için <b>resmî takvimlere dayalı</b> profesyonel geri sayım sayaçları.</p>
-
-<div class="menu" id="counterMenu">
-<button class="active" onclick="switchCounter(this,'lgs')">LGS</button>
-<button onclick="switchCounter(this,'tyt')">TYT</button>
-<button onclick="switchCounter(this,'ayt')">AYT</button>
-<button onclick="switchCounter(this,'mid')">Yarıyıl Tatili</button>
-<button onclick="switchCounter(this,'summer')">Yaz Tatili</button>
-</div>
-
-<div id="lgs" class="section active">
-<div class="date-info">📌 14 Haziran 2026 • Pazar • 09:30</div>
-<div class="countdown-box"><div id="lgsC" class="countdown"></div></div>
-</div>
-
-<div id="tyt" class="section">
-<div class="date-info">📌 13 Haziran 2026 • Cumartesi • 10:00</div>
-<div class="countdown-box"><div id="tytC" class="countdown"></div></div>
-</div>
-
-<div id="ayt" class="section">
-<div class="date-info">📌 14 Haziran 2026 • Pazar • 10:00</div>
-<div class="countdown-box"><div id="aytC" class="countdown"></div></div>
-</div>
-
-<div id="mid" class="section">
-<div class="date-info">📌 16 Ocak 2026 • Cuma</div>
-<div class="countdown-box"><div id="midC" class="countdown"></div></div>
-</div>
-
-<div id="summer" class="section">
-<div class="date-info">📌 15 Haziran 2026 • Pazartesi</div>
-<div class="countdown-box"><div id="summerC" class="countdown"></div></div>
-</div>
-
-<div class="share">
-<a id="wa" href="#"><i class="fab fa-whatsapp"></i></a>
-<a id="ig" href="#"><i class="fab fa-instagram"></i></a>
-<a id="tt" href="#"><i class="fab fa-tiktok"></i></a>
-</div>
-</div>
-
-<!-- ================= NET HESAPLAMA ================= -->
 <div class="card">
 <h2>🧮 Net Hesaplama</h2>
-<p>MEB ve ÖSYM sistemine yakın mantıkla hazırlanmış <b>tahmini puan hesaplama</b>.</p>
+<p>Doğru-yanlış girerek gerçek MEB/ÖSYM net formülü ile tahmini puanınızı hesaplayın.</p>
 
 <div class="menu" id="calcMenu">
-<button class="active" onclick="switchCalc(this,'tytCalc')">TYT</button>
-<button onclick="switchCalc(this,'aytCalc')">AYT</button>
-<button onclick="switchCalc(this,'lgsCalc')">LGS</button>
+<button class="active" onclick="switchCalc(this,'tyt')">TYT</button>
+<button onclick="switchCalc(this,'ayt')">AYT</button>
+<button onclick="switchCalc(this,'lgs')">LGS</button>
 </div>
 
-<div id="tytCalc" class="section active">
-<input type="number" id="tTr" placeholder="Türkçe Net">
-<input type="number" id="tMat" placeholder="Matematik Net">
-<input type="number" id="tFen" placeholder="Fen Net">
-<input type="number" id="tSos" placeholder="Sosyal Net">
+<!-- TYT -->
+<div id="tyt" class="section active">
+<div class="grid">
+<div class="box"><h4>Türkçe (40)</h4><input id="tTrD" placeholder="Doğru"><input id="tTrY" placeholder="Yanlış"></div>
+<div class="box"><h4>Matematik (40)</h4><input id="tMaD"><input id="tMaY"></div>
+<div class="box"><h4>Sosyal (20)</h4><input id="tSoD"><input id="tSoY"></div>
+<div class="box"><h4>Fen (20)</h4><input id="tFeD"><input id="tFeY"></div>
+</div>
 <button class="calc-btn" onclick="hesaplaTYT()">Hesapla</button>
-<div id="tSonuc" class="result"></div>
+<div id="tytR" class="result"></div>
 </div>
 
-<div id="aytCalc" class="section">
-<input type="number" id="aMat" placeholder="Matematik Net">
-<input type="number" id="aFiz" placeholder="Fizik Net">
-<input type="number" id="aKim" placeholder="Kimya Net">
-<input type="number" id="aBio" placeholder="Biyoloji Net">
+<!-- AYT -->
+<div id="ayt" class="section">
+<div class="grid">
+<div class="box"><h4>Matematik (40)</h4><input id="aMaD"><input id="aMaY"></div>
+<div class="box"><h4>Fizik (14)</h4><input id="aFiD"><input id="aFiY"></div>
+<div class="box"><h4>Kimya (13)</h4><input id="aKiD"><input id="aKiY"></div>
+<div class="box"><h4>Biyoloji (13)</h4><input id="aBiD"><input id="aBiY"></div>
+</div>
 <button class="calc-btn" onclick="hesaplaAYT()">Hesapla</button>
-<div id="aSonuc" class="result"></div>
+<div id="aytR" class="result"></div>
 </div>
 
-<div id="lgsCalc" class="section">
-<input type="number" id="lTr" placeholder="Türkçe Net">
-<input type="number" id="lMat" placeholder="Matematik Net">
-<input type="number" id="lFen" placeholder="Fen Net">
+<!-- LGS -->
+<div id="lgs" class="section">
+<div class="grid">
+<div class="box"><h4>Türkçe (20)</h4><input id="lTrD"><input id="lTrY"></div>
+<div class="box"><h4>Matematik (20)</h4><input id="lMaD"><input id="lMaY"></div>
+<div class="box"><h4>Fen (20)</h4><input id="lFeD"><input id="lFeY"></div>
+<div class="box"><h4>İnkılap (10)</h4><input id="lInD"><input id="lInY"></div>
+<div class="box"><h4>Din (10)</h4><input id="lDiD"><input id="lDiY"></div>
+<div class="box"><h4>İngilizce (10)</h4><input id="lEnD"><input id="lEnY"></div>
+</div>
 <button class="calc-btn" onclick="hesaplaLGS()">Hesapla</button>
-<div id="lSonuc" class="result"></div>
+<div id="lgsR" class="result"></div>
 </div>
 
-<p class="note">⚠️ Bu sonuçlar tahminidir. Resmî sonuçlar MEB ve ÖSYM tarafından açıklanır.</p>
+<p class="note">⚠️ Net = Doğru − (Yanlış / 4). Sonuçlar tahminidir.</p>
 </div>
 
-<footer>
-© 2026 • Profesyonel Sınav & Tatil Takip Aracı
-</footer>
+<!-- PAYLAŞIM -->
+<div class="share">
+<a href="https://wa.me" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+</div>
 
 </div>
 
 <script>
-function switchCounter(btn,id){
-  document.querySelectorAll('#counterMenu button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.card:first-of-type .section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+function net(d,y){return +(d||0)-+(y||0)/4;}
 
 function switchCalc(btn,id){
   document.querySelectorAll('#calcMenu button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.card:last-of-type .section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-function start(el,date){
-  function tick(){
-    const d=date-new Date().getTime();
-    if(d<=0){el.textContent="Başladı";return}
-    el.textContent=
-      Math.floor(d/86400000)+" gün "+
-      Math.floor(d/3600000)%24+" saat "+
-      Math.floor(d/60000)%60+" dk "+
-      Math.floor(d/1000)%60+" sn";
-  }
-  tick(); setInterval(tick,1000);
+// Hata kontrolü
+function checkInput(did,max){
+  const d = document.getElementById(did+'D');
+  const y = document.getElementById(did+'Y');
+  const maxSoru = max;
+  const toplam = (+d.value||0)+(+y.value||0);
+  if(toplam>maxSoru){d.classList.add('error');y.classList.add('error'); return false;}
+  else {d.classList.remove('error');y.classList.remove('error'); return true;}
 }
-
-start(lgsC,new Date("2026-06-14T09:30").getTime());
-start(tytC,new Date("2026-06-13T10:00").getTime());
-start(aytC,new Date("2026-06-14T10:00").getTime());
-start(midC,new Date("2026-01-16").getTime());
-start(summerC,new Date("2026-06-15").getTime());
 
 function hesaplaTYT(){
-  tSonuc.textContent="Tahmini TYT Puanı: "+((+tTr.value||0)*3.3+(+tMat.value||0)*3.3+(+tFen.value||0)*3.4+(+tSos.value||0)*3.4+100).toFixed(2);
-}
-function hesaplaAYT(){
-  aSonuc.textContent="Tahmini AYT Puanı: "+((+aMat.value||0)*3+(+aFiz.value||0)*2.9+(+aKim.value||0)*3+(+aBio.value||0)*3.1+100).toFixed(2);
-}
-function hesaplaLGS(){
-  lSonuc.textContent="Tahmini LGS Puanı: "+(((+lTr.value||0)*4+(+lMat.value||0)*4.5+(+lFen.value||0)*4.5)*5).toFixed(0)+" / 500";
+  const dersler=[['tTr',40],['tMa',40],['tSo',20],['tFe',20]];
+  let total=0;
+  for(const d of dersler){
+    if(!checkInput(d[0],d[1])){tytR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)* (d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
+  }
+  tytR.textContent="Tahmini TYT Puanı: "+(total+100).toFixed(2);
 }
 
-const url=encodeURIComponent(location.href);
-wa.href=`https://wa.me/?text=${url}`;
-ig.href=`https://www.instagram.com/`;
-tt.href=`https://www.tiktok.com/`;
+function hesaplaAYT(){
+  const dersler=[['aMa',40],['aFi',14],['aKi',13],['aBi',13]];
+  let total=0;
+  for(const d of dersler){
+    if(!checkInput(d[0],d[1])){aytR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    const katsayi=(d[0]==='aFi'?2.9:(d[0]==='aBi'?3.1:3));
+    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
+  }
+  aytR.textContent="Tahmini AYT Puanı: "+(total+100).toFixed(2);
+}
+
+function hesaplaLGS(){
+  const dersler=[['lTr',20],['lMa',20],['lFe',20],['lIn',10],['lDi',10],['lEn',10]];
+  let total=0;
+  for(const d of dersler){
+    if(!checkInput(d[0],d[1])){lgsR.textContent="Hatalı giriş! Toplam soruyu aşamaz";return;}
+    const katsayi=(d[0]=='lTr'?4:(d[0]=='lMa'||d[0]=='lFe'?4.5:2));
+    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
+  }
+  lgsR.textContent="Tahmini LGS Puanı: "+Math.round(total*5)+" / 500";
+}
 </script>
 
 </body>
