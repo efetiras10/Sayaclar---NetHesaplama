@@ -2,74 +2,40 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Profesyonel Net Hesaplama ve Sınav Sayaçları</title>
-<meta name="description" content="TYT, AYT, LGS için profesyonel net hesaplama ve sınav geri sayımı sitesi. Tatiller, doğru-yanlış kontrolü ve paylaşım simgeleri içerir.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesyonel Net Hesaplama & Sınav Sayaçları</title>
+<meta name="description" content="TYT, AYT, LGS için profesyonel net hesaplama ve sınav geri sayımı sitesi. Tatiller ve paylaşım simgeleri içerir.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
   --bg:#0f172a; --bg2:#1e293b; --card:#111827;
-  --text:#f8fafc; --muted:#94a3b8;
-  --accent:#3b82f6; --accent2:#22c55e;
-  --border:#334155; --error:#ef4444;
+  --text:#f8fafc; --muted:#94a3b8; --accent:#3b82f6; --accent2:#22c55e; --border:#334155;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
-  font-family:Segoe UI,Roboto,Arial,sans-serif;
-  background:linear-gradient(135deg,var(--bg),var(--bg2));
-  color:var(--text); line-height:1.6;
-}
-header{
-  text-align:center;padding:24px;font-size:28px;font-weight:800;
-  border-bottom:1px solid var(--border);
-}
-.container{max-width:1150px;margin:auto;padding:24px 16px 60px}
-.card{
-  background:var(--card); border-radius:20px;
-  padding:26px; margin-bottom:36px;
-  border:1px solid var(--border);
-  box-shadow:0 14px 36px rgba(0,0,0,.45);
-}
-h2{margin-top:0}
-.menu-bar{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-.menu-button{
-  background:#020617; border:1px solid var(--border);
-  color:var(--text); padding:10px 18px; border-radius:12px;
-  cursor:pointer; transition:.2s;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,sans-serif;}
+body{background:linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text);}
+header{padding:20px;text-align:center;font-size:28px;font-weight:700;border-bottom:1px solid var(--border);}
+.container{max-width:1100px;margin:auto;padding:20px 16px 60px;}
+.card{background:var(--card);border-radius:20px;padding:24px;margin-bottom:36px;border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+h2{margin-bottom:20px;}
+.menu-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.menu-button{background:#020617;border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:12px;cursor:pointer;transition:.2s;font-weight:600;}
 .menu-button.active{background:var(--accent);border-color:var(--accent);}
-.section{display:none}
-.section.active{display:block}
-.grid{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;
-}
-.box{
-  background:#020617; border:1px solid var(--border);
-  border-radius:14px; padding:16px; position:relative;
-}
-.box h4{margin:0 0 8px 0}
-input{
-  width:100%; padding:8px; margin:4px 0 8px;
-  border-radius:8px; border:1px solid var(--border);
-  background:var(--bg2); color:var(--text); transition:.2s;
-}
-input.error{border-color:var(--error);background:#7f1d1d;}
-.calc-btn{
-  margin-top:16px; background:var(--accent2);
-  border:none;padding:12px 22px;border-radius:12px;
-  font-weight:700; cursor:pointer;
-}
-.result{margin-top:18px;font-size:18px;font-weight:700}
-.note{font-size:13px;color:var(--muted);margin-top:16px}
-.share{
-  display:flex;justify-content:center;gap:24px;margin-top:40px;font-size:28px
-}
-.share a{color:var(--text);transition:.2s}
-.share a:hover{color:var(--accent)}
-.countdown-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;}
-.countdown{padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:700;background:#020617;border:1px solid var(--border);}
+.section{display:none;}
+.section.active{display:block;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;}
+.box{background:#020617;border-radius:12px;padding:14px;border:1px solid var(--border);}
+.box h4{margin-bottom:6px;}
+.box input{width:100%;padding:8px;margin-bottom:6px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);color:var(--text);}
+.calc-btn{margin-top:14px;background:var(--accent2);border:none;padding:12px 22px;border-radius:12px;font-weight:700;cursor:pointer;}
+.result{margin-top:16px;font-size:18px;font-weight:700;}
+.note{font-size:13px;color:var(--muted);margin-top:12px;}
+.share{display:flex;justify-content:center;gap:24px;margin-top:40px;font-size:28px;}
+.share a{color:var(--text);transition:.2s;}
+.share a:hover{color:var(--accent);}
+.countdown-container{margin-top:16px;padding:12px;border-radius:14px;background:var(--bg2);}
+.countdown-title{font-weight:700;margin-bottom:6px;}
+.countdown-time{font-size:20px;font-weight:600;}
 @media(max-width:600px){header{font-size:22px}}
 </style>
 </head>
@@ -78,24 +44,45 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 <header>🎓 Profesyonel Net Hesaplama & Sınav Sayaçları</header>
 <div class="container">
 
-<!-- SAYAÇLAR -->
+<!-- SAYAÇ -->
 <div class="card">
 <h2>⏳ Sınav ve Tatil Sayaçları</h2>
-<div class="countdown-container">
-  <div class="countdown" id="tytCountdown">TYT: Yükleniyor...</div>
-  <div class="countdown" id="aytCountdown">AYT: Yükleniyor...</div>
-  <div class="countdown" id="lgsCountdown">LGS: Yükleniyor...</div>
-  <div class="countdown" id="yarıyilCountdown">Yarıyıl Tatili: Yükleniyor...</div>
-  <div class="countdown" id="yazCountdown">Yaz Tatili: Yükleniyor...</div>
+<div class="menu-bar">
+<button class="menu-button active" onclick="switchCountdown(this,'tytCountdown')">TYT</button>
+<button class="menu-button" onclick="switchCountdown(this,'aytCountdown')">AYT</button>
+<button class="menu-button" onclick="switchCountdown(this,'lgsCountdown')">LGS</button>
+<button class="menu-button" onclick="switchCountdown(this,'yarıyilCountdown')">Yarıyıl Tatili</button>
+<button class="menu-button" onclick="switchCountdown(this,'yazCountdown')">Yaz Tatili</button>
+</div>
+
+<div id="tytCountdown" class="countdown-container active">
+<div class="countdown-title">TYT - 18 Haziran 2026</div>
+<div class="countdown-time">Yükleniyor...</div>
+</div>
+<div id="aytCountdown" class="countdown-container">
+<div class="countdown-title">AYT - 25 Haziran 2026</div>
+<div class="countdown-time">Yükleniyor...</div>
+</div>
+<div id="lgsCountdown" class="countdown-container">
+<div class="countdown-title">LGS - 8 Haziran 2026</div>
+<div class="countdown-time">Yükleniyor...</div>
+</div>
+<div id="yarıyilCountdown" class="countdown-container">
+<div class="countdown-title">Yarıyıl Tatili - 20 Ocak 2026</div>
+<div class="countdown-time">Yükleniyor...</div>
+</div>
+<div id="yazCountdown" class="countdown-container">
+<div class="countdown-title">Yaz Tatili - 17 Haziran 2026</div>
+<div class="countdown-time">Yükleniyor...</div>
 </div>
 </div>
 
 <!-- NET HESAPLAMA -->
 <div class="card">
 <h2>🧮 Net Hesaplama</h2>
-<p>Doğru ve yanlış girerek MEB/ÖSYM uyumlu tahmini puanınızı hesaplayın.</p>
+<p>Doğru ve yanlış girerek tahmini puanınızı hesaplayın. Yanlış giriş uyarısı kaldırıldı, kullanıcı nereye yazacağını bilir.</p>
 
-<div class="menu-bar" id="calcMenu">
+<div class="menu-bar">
 <button class="menu-button active" onclick="switchCalc(this,'tyt')">TYT</button>
 <button class="menu-button" onclick="switchCalc(this,'ayt')">AYT</button>
 <button class="menu-button" onclick="switchCalc(this,'lgs')">LGS</button>
@@ -104,10 +91,10 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 <!-- TYT -->
 <div id="tyt" class="section active">
 <div class="grid">
-<div class="box"><h4>Türkçe (40)</h4><input id="tTrD" placeholder="Doğru"><input id="tTrY" placeholder="Yanlış"></div>
-<div class="box"><h4>Matematik (40)</h4><input id="tMaD"><input id="tMaY"></div>
-<div class="box"><h4>Sosyal (20)</h4><input id="tSoD"><input id="tSoY"></div>
-<div class="box"><h4>Fen (20)</h4><input id="tFeD"><input id="tFeY"></div>
+<div class="box"><h4>Türkçe (40)</h4>Doğru<input id="tTrD">Yanlış<input id="tTrY"></div>
+<div class="box"><h4>Matematik (40)</h4>Doğru<input id="tMaD">Yanlış<input id="tMaY"></div>
+<div class="box"><h4>Sosyal (20)</h4>Doğru<input id="tSoD">Yanlış<input id="tSoY"></div>
+<div class="box"><h4>Fen (20)</h4>Doğru<input id="tFeD">Yanlış<input id="tFeY"></div>
 </div>
 <button class="calc-btn" onclick="hesaplaTYT()">Hesapla</button>
 <div id="tytR" class="result"></div>
@@ -116,10 +103,10 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 <!-- AYT -->
 <div id="ayt" class="section">
 <div class="grid">
-<div class="box"><h4>Matematik (40)</h4><input id="aMaD"><input id="aMaY"></div>
-<div class="box"><h4>Fizik (14)</h4><input id="aFiD"><input id="aFiY"></div>
-<div class="box"><h4>Kimya (13)</h4><input id="aKiD"><input id="aKiY"></div>
-<div class="box"><h4>Biyoloji (13)</h4><input id="aBiD"><input id="aBiY"></div>
+<div class="box"><h4>Matematik (40)</h4>Doğru<input id="aMaD">Yanlış<input id="aMaY"></div>
+<div class="box"><h4>Fizik (14)</h4>Doğru<input id="aFiD">Yanlış<input id="aFiY"></div>
+<div class="box"><h4>Kimya (13)</h4>Doğru<input id="aKiD">Yanlış<input id="aKiY"></div>
+<div class="box"><h4>Biyoloji (13)</h4>Doğru<input id="aBiD">Yanlış<input id="aBiY"></div>
 </div>
 <button class="calc-btn" onclick="hesaplaAYT()">Hesapla</button>
 <div id="aytR" class="result"></div>
@@ -128,19 +115,17 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 <!-- LGS -->
 <div id="lgs" class="section">
 <div class="grid">
-<div class="box"><h4>Türkçe (20)</h4><input id="lTrD"><input id="lTrY"></div>
-<div class="box"><h4>Matematik (20)</h4><input id="lMaD"><input id="lMaY"></div>
-<div class="box"><h4>Fen (20)</h4><input id="lFeD"><input id="lFeY"></div>
-<div class="box"><h4>İnkılap (10)</h4><input id="lInD"><input id="lInY"></div>
-<div class="box"><h4>Din (10)</h4><input id="lDiD"><input id="lDiY"></div>
-<div class="box"><h4>İngilizce (10)</h4><input id="lEnD"><input id="lEnY"></div>
+<div class="box"><h4>Türkçe (20)</h4>Doğru<input id="lTrD">Yanlış<input id="lTrY"></div>
+<div class="box"><h4>Matematik (20)</h4>Doğru<input id="lMaD">Yanlış<input id="lMaY"></div>
+<div class="box"><h4>Fen (20)</h4>Doğru<input id="lFeD">Yanlış<input id="lFeY"></div>
+<div class="box"><h4>İnkılap (10)</h4>Doğru<input id="lInD">Yanlış<input id="lInY"></div>
+<div class="box"><h4>Din (10)</h4>Doğru<input id="lDiD">Yanlış<input id="lDiY"></div>
+<div class="box"><h4>İngilizce (10)</h4>Doğru<input id="lEnD">Yanlış<input id="lEnY"></div>
 </div>
 <button class="calc-btn" onclick="hesaplaLGS()">Hesapla</button>
 <div id="lgsR" class="result"></div>
-<p class="note">⚠️ Net = Doğru − (Yanlış / 4). Hatalı girişlerde kutu kırmızı olur.</p>
 </div>
 
-<!-- PAYLAŞIM -->
 <div class="share">
 <a href="https://wa.me" target="_blank"><i class="fab fa-whatsapp"></i></a>
 <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -150,9 +135,15 @@ input.error{border-color:var(--error);background:#7f1d1d;}
 </div>
 
 <script>
-// Buton aktif
+// Hamburger menü geçişleri
+function switchCountdown(btn,id){
+  document.querySelectorAll('.menu-button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.countdown-container').forEach(c=>c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 function switchCalc(btn,id){
-  document.querySelectorAll('#calcMenu button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.card .menu-button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -160,21 +151,15 @@ function switchCalc(btn,id){
 
 // Net hesaplama
 function net(d,y){return +(d||0)-+(y||0)/4;}
-function checkInput(did,max){
-  const d = document.getElementById(did+'D');
-  const y = document.getElementById(did+'Y');
-  const toplam = (+d.value||0)+(+y.value||0);
-  if(toplam>max){d.classList.add('error');y.classList.add('error'); return false;}
-  else {d.classList.remove('error');y.classList.remove('error'); return true;}
-}
 
 // TYT
 function hesaplaTYT(){
   const dersler=[['tTr',40],['tMa',40],['tSo',20],['tFe',20]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){tytR.textContent="Hatalı giriş!";return;}
-    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*(d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
+    const valD=document.getElementById(d[0]+'D').value;
+    const valY=document.getElementById(d[0]+'Y').value;
+    total += net(valD,valY)*(d[0]==='tFe'||d[0]==='tSo'?3.4:3.3);
   }
   tytR.textContent="Tahmini TYT Puanı: "+(total+100).toFixed(2);
 }
@@ -184,9 +169,10 @@ function hesaplaAYT(){
   const dersler=[['aMa',40],['aFi',14],['aKi',13],['aBi',13]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){aytR.textContent="Hatalı giriş!";return;}
+    const valD=document.getElementById(d[0]+'D').value;
+    const valY=document.getElementById(d[0]+'Y').value;
     const katsayi=(d[0]==='aFi'?2.9:(d[0]==='aBi'?3.1:3));
-    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
+    total += net(valD,valY)*katsayi;
   }
   aytR.textContent="Tahmini AYT Puanı: "+(total+100).toFixed(2);
 }
@@ -196,22 +182,21 @@ function hesaplaLGS(){
   const dersler=[['lTr',20],['lMa',20],['lFe',20],['lIn',10],['lDi',10],['lEn',10]];
   let total=0;
   for(const d of dersler){
-    if(!checkInput(d[0],d[1])){lgsR.textContent="Hatalı giriş!";return;}
+    const valD=document.getElementById(d[0]+'D').value;
+    const valY=document.getElementById(d[0]+'Y').value;
     const katsayi=(d[0]=='lTr'?4:(d[0]=='lMa'||d[0]=='lFe'?4.5:2));
-    total += net(document.getElementById(d[0]+'D').value,document.getElementById(d[0]+'Y').value)*katsayi;
+    total += net(valD,valY)*katsayi;
   }
   lgsR.textContent="Tahmini LGS Puanı: "+Math.round(total*5)+" / 500";
 }
 
 // Sayaçlar
-const tarihler={
+const dates={
   tyt:new Date("2026-06-18T09:30:00"),
   ayt:new Date("2026-06-25T09:30:00"),
   lgs:new Date("2026-06-08T09:30:00"),
-  yariyil_start:new Date("2026-01-20T00:00:00"),
-  yariyil_end:new Date("2026-02-05T00:00:00"),
-  yaz_start:new Date("2026-06-17T00:00:00"),
-  yaz_end:new Date("2026-09-11T00:00:00")
+  yariyil:new Date("2026-01-20T00:00:00"),
+  yaz:new Date("2026-06-17T00:00:00")
 };
 
 function updateCountdowns(){
@@ -226,11 +211,13 @@ function updateCountdowns(){
     const saniye=Math.floor(ms/1000%60);
     return `${gun}g ${saat}s ${dakika}dk ${saniye}s`;
   }
-  document.getElementById('tytCountdown').textContent = "TYT: "+(diff(tarihler.tyt)?format(diff(tarihler.tyt)):"Sınav başladı!");
-  document.getElementById('aytCountdown').textContent = "AYT: "+(diff(tarihler.ayt)?format(diff(tarihler.ayt)):"Sınav başladı!");
-  document.getElementById('lgsCountdown').textContent = "LGS: "+(diff(tarihler.lgs)?format(diff(tarihler.lgs)):"Sınav başladı!");
-  document.getElementById('yarıyilCountdown').textContent = "Yarıyıl Tatili: "+(diff(tarihler.yariyil_start)?format(diff(tarihler.yariyil_start)):"Tatilde!");
-  document.getElementById('yazCountdown').textContent = "Yaz Tatili: "+(diff(tarihler.yaz_start)?format(diff(tarihler.yaz_start)):"Tatilde!");
+  document.querySelectorAll('.countdown-container').forEach(c=>{
+    const id=c.id;
+    const key=id.replace('Countdown','');
+    if(dates[key]){
+      c.querySelector('.countdown-time').textContent = (diff(dates[key])?format(diff(dates[key])):"Başladı!");
+    }
+  });
 }
 setInterval(updateCountdowns,1000);
 updateCountdowns();
