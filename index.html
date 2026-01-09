@@ -1,250 +1,342 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YKS & Tatil Sayaç</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-/* --- GENEL --- */
-* {margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body {
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding:20px;
-  background: linear-gradient(-45deg, #f0f9ff, #e0f2fe, #bae6fd, #7dd3fc);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  transition: background 0.5s, color 0.5s;
-  color:#1f2937;
-}
-h1,h2{text-align:center;margin-bottom:20px;color:#0f172a;}
-button{cursor:pointer;border:none;font-weight:600;border-radius:10px;padding:12px 20px;transition:all 0.3s;}
-/* --- CARD --- */
-.card{
-  background:#fff;
-  border-radius:15px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-  padding:25px;
-  margin:20px 0;
-  width:100%;
-  max-width:500px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-  perspective:1000px;
-}
-.card:hover{
-  transform: rotateY(3deg) rotateX(3deg) translateY(-8px);
-  box-shadow:0 15px 35px rgba(0,0,0,0.2);
-  background: linear-gradient(135deg, #f3f4f6, #e0f2fe);
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Geri Sayım Sayaçları | Tatil ve Sınav Tarihleri</title>
 
-/* --- SAYAC --- */
-#countdown{
-  display:flex;justify-content:space-around;margin-top:20px;font-size:2rem;font-weight:700;
-}
-#countdown div span{display:block;font-size:2rem;color:#1e40af;}
-/* --- FORM --- */
-.form-group{margin-bottom:15px;}
-.form-group label{display:block;margin-bottom:5px;font-weight:600;}
-.form-group input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #cbd5e1;font-size:1rem;}
-button{width:100%;background:#1e40af;color:#fff;font-size:1rem;}
-button:hover{background:#3b82f6;}
-#result{margin-top:20px;text-align:center;font-weight:600;}
-/* --- PROGRESS BAR --- */
-.progress-bar{margin-bottom:15px;}
-.progress-bar label{display:block;font-weight:600;margin-bottom:5px;}
-.bar{width:100%;background:#e5e7eb;border-radius:12px;height:25px;overflow:hidden;position:relative;}
-.bar div{
-  height:100%;
-  width:0%;
-  border-radius:12px;
-  background:linear-gradient(90deg,#3b82f6,#06b6d4);
-  display:flex;align-items:center;justify-content:flex-end;
-  padding-right:10px;font-weight:600;color:#fff;
-  transition:width 1s ease,background 1s ease;
-}
-.bar div::after{content:attr(data-percent) '%';font-size:0.9rem;margin-left:5px;opacity:0;transition:opacity 0.3s;}
-.bar div:hover::after{opacity:1;}
-/* --- KÜÇÜK BİLGİ KARTLARI --- */
-.card ul{margin-top:10px;padding-left:20px;}
-.card ul li{margin-bottom:6px;}
-.card p{line-height:1.5;}
-/* --- DARK MODE --- */
-body.dark{
-  background: linear-gradient(to bottom right,#0f172a,#1e293b);
-  color:#f1f5f9;
-}
-body.dark .card{background:#1e293b;color:#f1f5f9;}
-body.dark .result-card{color:#f1f5f9;}
-body.dark button{background:#3b82f6;color:#fff;}
-body.dark .bar div{background:linear-gradient(90deg,#60a5fa,#22d3ee);color:#f1f5f9;}
-/* --- ANIMATIONS --- */
-@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-.result-card{padding:15px 20px;border-radius:12px;font-weight:700;margin:10px 0;text-align:center;color:#0f172a;box-shadow:0 6px 15px rgba(0,0,0,0.08);transition: all 0.5s ease, transform 0.5s ease;}
-.result-card:hover{transform: scale(1.08) rotateZ(2deg);box-shadow:0 20px 40px rgba(0,0,0,0.2);}
-@media(max-width:480px){body{padding:15px}.card{padding:15px 10px;border-radius:12px}#countdown{flex-direction:column;font-size:1.3rem;gap:10px}button{font-size:0.95rem}}
-</style>
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+
+  <!-- SEO Meta Etiketleri -->
+  <meta name="description" content="Yaz tatili, yarıyıl tatili ve LGS, TYT, AYT, YKS sınav geri sayım sayaçları. Doğru tarihlerle geri sayım yapın ve paylaşın." />
+  <meta name="keywords" content="geri sayım, sayaç, yaz tatili, yarıyıl tatili, LGS, TYT, AYT, YKS, sınav tarihleri, Türkiye" />
+  <meta name="author" content="Efe Tiras" />
+
+  <link rel="canonical" href="https://efetiras10.github.io/Sayaclar---NetHesaplama/" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDRK78BCMP"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-XDRK78BCMP');</script>
+
+
+  <!-- Open Graph (Sosyal Medya) -->
+  <meta property="og:title" content="Geri Sayım Sayaçları | Tatil ve Sınav Tarihleri" />
+  <meta property="og:description" content="Yaz tatili ve sınav geri sayım sayaçları. Doğru tarihlerle geri sayım yapın ve paylaşın." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://efetiras10.github.io/" />
+  <meta property="og:image" content="https://efetiras10.github.io/Sayaclar---NetHesaplama/images/sayac-gorsel.jpeg" />
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4315985864571521"
+     crossorigin="anonymous"></script>
+
+  <body>
+  <h1>Geri Sayım Sayaçları</h1>
+
+  <!-- YKS 2026 -->
+  <h2>YKS 2026 Ne Zaman?</h2>
+  <p>“Yükseköğretim Kurumları Sınavı (YKS), Millî Eğitim Bakanlığı tarafından belirlenen sınav tarihlerine ne kadar kaldığını aşağıdaki sayaçlardan görebilirsiniz.”</p>
+
+  <!-- LGS 2026 -->
+  <h2>LGS 2026 Ne Zaman?</h2>
+  <p>“Liselere Geçiş Sistemi (LGS), Millî Eğitim Bakanlığı tarafından belirlenen sınav tarihlerine ne kadar kaldığını aşağıdaki sayaçlardan görebilirsiniz.”</p>
+
+  <!-- Burada senin geri sayım sayaç kodların çalışıyor -->
+</body>
+
+  <style>
+    :root {
+      --bg1: #0f172a;
+      --bg2: #1e293b;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent-dark: #1e40af;
+      --border: #334155;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(120deg, var(--bg1), var(--bg2));
+    }
+
+    header {
+      padding: 14px 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 22px;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-bar {
+      display: flex;
+      justify-content: center;
+      margin: 14px 0;
+    }
+
+    .menu-container { position: relative; }
+
+    .menu-button {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .menu-button:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      min-width: 230px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      z-index: 20;
+    }
+
+    .dropdown button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      background: transparent;
+      color: var(--text);
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background 0.15s ease;
+    }
+
+    .dropdown button:hover { background: #334155; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px 28px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+      padding: 20px 18px;
+      margin: 18px auto;
+      width: 100%;
+      animation: fadeIn 0.5s ease;
+      display: none;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    .card h2 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+    }
+
+    .date-line {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .countdown {
+      font-variant-numeric: tabular-nums;
+      font-size: 18px;
+      letter-spacing: 0.3px;
+      margin: 8px 0 18px;
+    }
+
+    .share {
+      margin-top: 18px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .share img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .share img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
+  <header>📅 Geri Sayım Sayaçları</header>
 
-<h1>🎓 YKS & Tatil Sayaç</h1>
-
-<!-- Tema Toggle -->
-<div style="text-align:center; margin-bottom:20px;">
-  <button id="themeToggle">🌙 Karanlık Mod</button>
-</div>
-
-<!-- Sayaç Kartı -->
-<div class="card">
-  <h2>Okulların Kapanmasına Kalan Süre</h2>
-  <div id="countdown">
-    <div><span id="days">0</span>Gün</div>
-    <div><span id="hours">0</span>Saat</div>
-    <div><span id="minutes">0</span>Dakika</div>
-    <div><span id="seconds">0</span>Saniye</div>
+  <div class="menu-bar">
+    <div class="menu-container">
+      <button class="menu-button" onclick="toggleMenu('menuSayaç')">☰ Sayaçlar</button>
+      <div id="menuSayaç" class="dropdown">
+        <button onclick="showSection('summer')">Yaz Tatili Sayaç</button>
+        <button onclick="showSection('midterm')">Yarıyıl Tatili Sayaç</button>
+        <button onclick="showSection('lgs')">LGS Sayaç</button>
+        <button onclick="showSection('tyt')">TYT Sayaç</button>
+        <button onclick="showSection('ayt')">AYT Sayaç</button>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- Net Hesaplama Kartı -->
-<div class="card">
-  <h2>YKS Net Hesaplama & Puan</h2>
-  <div class="form-group">
-    <label for="tytCorrect">TYT Doğru</label>
-    <input type="number" id="tytCorrect" min="0" max="120" value="0">
+  <div class="container">
+    <section id="summer" class="card active">
+      <h2>Yaz Tatiline Kalan Süre</h2>
+      <div class="date-line">Başlangıç: 15 Haziran 2026, Pazartesi</div>
+      <div id="summerCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareSummerWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>    <!-- Yarıyıl Tatili -->
+    <section id="midterm" class="card">
+      <h2>Yarıyıl Tatiline Kalan Süre</h2>
+      <div class="date-line">Başlangıç: 16 Ocak 2026, Cuma</div>
+      <div id="midtermCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareMidWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <!-- LGS -->
+    <section id="lgs" class="card">
+      <h2>LGS Sayaç</h2>
+      <div class="date-line">Tarih: 14 Haziran 2026, Pazar — 1. Oturum 09:30</div>
+      <div id="lgsCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareLgsWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <!-- TYT -->
+    <section id="tyt" class="card">
+      <h2>TYT Sayaç</h2>
+      <div class="date-line">Tarih: 13 Haziran 2026, Cumartesi</div>
+      <div id="tytCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareTytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
+
+    <!-- AYT -->
+    <section id="ayt" class="card">
+      <h2>AYT Sayaç</h2>
+      <div class="date-line">Tarih: 14 Haziran 2026, Pazar</div>
+      <div id="aytCountdown" class="countdown"></div>
+      <div class="share">
+        <a id="shareAytWA" href="#" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+        <a href="https://www.instagram.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"></a>
+        <a href="https://www.tiktok.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+      </div>
+    </section>
   </div>
-  <div class="form-group">
-    <label for="tytWrong">TYT Yanlış</label>
-    <input type="number" id="tytWrong" min="0" max="120" value="0">
-  </div>
-  <div class="form-group">
-    <label for="aytCorrect">AYT Doğru</label>
-    <input type="number" id="aytCorrect" min="0" max="160" value="0">
-  </div>
-  <div class="form-group">
-    <label for="aytWrong">AYT Yanlış</label>
-    <input type="number" id="aytWrong" min="0" max="160" value="0">
-  </div>
-  <div class="form-group">
-    <label for="ydtCorrect">YDT Doğru</label>
-    <input type="number" id="ydtCorrect" min="0" max="80" value="0">
-  </div>
-  <div class="form-group">
-    <label for="ydtWrong">YDT Yanlış</label>
-    <input type="number" id="ydtWrong" min="0" max="80" value="0">
-  </div>
-  <div class="form-group">
-    <label for="obp">OBP (0-100)</label>
-    <input type="number" id="obp" min="0" max="100" value="0">
-  </div>
-  <button onclick="calculateNetAdvanced()">Tüm Netleri Hesapla</button>
-  <div id="result">Netler burada görünecek</div>
-</div>
 
-<!-- Net Yüzdeleri -->
-<div class="card">
-  <h2>📊 Net Yüzdeleri</h2>
-  <div class="progress-bar">
-    <label>TYT:</label>
-    <div class="bar"><div id="tytProgress" data-percent="0">0%</div></div>
-  </div>
-  <div class="progress-bar">
-    <label>AYT:</label>
-    <div class="bar"><div id="aytProgress" data-percent="0">0%</div></div>
-  </div>
-  <div class="progress-bar">
-    <label>YDT:</label>
-    <div class="bar"><div id="ydtProgress" data-percent="0">0%</div></div>
-  </div>
-</div>
+  <script>
+    function toggleMenu(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
 
-<script>
-// --- Sayaç ---
-function countdown(){
-  const target=new Date("2026-01-16T00:00:00");
-  const now=new Date();
-  const diff=target-now;
-  if(diff<=0){
-    document.getElementById("countdown").innerHTML='<div style="color:#dc2626;font-weight:700;">Tatiller başladı! 🎉</div>';
-    return;
-  }
-  const days=Math.floor(diff/(1000*60*60*24));
-  const hours=Math.floor((diff/(1000*60*60))%24);
-  const minutes=Math.floor((diff/(1000*60))%60);
-  const seconds=Math.floor((diff/1000)%60);
-  document.getElementById("days").textContent=days;
-  document.getElementById("hours").textContent=hours;
-  document.getElementById("minutes").textContent=minutes;
-  document.getElementById("seconds").textContent=seconds;
-}
-setInterval(countdown,1000);
+    function showSection(id) {
+      document.querySelectorAll('.card').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      const menu = document.getElementById('menuSayaç');
+      if (menu) menu.style.display = 'none';
+    }
 
-// --- Tema ---
-const themeToggle=document.getElementById("themeToggle");
-themeToggle.addEventListener("click",()=>{
-  document.body.classList.toggle("dark");
-  themeToggle.textContent=document.body.classList.contains("dark")?"☀️ Açık Mod":"🌙 Karanlık Mod";
-});
+    function startCountdown(elId, target) {
+      function tick() {
+        const now = new Date().getTime();
+        const dist = target - now;
+        if (dist <= 0) {
+          document.getElementById(elId).textContent = 'Süre doldu!';
+          return;
+        }
+        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((dist % (1000 * 60)) / 1000);
+        document.getElementById(elId).textContent = `${d} Gün ${h} Saat ${m} Dakika ${s} Saniye kaldı`;
+      }
+      tick();
+      return setInterval(tick, 1000);
+    }
 
-// --- Net Hesaplama ---
-function calculateNetAdvanced(){
-  const tytC=parseInt(document.getElementById("tytCorrect").value)||0;
-  const tytW=parseInt(document.getElementById("tytWrong").value)||0;
-  const aytC=parseInt(document.getElementById("aytCorrect").value)||0;
-  const aytW=parseInt(document.getElementById("aytWrong").value)||0;
-  const ydtC=parseInt(document.getElementById("ydtCorrect").value)||0;
-  const ydtW=parseInt(document.getElementById("ydtWrong").value)||0;
-  const obp=parseFloat(document.getElementById("obp").value)||0;
+    const summerDate = new Date('June 15, 2026 00:00:00').getTime();
+    const midtermDate = new Date('January 16, 2026 00:00:00').getTime();
+    const lgsDate = new Date('June 14, 2026 09:30:00').getTime();
+    const tytDate = new Date('June 13, 2026 10:00:00').getTime();
+    const aytDate = new Date('June 14, 2026 10:00:00').getTime();
+    
 
-  const tytNet=Math.max(0,(tytC-tytW/4).toFixed(2));
-  const aytNet=Math.max(0,(aytC-aytW/4).toFixed(2));
-  const ydtNet=Math.max(0,(ydtC-ydtW/4).toFixed(2));
+    startCountdown('summerCountdown', summerDate);
+    startCountdown('midtermCountdown', midtermDate);
+    startCountdown('lgsCountdown', lgsDate);
+    startCountdown('tytCountdown', tytDate);
+    startCountdown('aytCountdown', aytDate);
+    
 
-  const tytScore=(tytNet*3+obp*0.12).toFixed(2);
-  const aytScore=(aytNet*3+obp*0.12).toFixed(2);
-  const ydtScore=(ydtNet*3+obp*0.12).toFixed(2);
+    function setWA(id) {
+      const url = encodeURIComponent(location.href);
+      const text = encodeURIComponent('Şuna bir bak: Geri Sayım Sayaçları');
+      const wa = document.getElementById(id);
+      if (wa) wa.href = `https://wa.me/?text=${text}%20${url}`;
+    }
 
-  const resultDiv=document.getElementById("result");
-  resultDiv.innerHTML=`
-    <div class="result-card" style="background:#e0f7fa;">TYT Net: <strong>${tytNet}</strong> | Puan: <strong>${tytScore}</strong></div>
-    <div class="result-card" style="background:#f1f8e9;">AYT Net: <strong>${aytNet}</strong> | Puan: <strong>${aytScore}</strong></div>
-    <div class="result-card" style="background:#fff3e0;">YDT Net: <strong>${ydtNet}</strong> | Puan: <strong>${ydtScore}</strong></div>
-  `;
-  updateProgressBars();
-  animateResultCards();
-}
+    setWA('shareSummerWA');
+    setWA('shareMidWA');
+    setWA('shareLgsWA');
+    setWA('shareTytWA');
+    setWA('shareAytWA');
+    setWA('shareYksWA');
 
-// --- Progress Bar ---
-function updateProgressBars(){
-  const tytC=parseInt(document.getElementById("tytCorrect").value)||0;
-  const aytC=parseInt(document.getElementById("aytCorrect").value)||0;
-  const ydtC=parseInt(document.getElementById("ydtCorrect").value)||0;
-  const tytMax=120,aytMax=160,ydtMax=80;
-  const tytP=Math.min((tytC/tytMax*100),100).toFixed(0);
-  const aytP=Math.min((aytC/aytMax*100),100).toFixed(0);
-  const ydtP=Math.min((ydtC/ydtMax*100),100).toFixed(0);
-  const tytBar=document.getElementById("tytProgress");
-  const aytBar=document.getElementById("aytProgress");
-  const ydtBar=document.getElementById("ydtProgress");
-  tytBar.style.width=tytP+"%"; aytBar.style.width=aytP+"%"; ydtBar.style.width=ydtP+"%";
-  tytBar.setAttribute("data-percent",tytP); aytBar.setAttribute("data-percent",aytP); ydtBar.setAttribute("data-percent",ydtP);
-}
-
-// --- Net Kart Animasyonu ---
-function animateResultCards(){
-  const cards=document.querySelectorAll('.result-card');
-  cards.forEach((card,index)=>{
-    card.style.opacity=0;
-    card.style.transform='translateY(30px) scale(0.95)';
-    setTimeout(()=>{
-      card.style.transition='all 0.6s cubic-bezier(0.68,-0.55,0.27,1.55)';
-      card.style.opacity=1;
-      card.style.transform='translateY(0) scale(1)';
-    },index*250);
-  });
-}
-</script>
-
+    // Menü dışına tıklayınca kapanması için
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('menuSayaç');
+      const btn = e.target.closest('.menu-button');
+      if (!btn && menu && !e.target.closest('#menuSayaç')) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
+
