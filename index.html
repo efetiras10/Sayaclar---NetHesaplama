@@ -3,225 +3,312 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Türkiye'nin En İyi Sayaç & Net Hesaplama</title>
+<title>Profesyonel YKS Sayaç & Net Hesaplama</title>
 
 <style>
 :root{
-  --bg:#f4f6f8;
-  --primary:#1e88e5;
-  --dark:#263238;
-  --light:#ffffff;
-  --gray:#90a4ae;
+  --lacivert:#0b1c2d;
+  --lacivert-dark:#06121e;
+  --gri:#f2f4f7;
+  --border:#d9dee3;
+  --yazi:#1c1c1c;
 }
 
-*{box-sizing:border-box;font-family:Inter,system-ui;}
+*{
+  box-sizing:border-box;
+  font-family: "Segoe UI", Inter, Arial;
+}
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--dark);
+  background:var(--gri);
+  color:var(--yazi);
 }
 
-header{
-  background:var(--light);
-  padding:15px 20px;
-  display:flex;
-  align-items:center;
-  box-shadow:0 2px 10px rgba(0,0,0,.05);
+/* ÜST BAR */
+.topbar{
+  background:var(--lacivert);
+  color:#fff;
+  padding:18px 30px;
 }
 
-.menu-btn{
-  font-size:26px;
-  cursor:pointer;
-}
-
-.title{
-  flex:1;
-  text-align:center;
+.topbar h1{
+  margin:0;
+  font-size:22px;
   font-weight:600;
 }
 
-nav{
-  position:fixed;
-  top:0;
-  left:-260px;
-  width:260px;
-  height:100%;
-  background:var(--light);
-  box-shadow:2px 0 15px rgba(0,0,0,.1);
-  padding:20px;
-  transition:.3s;
-  z-index:1000;
+/* GENEL KAPSAYICI */
+.container{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 20px;
 }
 
-nav.active{left:0;}
-
-nav h3{
-  margin-top:0;
-  color:var(--primary);
+/* SEKME ALANI */
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
 }
 
-nav button{
-  width:100%;
-  padding:12px;
-  margin-bottom:8px;
-  border:none;
-  background:#eef3f8;
+.tabs button{
+  padding:12px 18px;
+  border:1px solid var(--border);
+  background:#fff;
   cursor:pointer;
-  border-radius:8px;
-  text-align:left;
+  border-radius:6px;
+  font-weight:500;
 }
 
-nav button:hover{
-  background:var(--primary);
+.tabs button.active{
+  background:var(--lacivert);
+  color:#fff;
+  border-color:var(--lacivert);
+}
+
+.tabs button:hover{
+  background:var(--lacivert-dark);
   color:#fff;
 }
 
-main{
-  max-width:700px;
-  margin:40px auto;
-  padding:20px;
-}
-
+/* KART */
 .card{
-  background:var(--light);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
   padding:30px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.05);
+  margin-bottom:30px;
 }
 
+/* SAYAÇ */
 .countdown{
   text-align:center;
 }
 
-.countdown h1{
-  font-size:32px;
+.countdown h2{
+  margin-top:0;
+  font-size:26px;
+  color:var(--lacivert);
 }
 
 .timer{
-  font-size:28px;
-  color:var(--primary);
+  font-size:32px;
+  font-weight:600;
   margin:20px 0;
 }
 
 .date{
-  color:var(--gray);
+  color:#555;
 }
 
-.calc input{
-  width:100%;
-  padding:12px;
-  margin-bottom:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
+/* TYT TABLO */
+.calc-title{
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:20px;
+  color:var(--lacivert);
 }
 
-.calc button{
+table{
   width:100%;
+  border-collapse:collapse;
+}
+
+th, td{
   padding:12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+}
+
+th{
+  background:#f7f9fb;
+}
+
+input[type="number"]{
+  width:80px;
+  padding:8px;
+  border:1px solid var(--border);
+  border-radius:4px;
+}
+
+input[type="number"]:focus{
+  outline:none;
+  border-color:var(--lacivert);
+}
+
+/* BUTONLAR */
+.buttons{
+  margin-top:20px;
+  display:flex;
+  gap:15px;
+}
+
+.btn{
+  padding:12px 28px;
   border:none;
-  border-radius:8px;
-  background:var(--primary);
-  color:white;
-  font-size:16px;
+  border-radius:6px;
   cursor:pointer;
+  font-size:15px;
+}
+
+.btn-primary{
+  background:var(--lacivert);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:var(--lacivert-dark);
+}
+
+.btn-secondary{
+  background:#e5e9ee;
 }
 
 .result{
-  margin-top:15px;
+  margin-top:20px;
   font-size:18px;
-  text-align:center;
+  font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-  <div class="title">Sayaç & Net Hesaplama</div>
-</header>
+<div class="topbar">
+  <h1>YKS Sayaç & Net Hesaplama Sistemi</h1>
+</div>
 
-<nav id="menu">
-  <h3>Sayaçlar</h3>
-  <button onclick="showCountdown('yaz')">Yaz Tatili</button>
-  <button onclick="showCountdown('yariyil')">Yarıyıl Tatili</button>
+<div class="container">
 
-  <h3>Sınavlar</h3>
-  <button onclick="showCalc('lgs')">LGS Net</button>
-  <button onclick="showCalc('tyt')">TYT Net</button>
-  <button onclick="showCalc('ayt')">AYT Net</button>
-</nav>
+  <!-- SAYAÇ SEKME -->
+  <div class="tabs">
+    <button class="active" onclick="showCountdown('yaz',this)">Yaz Tatili</button>
+    <button onclick="showCountdown('yariyil',this)">Yarıyıl Tatili</button>
+    <button onclick="showCountdown('tyt',this)">TYT</button>
+  </div>
 
-<main>
-  <div class="card" id="content"></div>
-</main>
+  <div class="card" id="countdownCard">
+    <div class="countdown">
+      <h2 id="countdownTitle"></h2>
+      <div class="timer" id="timer"></div>
+      <div class="date" id="countdownDate"></div>
+    </div>
+  </div>
+
+  <!-- TYT NET HESAPLAMA -->
+  <div class="card">
+    <div class="calc-title">TYT Net Hesaplama Aracı</div>
+
+    <table>
+      <tr>
+        <th>Ders</th>
+        <th>Doğru</th>
+        <th>Yanlış</th>
+        <th>Soru</th>
+        <th>Net</th>
+      </tr>
+
+      <tr>
+        <td>Türkçe</td>
+        <td><input type="number" id="tr_d"></td>
+        <td><input type="number" id="tr_y"></td>
+        <td>40</td>
+        <td id="tr_n">0</td>
+      </tr>
+
+      <tr>
+        <td>Sosyal Bilimler</td>
+        <td><input type="number" id="sos_d"></td>
+        <td><input type="number" id="sos_y"></td>
+        <td>20</td>
+        <td id="sos_n">0</td>
+      </tr>
+
+      <tr>
+        <td>Temel Matematik</td>
+        <td><input type="number" id="mat_d"></td>
+        <td><input type="number" id="mat_y"></td>
+        <td>40</td>
+        <td id="mat_n">0</td>
+      </tr>
+
+      <tr>
+        <td>Fen Bilimleri</td>
+        <td><input type="number" id="fen_d"></td>
+        <td><input type="number" id="fen_y"></td>
+        <td>20</td>
+        <td id="fen_n">0</td>
+      </tr>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="hesapla()">Hesapla</button>
+      <button class="btn btn-secondary" onclick="sifirla()">Sıfırla</button>
+    </div>
+
+    <div class="result" id="toplamNet">Toplam Net: 0</div>
+  </div>
+
+</div>
 
 <script>
 const dates={
   yaz:new Date("2026-06-20"),
-  yariyil:new Date("2026-01-19")
+  yariyil:new Date("2026-01-19"),
+  tyt:new Date("2026-06-21")
 };
 
-function toggleMenu(){
-  document.getElementById("menu").classList.toggle("active");
-}
+function showCountdown(type,btn){
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
 
-function showCountdown(type){
-  toggleMenu();
-  const names={
+  const titles={
     yaz:"Yaz Tatiline Kalan Süre",
-    yariyil:"Yarıyıl Tatiline Kalan Süre"
+    yariyil:"Yarıyıl Tatiline Kalan Süre",
+    tyt:"TYT Sınavına Kalan Süre"
   };
-  document.getElementById("content").innerHTML=`
-  <div class="countdown">
-    <h1>${names[type]}</h1>
-    <div class="timer" id="timer"></div>
-    <div class="date">${dates[type].toLocaleDateString("tr-TR")}</div>
-  </div>`;
-  updateTimer(dates[type]);
-}
 
-function updateTimer(target){
-  setInterval(()=>{
+  document.getElementById("countdownTitle").innerText=titles[type];
+  document.getElementById("countdownDate").innerText=dates[type].toLocaleDateString("tr-TR");
+
+  clearInterval(window.timerInterval);
+  window.timerInterval=setInterval(()=>{
     const now=new Date();
-    const diff=target-now;
+    const diff=dates[type]-now;
     if(diff<0)return;
     const d=Math.floor(diff/86400000);
     const h=Math.floor(diff/3600000)%24;
     const m=Math.floor(diff/60000)%60;
     const s=Math.floor(diff/1000)%60;
     document.getElementById("timer").innerText=
-    `${d} gün ${h} saat ${m} dk ${s} sn`;
+      `${d} gün ${h} saat ${m} dk ${s} sn`;
   },1000);
 }
 
-function showCalc(type){
-  toggleMenu();
-  const names={
-    lgs:"LGS Net Hesaplama",
-    tyt:"TYT Net Hesaplama",
-    ayt:"AYT Net Hesaplama"
-  };
-  document.getElementById("content").innerHTML=`
-  <h1>${names[type]}</h1>
-  <div class="calc">
-    <input id="dogru" type="number" placeholder="Doğru Sayısı">
-    <input id="yanlis" type="number" placeholder="Yanlış Sayısı">
-    <button onclick="calcNet()">Net Hesapla</button>
-    <div class="result" id="result"></div>
-  </div>`;
+function net(d,y){return (d-(y/4)).toFixed(2);}
+
+function hesapla(){
+  let toplam=0;
+
+  ["tr","sos","mat","fen"].forEach(x=>{
+    const d=+document.getElementById(x+"_d").value||0;
+    const y=+document.getElementById(x+"_y").value||0;
+    const n=net(d,y);
+    document.getElementById(x+"_n").innerText=n;
+    toplam+=parseFloat(n);
+  });
+
+  document.getElementById("toplamNet").innerText="Toplam Net: "+toplam.toFixed(2);
 }
 
-function calcNet(){
-  const d=+dogru.value;
-  const y=+yanlis.value;
-  const net=d-(y/4);
-  result.innerText="Net: "+net.toFixed(2);
+function sifirla(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  document.querySelectorAll("td[id$='_n']").forEach(td=>td.innerText="0");
+  document.getElementById("toplamNet").innerText="Toplam Net: 0";
 }
 
-// başlangıç
-showCountdown("yaz");
+showCountdown("yaz",document.querySelector(".tabs button"));
 </script>
 
 </body>
