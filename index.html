@@ -3,313 +3,1174 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profesyonel YKS Sayaç & Net Hesaplama</title>
+
+  <!-- ======================================================
+     META & SEO
+====================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profesyonel TYT/AYT/LGS Puan ve Net Hesaplama</title>
+  <meta name="description" content="Türkiye'nin en gelişmiş TYT, AYT ve LGS net & puan hesaplama sitesi. Yaz tatili ve yarıyıl sayacı, Dark Mode, mobil uyum ve profesyonel tasarım.">
+  <meta name="keywords" content="TYT,AYT,LGS,Net Hesaplama,Puan Hesaplama,Gerçek Zamanlı,Dark Mode,Yaz Tatili Sayacı,Yarıyıl Sayacı">
+  <meta name="author" content="Zank Akademi">
+  
+  <!-- Open Graph / Social Share -->
+  <meta property="og:title" content="Profesyonel TYT/AYT/LGS Hesaplama">
+  <meta property="og:description" content="Türkiye'nin en gelişmiş TYT, AYT ve LGS net & puan hesaplama sitesi.">
+  <meta property="og:image" content="https://example.com/preview.png">
+  <meta property="og:url" content="https://example.com">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Profesyonel TYT/AYT/LGS Hesaplama">
+  <meta name="twitter:description" content="Türkiye'nin en gelişmiş TYT, AYT ve LGS net & puan hesaplama sitesi.">
+  <meta name="twitter:image" content="https://example.com/preview.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Lazy load için JS -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const imgs = document.querySelectorAll("img");
+      imgs.forEach(img=>{
+        img.loading = "lazy";
+      });
+    });
+  </script>
+
+  <!-- Minimal CSS optimizasyonu -->
+  <style>
+    img{ max-width:100%; height:auto; display:block; }
+    table{ border-collapse: collapse; width:100%; }
+    table th, table td{ padding:8px; text-align:center; border:1px solid var(--border);}
+    input{ padding:6px; border-radius:6px; border:1px solid var(--border); width:60px; text-align:center;}
+  </style>
+</head>
+
+
+<title>YKS Sayaç & Net Hesaplama | Profesyonel Sistem</title>
+
+<meta name="description" content="TYT, AYT, LGS net ve puan hesaplama. Yaz tatili, yarıyıl tatili ve sınav sayaçları. Profesyonel YKS platformu.">
 
 <style>
+/* =========================================================
+   GLOBAL RESET & TEMEL AYARLAR
+========================================================= */
+
 :root{
-  --lacivert:#0b1c2d;
-  --lacivert-dark:#06121e;
-  --gri:#f2f4f7;
+  --bg:#f2f4f7;
+  --card:#ffffff;
+  --primary:#0b1c2d;
+  --primary-dark:#06121e;
+  --secondary:#1e3a5f;
   --border:#d9dee3;
-  --yazi:#1c1c1c;
+  --text:#1b1b1b;
+  --muted:#6b7280;
+  --success:#16a34a;
 }
 
 *{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
-  font-family: "Segoe UI", Inter, Arial;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  margin:0;
-  background:var(--gri);
-  color:var(--yazi);
+  font-family: "Segoe UI", Inter, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
 }
 
-/* ÜST BAR */
-.topbar{
-  background:var(--lacivert);
-  color:#fff;
-  padding:18px 30px;
-}
+/* =========================================================
+   GENEL YARDIMCI SINIFLAR
+========================================================= */
 
-.topbar h1{
-  margin:0;
-  font-size:22px;
-  font-weight:600;
-}
-
-/* GENEL KAPSAYICI */
 .container{
-  max-width:1100px;
-  margin:30px auto;
-  padding:0 20px;
+  max-width:1300px;
+  margin:0 auto;
+  padding:0 24px;
 }
 
-/* SEKME ALANI */
-.tabs{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.tabs button{
-  padding:12px 18px;
+.card{
+  background:var(--card);
   border:1px solid var(--border);
-  background:#fff;
-  cursor:pointer;
+  border-radius:10px;
+  padding:32px;
+  margin-bottom:32px;
+}
+
+.hidden{
+  display:none;
+}
+
+/* =========================================================
+   HEADER / NAVBAR
+========================================================= */
+
+header{
+  background:var(--primary);
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 0;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+
+.nav-tabs{
+  display:flex;
+  gap:8px;
+}
+
+.nav-tabs button{
+  background:transparent;
+  color:#e5e7eb;
+  border:1px solid rgba(255,255,255,.2);
+  padding:10px 18px;
   border-radius:6px;
+  cursor:pointer;
   font-weight:500;
 }
 
-.tabs button.active{
-  background:var(--lacivert);
-  color:#fff;
-  border-color:var(--lacivert);
-}
-
-.tabs button:hover{
-  background:var(--lacivert-dark);
-  color:#fff;
-}
-
-/* KART */
-.card{
+.nav-tabs button.active{
   background:#fff;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:30px;
-  margin-bottom:30px;
+  color:var(--primary);
 }
 
-/* SAYAÇ */
-.countdown{
+.nav-tabs button:hover{
+  background:var(--primary-dark);
+  color:#fff;
+}
+
+/* =========================================================
+   COUNTDOWN ALANI
+========================================================= */
+
+.countdown-section{
+  margin-top:40px;
+}
+
+.countdown-header{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.countdown-header h1{
+  font-size:30px;
+  color:var(--primary);
+  font-weight:700;
+}
+
+.countdown-header p{
+  color:var(--muted);
+  margin-top:8px;
+}
+
+.countdown-timer{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:30px;
+  flex-wrap:wrap;
+}
+
+.time-box{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  width:140px;
+  padding:22px 10px;
   text-align:center;
 }
 
-.countdown h2{
-  margin-top:0;
-  font-size:26px;
-  color:var(--lacivert);
+.time-box span{
+  display:block;
 }
 
-.timer{
-  font-size:32px;
-  font-weight:600;
-  margin:20px 0;
+.time-number{
+  font-size:36px;
+  font-weight:700;
+  color:var(--primary);
 }
 
-.date{
-  color:#555;
+.time-label{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:6px;
 }
 
-/* TYT TABLO */
-.calc-title{
-  font-size:22px;
-  font-weight:600;
-  margin-bottom:20px;
-  color:var(--lacivert);
-}
+/* =========================================================
+   FOOTER (GEÇİCİ)
+========================================================= */
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th, td{
-  padding:12px;
-  border-bottom:1px solid var(--border);
-  text-align:left;
-}
-
-th{
-  background:#f7f9fb;
-}
-
-input[type="number"]{
-  width:80px;
-  padding:8px;
-  border:1px solid var(--border);
-  border-radius:4px;
-}
-
-input[type="number"]:focus{
-  outline:none;
-  border-color:var(--lacivert);
-}
-
-/* BUTONLAR */
-.buttons{
-  margin-top:20px;
-  display:flex;
-  gap:15px;
-}
-
-.btn{
-  padding:12px 28px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:15px;
-}
-
-.btn-primary{
-  background:var(--lacivert);
-  color:#fff;
-}
-
-.btn-primary:hover{
-  background:var(--lacivert-dark);
-}
-
-.btn-secondary{
-  background:#e5e9ee;
-}
-
-.result{
-  margin-top:20px;
-  font-size:18px;
-  font-weight:600;
+footer{
+  margin-top:80px;
+  padding:40px 0;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <h1>YKS Sayaç & Net Hesaplama Sistemi</h1>
-</div>
+<!-- ======================================================
+     HEADER
+====================================================== -->
+<header>
+  <div class="container navbar">
+    <div class="logo">YKS PRO</div>
 
-<div class="container">
-
-  <!-- SAYAÇ SEKME -->
-  <div class="tabs">
-    <button class="active" onclick="showCountdown('yaz',this)">Yaz Tatili</button>
-    <button onclick="showCountdown('yariyil',this)">Yarıyıl Tatili</button>
-    <button onclick="showCountdown('tyt',this)">TYT</button>
-  </div>
-
-  <div class="card" id="countdownCard">
-    <div class="countdown">
-      <h2 id="countdownTitle"></h2>
-      <div class="timer" id="timer"></div>
-      <div class="date" id="countdownDate"></div>
+    <div class="nav-tabs">
+      <button class="active" onclick="selectCountdown('yaz',this)">Yaz Tatili</button>
+      <button onclick="selectCountdown('yariyil',this)">Yarıyıl</button>
+      <button onclick="selectCountdown('tyt',this)">TYT</button>
+      <button onclick="selectCountdown('ayt',this)">AYT</button>
+      <button onclick="selectCountdown('lgs',this)">LGS</button>
     </div>
   </div>
+</header>
 
-  <!-- TYT NET HESAPLAMA -->
+<!-- ======================================================
+     COUNTDOWN
+====================================================== -->
+<section class="countdown-section container">
   <div class="card">
-    <div class="calc-title">TYT Net Hesaplama Aracı</div>
-
-    <table>
-      <tr>
-        <th>Ders</th>
-        <th>Doğru</th>
-        <th>Yanlış</th>
-        <th>Soru</th>
-        <th>Net</th>
-      </tr>
-
-      <tr>
-        <td>Türkçe</td>
-        <td><input type="number" id="tr_d"></td>
-        <td><input type="number" id="tr_y"></td>
-        <td>40</td>
-        <td id="tr_n">0</td>
-      </tr>
-
-      <tr>
-        <td>Sosyal Bilimler</td>
-        <td><input type="number" id="sos_d"></td>
-        <td><input type="number" id="sos_y"></td>
-        <td>20</td>
-        <td id="sos_n">0</td>
-      </tr>
-
-      <tr>
-        <td>Temel Matematik</td>
-        <td><input type="number" id="mat_d"></td>
-        <td><input type="number" id="mat_y"></td>
-        <td>40</td>
-        <td id="mat_n">0</td>
-      </tr>
-
-      <tr>
-        <td>Fen Bilimleri</td>
-        <td><input type="number" id="fen_d"></td>
-        <td><input type="number" id="fen_y"></td>
-        <td>20</td>
-        <td id="fen_n">0</td>
-      </tr>
-    </table>
-
-    <div class="buttons">
-      <button class="btn btn-primary" onclick="hesapla()">Hesapla</button>
-      <button class="btn btn-secondary" onclick="sifirla()">Sıfırla</button>
+    <div class="countdown-header">
+      <h1 id="countdownTitle"></h1>
+      <p id="countdownDate"></p>
     </div>
 
-    <div class="result" id="toplamNet">Toplam Net: 0</div>
+    <div class="countdown-timer">
+      <div class="time-box">
+        <span class="time-number" id="day">0</span>
+        <span class="time-label">Gün</span>
+      </div>
+      <div class="time-box">
+        <span class="time-number" id="hour">0</span>
+        <span class="time-label">Saat</span>
+      </div>
+      <div class="time-box">
+        <span class="time-number" id="minute">0</span>
+        <span class="time-label">Dakika</span>
+      </div>
+      <div class="time-box">
+        <span class="time-number" id="second">0</span>
+        <span class="time-label">Saniye</span>
+      </div>
+    </div>
   </div>
+</section>
 
-</div>
+<footer>
+  © 2026 YKS PRO — Tüm Hakları Saklıdır
+</footer>
 
 <script>
-const dates={
-  yaz:new Date("2026-06-20"),
-  yariyil:new Date("2026-01-19"),
-  tyt:new Date("2026-06-21")
+/* =========================================================
+   COUNTDOWN MOTORU – ALTYAPI
+========================================================= */
+
+const countdowns = {
+  yaz: {
+    title: "Yaz Tatiline Kalan Süre",
+    date: new Date("2026-06-20")
+  },
+  yariyil: {
+    title: "Yarıyıl Tatiline Kalan Süre",
+    date: new Date("2026-01-19")
+  },
+  tyt: {
+    title: "TYT Sınavına Kalan Süre",
+    date: new Date("2026-06-21")
+  },
+  ayt: {
+    title: "AYT Sınavına Kalan Süre",
+    date: new Date("2026-06-22")
+  },
+  lgs: {
+    title: "LGS Sınavına Kalan Süre",
+    date: new Date("2026-06-07")
+  }
 };
 
-function showCountdown(type,btn){
-  document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+let activeCountdown = "yaz";
+let countdownInterval;
+
+function selectCountdown(key, btn){
+  document.querySelectorAll(".nav-tabs button").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
+  activeCountdown = key;
+  startCountdown();
+}
 
-  const titles={
-    yaz:"Yaz Tatiline Kalan Süre",
-    yariyil:"Yarıyıl Tatiline Kalan Süre",
-    tyt:"TYT Sınavına Kalan Süre"
-  };
+function startCountdown(){
+  clearInterval(countdownInterval);
 
-  document.getElementById("countdownTitle").innerText=titles[type];
-  document.getElementById("countdownDate").innerText=dates[type].toLocaleDateString("tr-TR");
+  const c = countdowns[activeCountdown];
+  document.getElementById("countdownTitle").innerText = c.title;
+  document.getElementById("countdownDate").innerText =
+    c.date.toLocaleDateString("tr-TR",{year:"numeric",month:"long",day:"numeric"});
 
-  clearInterval(window.timerInterval);
-  window.timerInterval=setInterval(()=>{
-    const now=new Date();
-    const diff=dates[type]-now;
-    if(diff<0)return;
-    const d=Math.floor(diff/86400000);
-    const h=Math.floor(diff/3600000)%24;
-    const m=Math.floor(diff/60000)%60;
-    const s=Math.floor(diff/1000)%60;
-    document.getElementById("timer").innerText=
-      `${d} gün ${h} saat ${m} dk ${s} sn`;
+  countdownInterval = setInterval(()=>{
+    const now = new Date();
+    const diff = c.date - now;
+    if(diff <= 0) return;
+
+    document.getElementById("day").innerText = Math.floor(diff / 86400000);
+    document.getElementById("hour").innerText = Math.floor(diff / 3600000) % 24;
+    document.getElementById("minute").innerText = Math.floor(diff / 60000) % 60;
+    document.getElementById("second").innerText = Math.floor(diff / 1000) % 60;
   },1000);
 }
 
-function net(d,y){return (d-(y/4)).toFixed(2);}
+startCountdown();
 
-function hesapla(){
-  let toplam=0;
+/* =========================================================
+   DEVAM EDECEK:
+   - TYT Net Hesaplama
+   - TYT Puan
+   - AYT Alan Sistemi
+========================================================= */
+</script>
 
-  ["tr","sos","mat","fen"].forEach(x=>{
-    const d=+document.getElementById(x+"_d").value||0;
-    const y=+document.getElementById(x+"_y").value||0;
-    const n=net(d,y);
-    document.getElementById(x+"_n").innerText=n;
-    toplam+=parseFloat(n);
+  <!-- ======================================================
+     TYT NET HESAPLAMA
+====================================================== -->
+<section class="container" id="tyt-net">
+  <div class="card">
+    <div class="countdown-header">
+      <h1>TYT Net Hesaplama</h1>
+      <p>Doğru ve yanlış sayılarını girerek TYT netlerinizi hesaplayın.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Ders</th>
+          <th>Doğru</th>
+          <th>Yanlış</th>
+          <th>Soru</th>
+          <th>Net</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Türkçe</td>
+          <td><input type="number" min="0" max="40" id="tyt_tr_d"></td>
+          <td><input type="number" min="0" max="40" id="tyt_tr_y"></td>
+          <td>40</td>
+          <td id="tyt_tr_n">0.00</td>
+        </tr>
+        <tr>
+          <td>Sosyal Bilimler</td>
+          <td><input type="number" min="0" max="20" id="tyt_sos_d"></td>
+          <td><input type="number" min="0" max="20" id="tyt_sos_y"></td>
+          <td>20</td>
+          <td id="tyt_sos_n">0.00</td>
+        </tr>
+        <tr>
+          <td>Temel Matematik</td>
+          <td><input type="number" min="0" max="40" id="tyt_mat_d"></td>
+          <td><input type="number" min="0" max="40" id="tyt_mat_y"></td>
+          <td>40</td>
+          <td id="tyt_mat_n">0.00</td>
+        </tr>
+        <tr>
+          <td>Fen Bilimleri</td>
+          <td><input type="number" min="0" max="20" id="tyt_fen_d"></td>
+          <td><input type="number" min="0" max="20" id="tyt_fen_y"></td>
+          <td>20</td>
+          <td id="tyt_fen_n">0.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="hesaplaTYTNet()">Hesapla</button>
+      <button class="btn btn-secondary" onclick="sifirlaTYTNet()">Sıfırla</button>
+    </div>
+
+    <div class="result" id="tytToplamNet">Toplam TYT Neti: 0.00</div>
+  </div>
+</section>
+
+<script>
+/* =========================================================
+   TYT NET HESAPLAMA MOTORU
+========================================================= */
+
+function hesaplaTYTNet(){
+  const dersler = [
+    ["tr",40],
+    ["sos",20],
+    ["mat",40],
+    ["fen",20]
+  ];
+
+  let toplamNet = 0;
+
+  dersler.forEach(d=>{
+    const dgr = Number(document.getElementById(`tyt_${d[0]}_d`).value) || 0;
+    const ynl = Number(document.getElementById(`tyt_${d[0]}_y`).value) || 0;
+
+    if(dgr + ynl > d[1]) return;
+
+    const net = dgr - (ynl / 4);
+    document.getElementById(`tyt_${d[0]}_n`).innerText = net.toFixed(2);
+    toplamNet += net;
   });
 
-  document.getElementById("toplamNet").innerText="Toplam Net: "+toplam.toFixed(2);
+  document.getElementById("tytToplamNet").innerText =
+    "Toplam TYT Neti: " + toplamNet.toFixed(2);
 }
 
-function sifirla(){
-  document.querySelectorAll("input").forEach(i=>i.value="");
-  document.querySelectorAll("td[id$='_n']").forEach(td=>td.innerText="0");
-  document.getElementById("toplamNet").innerText="Toplam Net: 0";
+function sifirlaTYTNet(){
+  document.querySelectorAll("#tyt-net input").forEach(i=>i.value="");
+  document.querySelectorAll("#tyt-net td[id$='_n']").forEach(td=>td.innerText="0.00");
+  document.getElementById("tytToplamNet").innerText="Toplam TYT Neti: 0.00";
 }
-
-showCountdown("yaz",document.querySelector(".tabs button"));
 </script>
+
+<!-- ======================================================
+     TYT PUAN HESAPLAMA
+====================================================== -->
+<section class="container" id="tyt-puan">
+  <div class="card">
+    <div class="countdown-header">
+      <h1>TYT Puan Hesaplama</h1>
+      <p>TYT netlerinize göre ham puan ve yerleştirme puanınızı hesaplayın.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Ders</th>
+          <th>Net</th>
+          <th>Katsayı</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Türkçe</td>
+          <td><input type="number" step="0.25" id="puan_tr"></td>
+          <td>3.3</td>
+        </tr>
+        <tr>
+          <td>Sosyal Bilimler</td>
+          <td><input type="number" step="0.25" id="puan_sos"></td>
+          <td>3.4</td>
+        </tr>
+        <tr>
+          <td>Temel Matematik</td>
+          <td><input type="number" step="0.25" id="puan_mat"></td>
+          <td>3.3</td>
+        </tr>
+        <tr>
+          <td>Fen Bilimleri</td>
+          <td><input type="number" step="0.25" id="puan_fen"></td>
+          <td>3.4</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-secondary" onclick="netlerdenCek()">
+        TYT Netlerinden Otomatik Çek
+      </button>
+    </div>
+
+    <hr style="margin:30px 0;border:none;border-top:1px solid var(--border);">
+
+    <div style="max-width:400px">
+      <label><b>Diploma Notu / OBP</b></label><br>
+      <input type="number" id="obpInput" placeholder="Örn: 85 veya 425"
+             style="width:100%;margin-top:8px">
+
+      <div style="margin-top:12px">
+        <label>
+          <input type="checkbox" id="kirikObp">
+          Önceki yıl yerleştirildim (OBP yarıya düşsün)
+        </label><br>
+        <label>
+          <input type="checkbox" id="meslekObp">
+          Meslek lisesi çıkışlıyım (+0.06)
+        </label>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="hesaplaTYTPuan()">Puan Hesapla</button>
+      <button class="btn btn-secondary" onclick="sifirlaTYTPuan()">Sıfırla</button>
+    </div>
+
+    <div class="result" id="hamTytPuan">Ham TYT Puanı: 0.00</div>
+    <div class="result" id="yerTytPuan">Yerleştirme Puanı: 0.00</div>
+  </div>
+</section>
+
+<script>
+/* =========================================================
+   TYT PUAN HESAPLAMA MOTORU
+========================================================= */
+
+function netlerdenCek(){
+  document.getElementById("puan_tr").value =
+    document.getElementById("tyt_tr_n").innerText;
+  document.getElementById("puan_sos").value =
+    document.getElementById("tyt_sos_n").innerText;
+  document.getElementById("puan_mat").value =
+    document.getElementById("tyt_mat_n").innerText;
+  document.getElementById("puan_fen").value =
+    document.getElementById("tyt_fen_n").innerText;
+}
+
+function hesaplaTYTPuan(){
+  const tr = Number(puan_tr.value) || 0;
+  const sos = Number(puan_sos.value) || 0;
+  const mat = Number(puan_mat.value) || 0;
+  const fen = Number(puan_fen.value) || 0;
+
+  // Ham TYT
+  const ham =
+    100 +
+    tr * 3.3 +
+    sos * 3.4 +
+    mat * 3.3 +
+    fen * 3.4;
+
+  document.getElementById("hamTytPuan").innerText =
+    "Ham TYT Puanı: " + ham.toFixed(2);
+
+  // OBP işlemleri
+  let obp = Number(obpInput.value) || 0;
+
+  // Diploma notu girildiyse OBP'ye çevir
+  if(obp >= 50 && obp <= 100){
+    obp = obp * 5;
+  }
+
+  let ekPuan = obp * 0.12;
+
+  if(kirikObp.checked){
+    ekPuan /= 2;
+  }
+
+  if(meslekObp.checked){
+    ekPuan += obp * 0.06;
+  }
+
+  const yer = ham + ekPuan;
+
+  document.getElementById("yerTytPuan").innerText =
+    "Yerleştirme Puanı: " + yer.toFixed(2);
+}
+
+function sifirlaTYTPuan(){
+  document.querySelectorAll("#tyt-puan input").forEach(i=>i.value="");
+  kirikObp.checked = false;
+  meslekObp.checked = false;
+  document.getElementById("hamTytPuan").innerText = "Ham TYT Puanı: 0.00";
+  document.getElementById("yerTytPuan").innerText = "Yerleştirme Puanı: 0.00";
+}
+</script>
+
+<!-- ======================================================
+     AYT PUAN HESAPLAMA
+====================================================== -->
+<section class="container" id="ayt-puan">
+  <div class="card">
+    <div class="countdown-header">
+      <h1>AYT Puan Hesaplama</h1>
+      <p>Alanınızı seçerek AYT puanınızı hesaplayın.</p>
+    </div>
+
+    <!-- ALAN SEÇİMİ -->
+    <div style="margin-bottom:20px">
+      <label><b>Alan Seçimi</b></label><br>
+      <select id="alanSecimi" onchange="alanDegistir()" style="padding:10px;width:220px">
+        <option value="say">Sayısal</option>
+        <option value="ea">Eşit Ağırlık</option>
+        <option value="soz">Sözel</option>
+      </select>
+    </div>
+
+    <!-- AYT TABLOLAR -->
+    <div id="aytTables"></div>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="hesaplaAYTPuan()">AYT Puan Hesapla</button>
+      <button class="btn btn-secondary" onclick="sifirlaAYTPuan()">Sıfırla</button>
+    </div>
+
+    <div class="result" id="aytHam">AYT Ham Puan: 0.00</div>
+    <div class="result" id="aytToplam">TYT + AYT Yerleştirme Puanı: 0.00</div>
+  </div>
+</section>
+
+<script>
+/* =========================================================
+   AYT ALAN TABLOLARI
+========================================================= */
+
+const aytAlanlar = {
+  say: [
+    ["Matematik",3.0],
+    ["Fizik",2.85],
+    ["Kimya",3.07],
+    ["Biyoloji",3.07]
+  ],
+  ea: [
+    ["Matematik",3.0],
+    ["Edebiyat",3.0],
+    ["Tarih-1",2.8],
+    ["Coğrafya-1",3.3]
+  ],
+  soz: [
+    ["Edebiyat",3.0],
+    ["Tarih-1",2.8],
+    ["Coğrafya-1",3.3],
+    ["Tarih-2",3.0],
+    ["Coğrafya-2",3.0],
+    ["Felsefe",3.0],
+    ["Din",3.0]
+  ]
+};
+
+function alanDegistir(){
+  const alan = alanSecimi.value;
+  const table = document.createElement("table");
+  table.innerHTML = `
+    <tr>
+      <th>Ders</th>
+      <th>Net</th>
+      <th>Katsayı</th>
+    </tr>
+  `;
+
+  aytAlanlar[alan].forEach((d,i)=>{
+    table.innerHTML += `
+      <tr>
+        <td>${d[0]}</td>
+        <td><input type="number" step="0.25" id="ayt_${alan}_${i}"></td>
+        <td>${d[1]}</td>
+      </tr>
+    `;
+  });
+
+  aytTables.innerHTML = "";
+  aytTables.appendChild(table);
+}
+
+function hesaplaAYTPuan(){
+  const alan = alanSecimi.value;
+  let aytHam = 0;
+
+  aytAlanlar[alan].forEach((d,i)=>{
+    const net = Number(document.getElementById(`ayt_${alan}_${i}`).value) || 0;
+    aytHam += net * d[1];
+  });
+
+  document.getElementById("aytHam").innerText =
+    "AYT Ham Puan: " + aytHam.toFixed(2);
+
+  // TYT yerleştirme puanını al
+  const tytYer = parseFloat(
+    document.getElementById("yerTytPuan").innerText.replace(/[^0-9.]/g,"")
+  ) || 0;
+
+  document.getElementById("aytToplam").innerText =
+    "TYT + AYT Yerleştirme Puanı: " + (tytYer + aytHam).toFixed(2);
+}
+
+function sifirlaAYTPuan(){
+  document.querySelectorAll("#ayt-puan input").forEach(i=>i.value="");
+  document.getElementById("aytHam").innerText="AYT Ham Puan: 0.00";
+  document.getElementById("aytToplam").innerText="TYT + AYT Yerleştirme Puanı: 0.00";
+}
+
+alanDegistir();
+</script>
+
+<!-- ======================================================
+     LGS NET & PUAN HESAPLAMA
+====================================================== -->
+<section class="container" id="lgs">
+  <div class="card">
+    <div class="countdown-header">
+      <h1>LGS Net & Puan Hesaplama</h1>
+      <p>Doğru ve yanlışlarınıza göre LGS puanınızı hesaplayın.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Ders</th>
+          <th>Doğru</th>
+          <th>Yanlış</th>
+          <th>Soru</th>
+          <th>Net</th>
+          <th>Katsayı</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Türkçe</td>
+          <td><input type="number" id="lgs_tr_d" min="0" max="20"></td>
+          <td><input type="number" id="lgs_tr_y" min="0" max="20"></td>
+          <td>20</td>
+          <td id="lgs_tr_n">0.00</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Matematik</td>
+          <td><input type="number" id="lgs_mat_d" min="0" max="20"></td>
+          <td><input type="number" id="lgs_mat_y" min="0" max="20"></td>
+          <td>20</td>
+          <td id="lgs_mat_n">0.00</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>Fen Bilimleri</td>
+          <td><input type="number" id="lgs_fen_d" min="0" max="20"></td>
+          <td><input type="number" id="lgs_fen_y" min="0" max="20"></td>
+          <td>20</td>
+          <td id="lgs_fen_n">0.00</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>İnkılap</td>
+          <td><input type="number" id="lgs_ink_d" min="0" max="10"></td>
+          <td><input type="number" id="lgs_ink_y" min="0" max="10"></td>
+          <td>10</td>
+          <td id="lgs_ink_n">0.00</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>Din</td>
+          <td><input type="number" id="lgs_din_d" min="0" max="10"></td>
+          <td><input type="number" id="lgs_din_y" min="0" max="10"></td>
+          <td>10</td>
+          <td id="lgs_din_n">0.00</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>İngilizce</td>
+          <td><input type="number" id="lgs_ing_d" min="0" max="10"></td>
+          <td><input type="number" id="lgs_ing_y" min="0" max="10"></td>
+          <td>10</td>
+          <td id="lgs_ing_n">0.00</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-primary" onclick="hesaplaLGS()">Hesapla</button>
+      <button class="btn btn-secondary" onclick="sifirlaLGS()">Sıfırla</button>
+    </div>
+
+    <div class="result" id="lgsNetToplam">Toplam Net: 0.00</div>
+    <div class="result" id="lgsPuan">LGS Puanı: 0.00</div>
+  </div>
+</section>
+
+<script>
+/* =========================================================
+   LGS HESAPLAMA MOTORU
+========================================================= */
+
+function lgsNet(d,y){ return d - (y/3); }
+
+function hesaplaLGS(){
+  const dersler = [
+    ["tr",20,4],
+    ["mat",20,4],
+    ["fen",20,4],
+    ["ink",10,1],
+    ["din",10,1],
+    ["ing",10,1]
+  ];
+
+  let toplamNet = 0;
+  let puan = 0;
+
+  dersler.forEach(d=>{
+    const dogru = Number(document.getElementById(`lgs_${d[0]}_d`).value) || 0;
+    const yanlis = Number(document.getElementById(`lgs_${d[0]}_y`).value) || 0;
+
+    if(dogru + yanlis > d[1]) return;
+
+    const net = lgsNet(dogru,yanlis);
+    document.getElementById(`lgs_${d[0]}_n`).innerText = net.toFixed(2);
+
+    toplamNet += net;
+    puan += net * d[2];
+  });
+
+  document.getElementById("lgsNetToplam").innerText =
+    "Toplam Net: " + toplamNet.toFixed(2);
+
+  document.getElementById("lgsPuan").innerText =
+    "LGS Puanı: " + (puan * 5).toFixed(2);
+}
+
+function sifirlaLGS(){
+  document.querySelectorAll("#lgs input").forEach(i=>i.value="");
+  document.querySelectorAll("#lgs td[id$='_n']").forEach(td=>td.innerText="0.00");
+  document.getElementById("lgsNetToplam").innerText="Toplam Net: 0.00";
+  document.getElementById("lgsPuan").innerText="LGS Puanı: 0.00";
+}
+</script>
+
+<!-- ======================================================
+     SOL SABİT MENÜ
+====================================================== -->
+<div id="sideMenu">
+  <h3>MENÜ</h3>
+  <a href="#top">Ana Sayfa</a>
+  <a href="#tyt-net">TYT Net</a>
+  <a href="#tyt-puan">TYT Puan</a>
+  <a href="#ayt-puan">AYT Puan</a>
+  <a href="#lgs">LGS</a>
+  <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+</div>
+
+<style>
+/* =========================================================
+   SOL MENÜ STİLİ
+========================================================= */
+#sideMenu{
+  position:fixed;
+  top:120px;
+  left:20px;
+  width:200px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
+  z-index:999;
+}
+
+#sideMenu h3{
+  margin-bottom:12px;
+  font-size:16px;
+  color:var(--primary);
+}
+
+#sideMenu a{
+  display:block;
+  text-decoration:none;
+  color:var(--text);
+  padding:8px 0;
+  font-size:14px;
+}
+
+#sideMenu a:hover{
+  color:var(--primary);
+}
+
+#sideMenu button{
+  margin-top:15px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+}
+
+#sideMenu button:hover{
+  background:var(--primary-dark);
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+body.dark{
+  --bg:#0b1220;
+  --card:#0f172a;
+  --primary:#e5e7eb;
+  --primary-dark:#cbd5f5;
+  --border:#1e293b;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+}
+
+body.dark header{
+  background:#020617;
+}
+
+body.dark .nav-tabs button{
+  border-color:#334155;
+}
+
+body.dark .nav-tabs button.active{
+  background:#e5e7eb;
+  color:#020617;
+}
+</style>
+
+<script>
+/* =========================================================
+   DARK MODE MOTORU
+========================================================= */
+
+function toggleDarkMode(){
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkMode",
+    document.body.classList.contains("dark") ? "1" : "0"
+  );
+}
+
+// Sayfa yüklenince tema
+if(localStorage.getItem("darkMode")==="1"){
+  document.body.classList.add("dark");
+}
+</script>
+
+<!-- ======================================================
+     MOBİL HAMBURGER MENÜ
+====================================================== -->
+<div id="mobileMenuBtn">☰</div>
+<div id="mobileMenu">
+  <button onclick="closeMobileMenu()">✖</button>
+  <a href="#top" onclick="closeMobileMenu()">Ana Sayfa</a>
+  <a href="#tyt-net" onclick="closeMobileMenu()">TYT Net</a>
+  <a href="#tyt-puan" onclick="closeMobileMenu()">TYT Puan</a>
+  <a href="#ayt-puan" onclick="closeMobileMenu()">AYT Puan</a>
+  <a href="#lgs" onclick="closeMobileMenu()">LGS</a>
+  <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+</div>
+
+<style>
+/* =========================================================
+   MOBİL HAMBURGER
+========================================================= */
+#mobileMenuBtn{
+  display:none;
+  position:fixed;
+  top:20px;
+  left:20px;
+  font-size:28px;
+  cursor:pointer;
+  z-index:1001;
+  color:var(--primary);
+}
+
+#mobileMenu{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:250px;
+  height:100%;
+  background:var(--card);
+  padding:20px;
+  box-shadow:2px 0 15px rgba(0,0,0,.2);
+  z-index:1000;
+  flex-direction:column;
+  gap:10px;
+}
+
+#mobileMenu button{
+  width:100%;
+  padding:10px;
+  margin-bottom:10px;
+  border:none;
+  border-radius:6px;
+  background:var(--primary);
+  color:#fff;
+  cursor:pointer;
+}
+
+#mobileMenu button:hover{
+  background:var(--primary-dark);
+}
+
+#mobileMenu a{
+  text-decoration:none;
+  color:var(--text);
+  display:block;
+  padding:8px 0;
+  font-size:16px;
+}
+
+#mobileMenu a:hover{
+  color:var(--primary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  #sideMenu{ display:none; }
+  #mobileMenuBtn{ display:block; }
+}
+</style>
+
+<script>
+/* =========================================================
+   MOBİL MENÜ JS
+========================================================= */
+function openMobileMenu(){ document.getElementById("mobileMenu").style.display="flex"; }
+function closeMobileMenu(){ document.getElementById("mobileMenu").style.display="none"; }
+
+document.getElementById("mobileMenuBtn").addEventListener("click", openMobileMenu);
+</script>
+
+  <!-- ======================================================
+     BUTON & TABLO ANİMASYONLARI
+====================================================== -->
+<style>
+/* GENEL BUTON STİLİ */
+button{
+  background:var(--primary);
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  padding:10px 16px;
+  cursor:pointer;
+  font-weight:600;
+  transition: all 0.3s ease;
+}
+
+button:hover{
+  background:var(--primary-dark);
+  transform:scale(1.05);
+}
+
+/* NET HESAPLAMA TABLO BUTONLARI */
+.net-table button{
+  background:var(--secondary);
+}
+
+.net-table button:hover{
+  background:var(--primary-dark);
+  color:#fff;
+}
+
+/* SAYAC BUTONLARI */
+.counter-btn{
+  background:var(--secondary);
+  color:#fff;
+  margin:4px;
+}
+
+.counter-btn:hover{
+  background:var(--primary-dark);
+  transform:scale(1.05);
+}
+
+/* TABLO RENKLERİ */
+table th{
+  background:var(--primary);
+  color:#fff;
+}
+
+table tr:nth-child(even){
+  background:#f1f5f9;
+}
+
+body.dark table tr:nth-child(even){
+  background:#1e293b;
+}
+
+/* GEÇİŞLER */
+table, input, select, textarea{
+  transition: all 0.2s ease-in-out;
+}
+
+/* KÜÇÜK GÖRÜNÜM İÇİN TABLE SCROLL */
+.table-wrapper{
+  overflow-x:auto;
+}
+</style>
+
+<!-- ======================================================
+     NET HESAPLAMA KISMI JS
+====================================================== -->
+<script>
+/* ÖRNEK TYT NET HESAPLAMA */
+function calculateTYT(){
+  const turkce = parseFloat(document.getElementById("tyt-turkce").value) || 0;
+  const mat = parseFloat(document.getElementById("tyt-mat").value) || 0;
+  const fen = parseFloat(document.getElementById("tyt-fen").value) || 0;
+  const sosyal = parseFloat(document.getElementById("tyt-sosyal").value) || 0;
+
+  // Puan Hesaplama (Örnek: MEB katsayıları)
+  const tytNet = turkce + mat + fen + sosyal;
+  const tytPuan = 100 + (tytNet * 2); // Örnek formül
+
+  document.getElementById("tyt-net-sonuc").innerText = tytNet.toFixed(2);
+  document.getElementById("tyt-puan-sonuc").innerText = tytPuan.toFixed(2);
+}
+
+/* INPUTLARI DEĞİŞTİKÇE HESAPLA */
+document.querySelectorAll("#tyt-turkce, #tyt-mat, #tyt-fen, #tyt-sosyal").forEach(input=>{
+  input.addEventListener("input", calculateTYT);
+});
+
+/* BENZER AYT VE LGS HESAPLAMALARI DAHA SONRA EKLENECEK */
+</script>
+
+<!-- ======================================================
+     ÖRNEK TYT NET TABLO HTML
+====================================================== -->
+<div id="tyt-net" class="table-wrapper" style="margin:30px;">
+  <h2>TYT Net Hesaplama</h2>
+  <table class="net-table">
+    <tr>
+      <th>Ders</th>
+      <th>Net</th>
+    </tr>
+    <tr>
+      <td>Türkçe</td>
+      <td><input type="number" id="tyt-turkce" min="0" max="40"></td>
+    </tr>
+    <tr>
+      <td>Matematik</td>
+      <td><input type="number" id="tyt-mat" min="0" max="40"></td>
+    </tr>
+    <tr>
+      <td>Fen Bilimleri</td>
+      <td><input type="number" id="tyt-fen" min="0" max="20"></td>
+    </tr>
+    <tr>
+      <td>Sosyal Bilgiler</td>
+      <td><input type="number" id="tyt-sosyal" min="0" max="20"></td>
+    </tr>
+    <tr>
+      <th>Toplam Net</th>
+      <th id="tyt-net-sonuc">0</th>
+    </tr>
+    <tr>
+      <th>TYT Puan</th>
+      <th id="tyt-puan-sonuc">100</th>
+    </tr>
+  </table>
+</div>
 
 </body>
 </html>
+
+
